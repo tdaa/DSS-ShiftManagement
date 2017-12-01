@@ -3,25 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shiftmanagement.Business;
+package shiftmanagement.Business.Utilizador;
 
 import java.util.ArrayList;
-import java.util.List;
+import shiftmanagement.Business.Turno.Turno;
 
 /**
  *
  * @author Tiago
  */
-public class Professor extends Pessoa{
+public class Professor extends Utilizador{
     
+   private String username; 
    private ArrayList<Turno> turnos;
     
    public Professor(){
        super();
+       this.username = "";
    }
    
-   public Professor(String user, String nome, String numero, String mail, String pass){
-       super(user, nome, numero, mail, pass);
+   public Professor(String user, String nome, String mail, String pass){
+       super(nome, mail, pass);
+       this.username = user;
+   }
+   
+   public String getUserame(){
+       return this.username;
    }
    
    public ArrayList<Turno> getTurnos(){
@@ -32,7 +39,7 @@ public class Professor extends Pessoa{
    }
    
    public Professor verificaDados(String username, String pass) throws UsernameErradoException, PassErradaException{
-        if(this.getUser().equals(username)){
+        if(this.username.equals(username)){
             if(this.getPass().equals(pass)){
                 return this;
             }

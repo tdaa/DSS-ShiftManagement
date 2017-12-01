@@ -3,26 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shiftmanagement.Business;
+package shiftmanagement.Business.Turno;
 
+import shiftmanagement.Business.Turno.Turno;
+import shiftmanagement.Business.Utilizador.Professor;
 import java.time.LocalTime;
+import shiftmanagement.Business.Sala;
 
 /**
  *
  * @author Tiago
  */
-public class PL extends Turno{
+public class TP extends Turno{
     
     private int maxAlunos;
     
-    public PL(){
+    public TP(){
         super();
     }
     
-    public PL(String id, int max, Sala s, Professor p, LocalTime l){
+    public TP(String id, int max, Sala s, Professor p, LocalTime l){
         super(id, s, p, l);
         this.maxAlunos = max;
     }
-    
-    
 }

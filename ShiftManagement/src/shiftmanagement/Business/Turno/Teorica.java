@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shiftmanagement.Business;
+package shiftmanagement.Business.Turno;
 
+import shiftmanagement.Business.Turno.Turno;
+import shiftmanagement.Business.Utilizador.Professor;
 import java.time.LocalTime;
+import shiftmanagement.Business.Sala;
 
 /**
  *

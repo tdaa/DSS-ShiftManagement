@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shiftmanagement.Business;
+package shiftmanagement.Business.Utilizador;
 
 /**
  *
  * @author Tiago
  */
-class UsernameErradoException extends Exception {
- 
-     public UsernameErradoException(String m){
+class PassErradaException extends Exception {
+    
+    public PassErradaException(String m){
         super(m);
     }
+    
 }

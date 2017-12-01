@@ -14,7 +14,7 @@ import shiftmanagement.Business.*;
  * @author Tiago
  */
 public class FrameInicial extends javax.swing.JFrame {
-    
+
     private ShiftManagement system;
     /**
      * Creates new form FrameInicial
@@ -24,7 +24,7 @@ public class FrameInicial extends javax.swing.JFrame {
         initComponents();
         this.system = s;
     }
-    
+
     public FrameInicial(){
         initComponents();
     }
@@ -42,7 +42,7 @@ public class FrameInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passText = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -65,12 +65,17 @@ public class FrameInicial extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setText("jPasswordField1");
+        passText.setText("jPasswordField1");
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
         jLabel3.setText("Bem-Vindo!");
 
         jButton1.setText("Fechar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,7 +101,7 @@ public class FrameInicial extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(passText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -111,7 +116,7 @@ public class FrameInicial extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton)
@@ -157,16 +162,20 @@ public class FrameInicial extends javax.swing.JFrame {
                 Logger.getLogger(FrameInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField nameText;
+    private javax.swing.JPasswordField passText;
     // End of variables declaration//GEN-END:variables
 }

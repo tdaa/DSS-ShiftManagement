@@ -13,20 +13,52 @@ import shiftmanagement.Business.ShiftManagement;
  *
  * @author Tiago
  */
-public class DialogMenuUCS extends javax.swing.JDialog {
+public class FrameMenuUCS extends javax.swing.JFrame {
     
     private ShiftManagement system;
 
     /**
-     * Creates new form menuUcs
+     * Creates new form FrameMenuUCS
      */
-    public DialogMenuUCS(java.awt.Frame parent, boolean modal, ShiftManagement s) {
-        super(parent, modal);
+    public FrameMenuUCS(ShiftManagement system) {
         initComponents();
-        this.system = s;
+        this.system = system;
         atualizaListas();
     }
-
+    
+    public void atualizaListas(){
+        atualizaListaUcsLic();
+        atualizaListaPerfis();
+        atualizaListaUcsComp();
+    }
+    
+    public void atualizaListaUcsLic(){
+        DefaultListModel<String> lista = new DefaultListModel<>();
+        ArrayList<String> ucs = this.system.getUcsLicPorNome();
+        for(String s: ucs){
+            lista.addElement(s);
+        }
+        ucsLicenciaturaList.setModel(lista);
+    }
+    
+    public void atualizaListaPerfis(){
+        DefaultListModel<String> lista = new DefaultListModel<>();
+        ArrayList<String> perfis = this.system.getPerfisPorNome();
+        for(String s: perfis){
+            lista.addElement(s);
+        }
+        perfisList.setModel(lista);
+    }
+    
+    public void atualizaListaUcsComp(){
+        DefaultListModel<String> lista = new DefaultListModel<>();
+        ArrayList<String> ucsComp = this.system.getUcsComplementaresPorNome();
+        for(String s: ucsComp){
+            lista.addElement(s);
+        }
+        perfisList.setModel(lista);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +93,7 @@ public class DialogMenuUCS extends javax.swing.JDialog {
         importUcCompButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
         jLabel1.setText("Unidades Curriculares");
@@ -92,14 +124,20 @@ public class DialogMenuUCS extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(remUcLicButon, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(consultarUcLicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addUcLicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(importUcLicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(consultarUcLicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(remUcLicButon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(importUcLicButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,79 +274,47 @@ public class DialogMenuUCS extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(175, 175, 175))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(closeButton)
-                        .addGap(329, 329, 329))))
+                        .addGap(311, 311, 311))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(160, 160, 160))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(closeButton)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void consultarUcLicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarUcLicButtonActionPerformed
+        //botao consultar UC (Licenciatura)
+        String uc = ucsLicenciaturaList.getSelectedValue();
+        if(uc != null){
+            FrameConsultarUcLicenciatura ucDeLicenciatura = new FrameConsultarUcLicenciatura(this.system, uc);
+        }
+    }//GEN-LAST:event_consultarUcLicButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         //botao fechar
         this.dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
 
-    private void consultarUcLicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarUcLicButtonActionPerformed
-        //botao consultar UC (Licenciatura)
-        String uc = ucsLicenciaturaList.getSelectedValue();
-        if(uc != null){
-            ConsultarUcLicenciatura ucDeLicenciatura = new ConsultarUcLicenciatura(this, true, this.system, uc);
-        }
-    }//GEN-LAST:event_consultarUcLicButtonActionPerformed
-
-    public void atualizaListas(){
-        atualizaListaUcsLic();
-        atualizaListaPerfis();
-        atualizaListaUcsComp();
-    }
-    
-    public void atualizaListaUcsLic(){
-        DefaultListModel<String> lista = new DefaultListModel<>();
-        ArrayList<String> ucs = this.system.getUcsByName();
-        for(String s: ucs){
-            lista.addElement(s);
-        }
-        ucsLicenciaturaList.setModel(lista);
-    }
-    
-    public void atualizaListaPerfis(){
-        DefaultListModel<String> lista = new DefaultListModel<>();
-        ArrayList<String> perfis = this.system.getPerfisByName();
-        for(String s: perfis){
-            lista.addElement(s);
-        }
-        perfisList.setModel(lista);
-    }
-    
-    public void atualizaListaUcsComp(){
-        DefaultListModel<String> lista = new DefaultListModel<>();
-        ArrayList<String> ucsComp = this.system.getUcsCompByName();
-        for(String s: ucsComp){
-            lista.addElement(s);
-        }
-        perfisList.setModel(lista);
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPerfilButton;
     private javax.swing.JButton addUcComptButton;

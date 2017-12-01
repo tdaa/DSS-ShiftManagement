@@ -3,46 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shiftmanagement.Business;
+package shiftmanagement.Business.Utilizador;
 
 /**
  *
  * @author Tiago
  */
-public class Pessoa{
+public class Utilizador{
     
-    private String username;
     private String nome;
-    private String numero;
     private String mail;
     private String password;
     
-    public Pessoa(){
-        this.username = "";
+    public Utilizador(){
         this.nome = "";
-        this.numero = "";
         this.mail = "";
         this.password = "";
     }
     
-    public Pessoa(String user, String nome, String numero, String mail, String pass){
-        this.username = user;
+    public Utilizador(String nome, String mail, String pass){
         this.nome = nome;
-        this.numero = numero;
         this.mail = mail;
         this.password = pass;
     }
     
-    public String getUser(){
-        return this.username;
-    }
-    
     public String getNome(){
         return this.nome;
-    }
-    
-    public String getNumero(){
-        return this.numero;
     }
     
     public String getMail(){
@@ -58,8 +44,6 @@ public class Pessoa{
     public String toString() {
         StringBuffer sb = new StringBuffer("Aluno(");
         sb.append(this.nome);
-        sb.append(",");
-        sb.append(this.numero);
         sb.append(",");
         sb.append(this.mail);
         sb.append(")");

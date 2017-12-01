@@ -5,6 +5,16 @@
  */
 package shiftmanagement.Business;
 
+import shiftmanagement.Business.Utilizador.Aluno;
+import shiftmanagement.Business.Utilizador.Professor;
+import shiftmanagement.Business.Utilizador.Admin;
+import java.util.ArrayList;
+import shiftmanagement.Business.UC.GestaoUCsComplementares;
+import shiftmanagement.Business.UC.GestaoUCsLicenciatura;
+import shiftmanagement.Business.Utilizador.GestaoAlunos;
+import shiftmanagement.Business.UC.GestaoPerfis;
+import shiftmanagement.Business.Utilizador.GestaoProfessores;
+
 /**
  *
  * @author Tiago
@@ -14,10 +24,14 @@ public class ShiftManagement {
     private Aluno aluno;
     private Professor professor;
     private Admin admin;
-    //TODO
-    //listaUCs
-    //listaAlunos
-    //listaProfessores
+    private GestaoUCsLicenciatura listaUCsLic;
+    private GestaoUCsComplementares listaUCsComp;
+    private GestaoPerfis listaPerfis;
+    private GestaoAlunos listaAlunos;
+    private GestaoProfessores listaProfs;
+    
+    
+   
     
     public ShiftManagement(){
         aluno = null;
@@ -67,8 +81,68 @@ public class ShiftManagement {
     }
     
     public String getCodigoUc(String nomeUc){
-        for(Map.Entry<String, UC,)
-        this.listaUcs.
+        String codigo = this.listaUCsLic.getCodigoUC(nomeUc);
+        return codigo;
     }
+    
+    public String getProfUc(String codigoUc){
+        String prof = this.listaUCsLic.get(codigoUc).getResponsavel().getNome();
+        return prof;
+    }
+    
+    public ArrayList<String> getListaProfs(String codigoUC){
+        ArrayList<String> profs = new ArrayList<>();
+        for(String s: this.listaUCsLic.getListaProfs(codigoUC)){
+            profs.add(s);
+        }
+        return profs;
+    }
+    
+    public ArrayList<String> getListaTurnos(String codigoUC){
+        ArrayList<String> turnos = new ArrayList<>();
+        for(String s: this.listaUCsLic.getListaTurnos(codigoUC)){
+            turnos.add(s);
+        }
+        return turnos;
+    }
+    
+    public ArrayList<String> getUcsLicPorNome(){
+        ArrayList<String> ucs = new ArrayList<>();
+        for(String s: this.listaUCsLic.getNomesUCs()){
+            ucs.add(s);
+        }
+        return ucs;
+    }
+    
+    public ArrayList<String> getPerfisPorNome(){
+        ArrayList<String> perfis = new ArrayList<>();
+        for(String s: this.listaPerfis.getNomePerfis()){
+            perfis.add(s);
+        }
+        return perfis;
+    }
+    
+    public ArrayList<String> getUcsComplementaresPorNome(){
+        ArrayList<String> compl = new ArrayList<>();
+        for(String s: this.listaUCsComp.getNomeUcs()){
+            compl.add(s);
+        }
+        return compl;
+    }
+    
+    public String getNomeProf(String username){
+        return this.listaProfs.getProf(username);
+    }
+    
+    public String getEmailProf(String nome){
+        String email = this.listaProfs.getEmail(nome);
+        return email;
+    }
+    
+    public String getUsernameProfessor(String prof){
+        String username = this.listaProfs.getProf(prof);
+        return username;
+    }
+  
 
 }

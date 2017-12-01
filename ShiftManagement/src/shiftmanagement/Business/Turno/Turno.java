@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shiftmanagement.Business;
+package shiftmanagement.Business.Turno;
 
+import shiftmanagement.Business.Utilizador.Professor;
+import shiftmanagement.Business.Utilizador.Aluno;
 import java.time.LocalTime;
 import java.util.Map;
 
@@ -18,8 +20,6 @@ public class Turno {
     private Sala sala;
     private Professor professor;
     private LocalTime hora;
-    private Map<String,Aluno> alunos;
-    
     
     
     public Turno(){

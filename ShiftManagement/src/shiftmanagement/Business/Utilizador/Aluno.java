@@ -3,27 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shiftmanagement.Business;
+package shiftmanagement.Business.Utilizador;
 
 import java.util.ArrayList;
+import shiftmanagement.Business.Turno.Turno;
 
 /**
  *
  * @author Tiago
  */
-public class Aluno extends Pessoa{
+public class Aluno extends Utilizador{
     
+    private String username;
     private boolean trabalhador;
     private ArrayList<Turno> horario;
     
     public Aluno(){
         super();
+        this.username = "";
         this.trabalhador = false;
     }
     
-    public Aluno(String user, String nome, String numero, String mail, String pass, boolean trabalhador){
-        super(user, nome, numero, mail, pass);
+    public Aluno(String user, String nome, String mail, String pass, boolean trabalhador){
+        super(nome, mail, pass);
+        this.username = user;
         this.trabalhador = trabalhador;
+    }
+    
+    public String getUsername(){
+        return this.username;
     }
     
     public void adicionaTurno(Turno t){
@@ -43,7 +51,7 @@ public class Aluno extends Pessoa{
     
     
     public Aluno verificaDados(String username, String pass) throws UsernameErradoException, PassErradaException{
-        if(this.getUser().equals(username)){
+        if(this.username.equals(username)){
             if(this.getPass().equals(pass)){
                 return this;
             }
@@ -61,7 +69,7 @@ public class Aluno extends Pessoa{
         if(o == this) return true;
         else {
             Aluno s = (Aluno) o;
-            return (this.getNome().equals(s.getNome()) && this.getNumero() == s.getNumero() &&
+            return (this.getNome().equals(s.getNome()) &&
                     this.getPass().equals(s.getPass()) && this.getMail().equals(s.getMail()) 
                     && this.verificaTrabalhador() == s.verificaTrabalhador() );
         }
@@ -70,8 +78,6 @@ public class Aluno extends Pessoa{
      public String toString() {
         StringBuffer sb = new StringBuffer("Aluno(");
         sb.append(this.getNome());
-        sb.append(",");
-        sb.append(this.getNumero());
         sb.append(",");
         sb.append(this.getMail());
         sb.append(",");

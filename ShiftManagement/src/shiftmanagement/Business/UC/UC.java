@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shiftmanagement.Business;
+package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
+import shiftmanagement.Business.Turno.Turno;
+import shiftmanagement.Business.Utilizador.Professor;
 
 /**
  *
@@ -16,41 +18,33 @@ public class UC {
     private String nome;
     private String codigo;
     private Professor responsavel;
-    private ArrayList<Professor> equipaDocente;
     private ArrayList<Turno> turnos;
+    private ArrayList<Professor> equipaDocente;
     
     public UC(){
+        this.id = 0;
         this.nome = "";
         this.codigo = "";
+        this.responsavel = null;
+        this.turnos = new ArrayList<>();
+        this.equipaDocente = new ArrayList<>();
     }
     
-    public UC(String nome, String cod, Professor p, ArrayList<Professor> listaProfs, ArrayList<Turno> listaTurnos){
-        this.nome = nome;
+    public UC(int id, String n, String cod, Professor p, ArrayList<Turno> turnos, ArrayList<Professor> docentes){
+        this.id = id;
+        this.nome = n;
         this.codigo = cod;
         this.responsavel = p;
-        for(Professor pr: listaProfs)
-            this.equipaDocente.add(pr);
-        for(Turno t: listaTurnos)
-            this.turnos.add(t);
+        this.turnos = turnos;
+        this.equipaDocente = docentes;
     }
     
     public String getNome(){
         return this.nome;
     }
     
-    public String getCodigo(){
-        return this.codigo;
-    }
-    
     public Professor getResponsavel(){
         return this.responsavel;
-    }
-    
-    public ArrayList<Professor> getEquipaDocente(){
-        ArrayList<Professor> lista = new ArrayList<Professor>();
-        for(Professor p : this.equipaDocente)
-            lista.add(p);
-        return lista;
     }
     
     public ArrayList<Turno> getTurnos(){
@@ -60,6 +54,14 @@ public class UC {
        return lista;
     }
     
+    public String getCodigo(){
+        return this.codigo;
+    }
     
-    
+     public ArrayList<Professor> getEquipaDocente(){
+        ArrayList<Professor> lista = new ArrayList<Professor>();
+        for(Professor p : this.equipaDocente)
+            lista.add(p);
+        return lista;
+    }
 }

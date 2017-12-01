@@ -66,10 +66,6 @@ public class FrameAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(185, 185, 185)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(77, 77, 77)
@@ -82,6 +78,10 @@ public class FrameAdmin extends javax.swing.JFrame {
                     .addComponent(profButton, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
                     .addComponent(alunosButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(94, 94, 94))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(195, 195, 195)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +104,7 @@ public class FrameAdmin extends javax.swing.JFrame {
 
     private void ucButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ucButtonActionPerformed
         //botao uc's
-        DialogMenuUCS menuUcs = new DialogMenuUCS(this, true, this.system);
+        FrameMenuUCS menuUcs = new FrameMenuUCS(this.system);
         menuUcs.setVisible(true);
     }//GEN-LAST:event_ucButtonActionPerformed
 

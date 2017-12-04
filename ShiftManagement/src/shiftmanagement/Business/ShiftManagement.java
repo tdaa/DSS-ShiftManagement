@@ -9,6 +9,7 @@ import shiftmanagement.Business.Utilizador.Aluno;
 import shiftmanagement.Business.Utilizador.Professor;
 import shiftmanagement.Business.Utilizador.Admin;
 import java.util.ArrayList;
+import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.UC.GestaoUCsComplementares;
 import shiftmanagement.Business.UC.GestaoUCsLicenciatura;
 import shiftmanagement.Business.Utilizador.GestaoAlunos;
@@ -29,26 +30,32 @@ public class ShiftManagement {
     private GestaoPerfis listaPerfis;
     private GestaoAlunos listaAlunos;
     private GestaoProfessores listaProfs;
+    private Curso curso;
     
-    
-   
     
     public ShiftManagement(){
         aluno = null;
         professor = null;
         admin = null;
+        curso = null;
     }
     
     public ShiftManagement(ShiftManagement s){
         aluno = s.getAluno();
         professor = s.getProfessor();
         admin = s.getAdmin();
+        curso = s.getCurso();
     }
     
-    public ShiftManagement(Aluno a, Professor p, Admin ad){
+    public ShiftManagement(Aluno a, Professor p, Admin ad, Curso c){
         aluno = a;
         professor = p;
         admin = ad;
+        curso = c;
+    }
+    
+    public Curso getCurso(){
+        return this.curso;
     }
     
     public Aluno getAluno(){
@@ -130,19 +137,62 @@ public class ShiftManagement {
         return compl;
     }
     
-    public String getNomeProf(String username){
-        return this.listaProfs.getProf(username);
+    public ArrayList<String> getListaNomeProfs(String codigoUC){
+        ArrayList<String> res = new ArrayList<>();
+        for(String s: this.listaUCsLic.getNomesProfs(codigoUC)){
+            res.add(s);
+        }
+        return res;
     }
     
-    public String getEmailProf(String nome){
-        String email = this.listaProfs.getEmail(nome);
+    public String getNomeProf(String username){
+        return this.listaProfs.getProfNome(username);
+    }
+    
+    public Professor getProfNome(String nome){
+        return this.listaProfs.getProfPorNome(nome);
+    }
+    
+    public String getEmailProf(String usernameProf){
+        String email = this.listaProfs.getEmail(usernameProf);
         return email;
     }
     
-    public String getUsernameProfessor(String prof){
-        String username = this.listaProfs.getProf(prof);
-        return username;
+    public void setTipoCurso(String t){
+        this.curso.setTipo(t);
     }
   
-
+    public void addProfToUCLic(String prof, String codigoUC){
+        Professor p = this.listaProfs.getProfPorNome(prof);
+        this.listaUCsLic.addProf(p, codigoUC);
+    }
+    
+    public void removeProfDeUc(String usernameProf, String codigoUC){
+        Professor p = this.listaProfs.getProf(usernameProf);
+        this.listaUCsLic.removeProf(p, codigoUC);
+    }
+    
+    public Turno getTurno(String idTurno, String codigoUC){
+        return this.listaUCsLic.getTurnoPorId(idTurno, codigoUC);
+    }
+    
+    public int getUltimoTurno(String codigoUC, String tipoTurno){
+        return this.listaUCsLic.getIdUltimoTurno(codigoUC, tipoTurno);
+    }
+    
+    public boolean getTeorica(String codigoUC){
+        return this.listaUCsLic.checkTeorica(codigoUC);
+    }
+    
+    public void addTurno(Turno t, String codigoUC){
+        this.listaUCsLic.addNovoTurno(t, codigoUC);
+    }
+    
+    public void removeTurnoDeUc(String turno, String codigoUC){
+        this.listaUCsLic.removeTurno(turno, codigoUC);
+    }
+    
+    public void atualizaIdTurnos(String idTurno, String codigoUC){
+        this.listaUCsLic.atualizaTurnos(idTurno, codigoUC);
+    }
 }

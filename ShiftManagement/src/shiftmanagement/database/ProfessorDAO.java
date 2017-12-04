@@ -19,9 +19,6 @@ public class ProfessorDAO implements Map<String, Professor>{
 
     private Connection con;
     
-    public String getEmailProf(String nome){
-        
-    }
     
     @Override
     public int size() {

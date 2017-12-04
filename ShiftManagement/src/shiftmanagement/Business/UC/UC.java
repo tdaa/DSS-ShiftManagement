@@ -22,7 +22,6 @@ public class UC {
     private ArrayList<Professor> equipaDocente;
     
     public UC(){
-        this.id = 0;
         this.nome = "";
         this.codigo = "";
         this.responsavel = null;
@@ -31,7 +30,6 @@ public class UC {
     }
     
     public UC(int id, String n, String cod, Professor p, ArrayList<Turno> turnos, ArrayList<Professor> docentes){
-        this.id = id;
         this.nome = n;
         this.codigo = cod;
         this.responsavel = p;
@@ -48,7 +46,7 @@ public class UC {
     }
     
     public ArrayList<Turno> getTurnos(){
-       ArrayList<Turno> lista = new ArrayList<Turno>();
+       ArrayList<Turno> lista = new ArrayList<>();
        for(Turno t : this.turnos)
            lista.add(t);
        return lista;
@@ -59,9 +57,20 @@ public class UC {
     }
     
      public ArrayList<Professor> getEquipaDocente(){
-        ArrayList<Professor> lista = new ArrayList<Professor>();
+        ArrayList<Professor> lista = new ArrayList<>();
         for(Professor p : this.equipaDocente)
             lista.add(p);
         return lista;
+    }
+     
+    public void addTurno(Turno t){
+        this.turnos.add(t);
+    }
+    
+    public Turno getTurno(String turno){
+        for(Turno t: this.getTurnos()){
+            if(t.getId().equals(turno)) return t;
+        }
+        return null;
     }
 }

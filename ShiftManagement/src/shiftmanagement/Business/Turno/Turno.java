@@ -6,9 +6,7 @@
 package shiftmanagement.Business.Turno;
 
 import shiftmanagement.Business.Utilizador.Professor;
-import shiftmanagement.Business.Utilizador.Aluno;
 import java.time.LocalTime;
-import java.util.Map;
 
 /**
  *
@@ -43,5 +41,13 @@ public class Turno {
     
     public Professor getProf(){
         return this.professor;
+    }
+    
+    public LocalTime getHora(){
+        return this.hora;
+    }
+    
+    public void setId(String id){
+        this.id = id;
     }
 }

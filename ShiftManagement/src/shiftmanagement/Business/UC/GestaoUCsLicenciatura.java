@@ -6,6 +6,8 @@
 package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
+import shiftmanagement.Business.Turno.Turno;
+import shiftmanagement.Business.Utilizador.Professor;
 import shiftmanagement.database.UcLicDAO;
 
 /**
@@ -18,6 +20,14 @@ public class GestaoUCsLicenciatura {
     
     public GestaoUCsLicenciatura(){
         listaUCs = new UcLicDAO();
+    }
+    
+    public int getIdUltimoTurno(String codigoUC, String tipoTurno){
+        return this.listaUCs.get(codigoUC).ultimoTurno(tipoTurno);
+    }
+    
+    public Turno getTurnoPorId(String idTurno, String codigoUC){
+        return this.listaUCs.get(codigoUC).getTurnoById(idTurno);
     }
     
     public ArrayList<String> getNomesUCs(){
@@ -36,5 +46,32 @@ public class GestaoUCsLicenciatura {
         return this.listaUCs.getTurnos(codigoUC);
     }
     
+    public ArrayList<String> getNomesProfs(String codigoUC){
+        return this.listaUCs.getProfsPorNome(codigoUC);
+    }
+    
+    public void addProf(Professor p, String codigoUC){
+        this.listaUCs.get(codigoUC).addProfToDocentes(p);
+    }
+    
+    public void removeProf(Professor p, String codigoUC){
+        this.listaUCs.get(codigoUC).removeDeDocentes(p);
+    }
+    
+    public boolean checkTeorica(String codigoUC){
+        return this.listaUCs.get(codigoUC).existeTeorica();
+    }
+    
+    public void addNovoTurno(Turno t, String codigoUC){
+        this.listaUCs.get(codigoUC).addTurno(t);
+    }
+    
+    public void removeTurno(String turno, String codigoUC){
+        this.listaUCs.get(codigoUC).ripTurno(turno);
+    }
+    
+    public void atualizaTurnos(String idTurno, String codigoUC){
+        this.listaUCs.get(codigoUC).corrigeIdTurnos(idTurno);
+    }
     
 }

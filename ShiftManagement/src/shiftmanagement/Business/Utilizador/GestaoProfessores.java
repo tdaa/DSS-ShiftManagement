@@ -19,11 +19,22 @@ public class GestaoProfessores {
         this.listaProfessores = new ProfessorDAO();
     }
     
-    public String getEmail(String nome){
-        return this.listaProfessores.getEmailProf(nome);
+    public String getEmail(String username){
+        return this.listaProfessores.get(username).getMail();
     }
     
-    public String getProf(String username){
+    public String getProfNome(String username){
         return this.listaProfessores.get(username).getNome();
+    }
+    
+    public Professor getProf(String username){
+        return this.listaProfessores.get(username);
+    }
+   
+    public Professor getProfPorNome(String nome){
+        for(Professor p: this.listaProfessores.values()){
+            if(p.getNome().equals(nome)) return p;
+        }
+        return null;
     }
 }

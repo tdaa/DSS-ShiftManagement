@@ -34,7 +34,7 @@
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="profResponsavel" min="-2" max="-2" attributes="0"/>
-                          <Component id="codigoUC" min="-2" max="-2" attributes="0"/>
+                          <Component id="codigoLabel" min="-2" max="-2" attributes="0"/>
                           <Component id="nomeUc" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -69,7 +69,7 @@
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="codigoUC" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="codigoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="codigoField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -100,7 +100,7 @@
         <Property name="text" type="java.lang.String" value="Designa&#xe7;&#xe3;o"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="codigoUC">
+    <Component class="javax.swing.JLabel" name="codigoLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
       </Properties>
@@ -146,9 +146,9 @@
                       <Component id="jScrollPane3" min="-2" pref="221" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
+                          <Component id="addTurnoButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="verTurnoButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="removButton" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="92" max="32767" attributes="0"/>
                   </Group>
@@ -162,11 +162,11 @@
                           <Component id="jScrollPane3" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="verTurnoButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="addTurnoButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <Component id="removButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -201,28 +201,37 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="verTurnoButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ver Turno"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verTurnoButtonActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="addTurnoButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar Turno"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addTurnoButtonActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="removButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Remover Turno"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="EquipaDocente">
-                <Property name="tabTitle" type="java.lang.String" value="EquipaDocente"/>
+              <JTabbedPaneConstraints tabName="Equipa Docente">
+                <Property name="tabTitle" type="java.lang.String" value="Equipa Docente"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -236,8 +245,8 @@
                       <EmptySpace pref="81" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="verProfButton" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
-                          <Component id="jButton5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton6" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="addProfButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="removerButton" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   </Group>
@@ -254,9 +263,9 @@
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Component id="verProfButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                      <Component id="addProfButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                      <Component id="removerButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="11" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -296,15 +305,21 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verProfButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="addProfButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar Professor"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addProfButtonActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton6">
+            <Component class="javax.swing.JButton" name="removerButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Remover Professor"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

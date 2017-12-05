@@ -23,4 +23,8 @@ public class Sala {
         this.maxLugares = n;
         this.nomeSala = s;
     }
+    
+    public String getNome(){
+        return this.nomeSala;
+    }
 }

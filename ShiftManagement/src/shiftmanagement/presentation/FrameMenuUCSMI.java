@@ -13,14 +13,14 @@ import shiftmanagement.Business.ShiftManagement;
  *
  * @author Tiago
  */
-public class FrameMenuUCS extends javax.swing.JFrame {
+public class FrameMenuUCSMI extends javax.swing.JFrame {
     
     private ShiftManagement system;
 
     /**
      * Creates new form FrameMenuUCS
      */
-    public FrameMenuUCS(ShiftManagement system) {
+    public FrameMenuUCSMI(ShiftManagement system) {
         initComponents();
         this.system = system;
         atualizaListas();
@@ -115,6 +115,11 @@ public class FrameMenuUCS extends javax.swing.JFrame {
         remUcLicButon.setText("Remover UC");
 
         addUcLicButton.setText("Adicionar UC");
+        addUcLicButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUcLicButtonActionPerformed(evt);
+            }
+        });
 
         importUcLicButton.setText("Importar UC's");
 
@@ -314,6 +319,11 @@ public class FrameMenuUCS extends javax.swing.JFrame {
         //botao fechar
         this.dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void addUcLicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUcLicButtonActionPerformed
+        // botao adicionar UC lic
+        
+    }//GEN-LAST:event_addUcLicButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPerfilButton;

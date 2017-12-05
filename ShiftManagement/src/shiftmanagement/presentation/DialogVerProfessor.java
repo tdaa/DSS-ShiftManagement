@@ -14,26 +14,27 @@ import shiftmanagement.Business.ShiftManagement;
 public class DialogVerProfessor extends javax.swing.JDialog {
 
     private ShiftManagement system;
-    private String prof;
+    private String nomeProf;
+    private String username;
     
     /**
      * Creates new form DialogVerProfessor
      */
-    public DialogVerProfessor(java.awt.Frame parent, boolean modal, ShiftManagement s, String usernameProf) {
+    public DialogVerProfessor(java.awt.Frame parent, boolean modal, ShiftManagement s, String prof) {
         super(parent, modal);
         initComponents();
         this.system = s;
-        this.prof = usernameProf;
+        this.nomeProf = prof.substring(prof.indexOf("-")+2, prof.length());
+        this.username = prof.substring(0, prof.indexOf(" "));
         atualizaJanela();
     }
     
     private void atualizaJanela(){
-        String nomeProf = this.system.getNomeProf(prof);
-        tituloJanela.setText(nomeProf);
-        nomeField.setText(nomeProf);
-        String email = this.system.getEmailProf(prof);
+        tituloJanela.setText(this.nomeProf);
+        nomeField.setText(this.nomeProf);
+        String email = this.system.getEmailProf(username);
         emailField.setText(email);
-        usernameField.setText(prof);
+        usernameField.setText(this.username);
     }
 
     /**

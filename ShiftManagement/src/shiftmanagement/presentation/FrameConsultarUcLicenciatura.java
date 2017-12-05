@@ -16,9 +16,8 @@ import shiftmanagement.Business.ShiftManagement;
 public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
     
     private ShiftManagement system;
-    private String uc;
-    private String codigo;
-    private String usernameProf;
+    private String nomeUC;
+    private String codigoUC;
     
      /**
      * Creates new form FrameConsultarUcLicenciatura
@@ -26,17 +25,16 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
     public FrameConsultarUcLicenciatura(ShiftManagement system, String uc) {
         initComponents();
         this.system = system;
-        this.uc = uc.substring(uc.indexOf(uc.indexOf("-") + 2), uc.length());
-        this.codigo = this.uc.substring(0, this.uc.indexOf(" "));
-        this.usernameProf = this.system.getUsernameProfessor(this.codigo);
+        this.nomeUC = uc.substring(uc.indexOf(uc.indexOf("-") + 2), uc.length());
+        this.codigoUC = uc.substring(0, uc.indexOf(" "));
         atualizaJanela();
     }
     
     public void atualizaJanela(){
-        nomeDaUc.setText(uc);
-        codigoField.setText(uc);
-        codigoField.setText(this.codigo);
-        String nomeProf = this.system.getProfUc(this.codigo);
+        nomeDaUc.setText(this.nomeUC);
+        designacaoUcField.setText(this.nomeUC);
+        codigoField.setText(this.codigoUC);
+        String nomeProf = this.system.getProfUc(this.codigoUC);
         regField.setText(nomeProf);
         atualizaListaProfessores();
         atualizaListaTurnos();
@@ -44,7 +42,7 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
     
     public void atualizaListaProfessores(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        ArrayList<String> Profs = this.system.getListaProfs(codigo);
+        ArrayList<String> Profs = this.system.getListaProfs(this.codigoUC);
         for(String s : Profs){
             dlm.addElement(s);
         }
@@ -53,7 +51,7 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
     
     public void atualizaListaTurnos(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        ArrayList<String> lista = this.system.getListaTurnos(uc);
+        ArrayList<String> lista = this.system.getListaTurnos(this.codigoUC);
         for(String s: lista){
             dlm.addElement(s);
         }
@@ -71,7 +69,7 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
 
         nomeDaUc = new javax.swing.JLabel();
         nomeUc = new javax.swing.JLabel();
-        codigoUC = new javax.swing.JLabel();
+        codigoLabel = new javax.swing.JLabel();
         profResponsavel = new javax.swing.JLabel();
         codigoField = new javax.swing.JTextField();
         regField = new javax.swing.JTextField();
@@ -80,15 +78,15 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         turnosList = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        verTurnoButton = new javax.swing.JButton();
+        addTurnoButton = new javax.swing.JButton();
+        removButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         docentesList = new javax.swing.JList<>();
         verProfButton = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        addProfButton = new javax.swing.JButton();
+        removerButton = new javax.swing.JButton();
         fecharButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,7 +96,7 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
 
         nomeUc.setText("Designação");
 
-        codigoUC.setText("Código");
+        codigoLabel.setText("Código");
 
         profResponsavel.setText("Professor Regente");
 
@@ -127,11 +125,26 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(turnosList);
 
-        jButton1.setText("Ver Turno");
+        verTurnoButton.setText("Ver Turno");
+        verTurnoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verTurnoButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Adicionar Turno");
+        addTurnoButton.setText("Adicionar Turno");
+        addTurnoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addTurnoButtonActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Remover Turno");
+        removButton.setText("Remover Turno");
+        removButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -142,9 +155,9 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addTurnoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(verTurnoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(removButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -155,11 +168,11 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButton1)
+                        .addComponent(verTurnoButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(addTurnoButton)
                         .addGap(12, 12, 12)
-                        .addComponent(jButton3)
+                        .addComponent(removButton)
                         .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -180,9 +193,19 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Adicionar Professor");
+        addProfButton.setText("Adicionar Professor");
+        addProfButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProfButtonActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("Remover Professor");
+        removerButton.setText("Remover Professor");
+        removerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -194,8 +217,8 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(verProfButton, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addProfButton)
+                    .addComponent(removerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49))
         );
         jPanel1Layout.setVerticalGroup(
@@ -208,13 +231,13 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(verProfButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
+                .addComponent(addProfButton)
                 .addGap(12, 12, 12)
-                .addComponent(jButton6)
+                .addComponent(removerButton)
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("EquipaDocente", jPanel1);
+        jTabbedPane1.addTab("Equipa Docente", jPanel1);
 
         fecharButton.setText("Fechar");
         fecharButton.addActionListener(new java.awt.event.ActionListener() {
@@ -237,7 +260,7 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(profResponsavel)
-                            .addComponent(codigoUC)
+                            .addComponent(codigoLabel)
                             .addComponent(nomeUc))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -263,7 +286,7 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
                     .addComponent(designacaoUcField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigoUC)
+                    .addComponent(codigoLabel)
                     .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -295,7 +318,8 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
         // ver Professor (docentes)
         String prof = docentesList.getSelectedValue();
         if(prof != null){
-            DialogVerProfessor verProf = new DialogVerProfessor(this, true, this.system, usernameProf);
+            DialogVerProfessor verProf = new DialogVerProfessor(this, true, this.system, prof);
+            verProf.setVisible(true);
         }
         else{
             //abrir dialog a informar que nao selecionou nenhum prof.
@@ -303,21 +327,62 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
     }//GEN-LAST:event_verProfButtonActionPerformed
 
     private void fecharButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharButtonActionPerformed
-        // botao fecar
+        // botao fechar
         this.dispose();
     }//GEN-LAST:event_fecharButtonActionPerformed
 
+    private void addProfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProfButtonActionPerformed
+        // botao adicionar professor
+        DialogAddProfessor addProf = new DialogAddProfessor(this, true, this.system, this.codigoUC);
+        addProf.setVisible(true);
+        atualizaJanela();
+    }//GEN-LAST:event_addProfButtonActionPerformed
+
+    private void removerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerButtonActionPerformed
+        // botao remover
+        String prof = docentesList.getSelectedValue();
+        if(prof!=null){
+            String username = prof.substring(0, prof.indexOf(" ")-1);
+            this.system.removeProfDeUc(username, codigoUC);
+            atualizaJanela();
+        }
+ 
+    }//GEN-LAST:event_removerButtonActionPerformed
+
+    private void verTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verTurnoButtonActionPerformed
+        // ver turno botao
+        String turno = turnosList.getSelectedValue();
+        if(turno != null){
+            DialogVerTurno verTurno = new DialogVerTurno(this, true, this.system, turno, this.codigoUC);
+            verTurno.setVisible(true);
+        }
+    }//GEN-LAST:event_verTurnoButtonActionPerformed
+
+    private void addTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTurnoButtonActionPerformed
+        // botao adicionar turno
+        DialogAddTurno addTurno = new DialogAddTurno(this, true, this.system, this.codigoUC);
+        addTurno.setVisible(true);
+        atualizaJanela();
+    }//GEN-LAST:event_addTurnoButtonActionPerformed
+
+    private void removButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removButtonActionPerformed
+        // botao remover turno
+        String turno = turnosList.getSelectedValue();
+        if(turno != null){
+            this.system.removeTurnoDeUc(turno, this.codigoUC);
+            this.system.atualizaIdTurnos(turno, this.codigoUC);
+            atualizaJanela();
+        }
+    }//GEN-LAST:event_removButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addProfButton;
+    private javax.swing.JButton addTurnoButton;
     private javax.swing.JTextField codigoField;
-    private javax.swing.JLabel codigoUC;
+    private javax.swing.JLabel codigoLabel;
     private javax.swing.JTextField designacaoUcField;
     private javax.swing.JList<String> docentesList;
     private javax.swing.JButton fecharButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -327,7 +392,10 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
     private javax.swing.JLabel nomeUc;
     private javax.swing.JLabel profResponsavel;
     private javax.swing.JTextField regField;
+    private javax.swing.JButton removButton;
+    private javax.swing.JButton removerButton;
     private javax.swing.JList<String> turnosList;
     private javax.swing.JButton verProfButton;
+    private javax.swing.JButton verTurnoButton;
     // End of variables declaration//GEN-END:variables
 }

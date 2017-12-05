@@ -24,6 +24,7 @@ import shiftmanagement.Business.Utilizador.Professor;
 public class UcLicDAO implements Map<String, UCLicenciatura>{
     
     private Connection con;
+   
     
     public ArrayList<String> getTurnos(String codigoUC){
         ArrayList<String> res = new ArrayList<>();
@@ -43,6 +44,19 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
             if(uc.getCodigo().equals(codigoUC)){
                 for(Professor p: uc.getEquipaDocente()){
                     res.add(p.getUserame() + " - " + p.getNome());
+                }
+            }
+        }
+        return res;
+    }
+    
+    //util para o dialogAddProfessor
+     public ArrayList<String> getProfsPorNome(String codigoUC){
+        ArrayList<String> res = new ArrayList<>();
+        for(UCLicenciatura uc: this.values()){
+            if(uc.getCodigo().equals(codigoUC)){
+                for(Professor p: uc.getEquipaDocente()){
+                    res.add(p.getNome());
                 }
             }
         }

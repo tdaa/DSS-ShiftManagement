@@ -9,7 +9,7 @@ package shiftmanagement.Business.Utilizador;
  *
  * @author Tiago
  */
-public class Admin {
+public class Admin extends Utilizador{
     
     private String username = "admin.di";
     private String password = "dirmiei1718";

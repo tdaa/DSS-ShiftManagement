@@ -14,24 +14,17 @@ import shiftmanagement.Business.Turno.Turno;
  */
 public class Aluno extends Utilizador{
     
-    private String username;
     private boolean trabalhador;
     private ArrayList<Turno> horario;
     
     public Aluno(){
         super();
-        this.username = "";
         this.trabalhador = false;
     }
     
     public Aluno(String user, String nome, String mail, String pass, boolean trabalhador){
-        super(nome, mail, pass);
-        this.username = user;
+        super(user, nome, mail, pass);
         this.trabalhador = trabalhador;
-    }
-    
-    public String getUsername(){
-        return this.username;
     }
     
     public void adicionaTurno(Turno t){
@@ -47,21 +40,6 @@ public class Aluno extends Utilizador{
     
     public boolean verificaTrabalhador(){
         return this.trabalhador;
-    }
-    
-    
-    public Aluno verificaDados(String username, String pass) throws UsernameErradoException, PassErradaException{
-        if(this.username.equals(username)){
-            if(this.getPass().equals(pass)){
-                return this;
-            }
-            else{
-               throw new PassErradaException("Password Incorreta!");
-            }
-        }
-        else{
-            throw new UsernameErradoException("Username Errado!");
-        }
     }
     
     public boolean equals(Object o){

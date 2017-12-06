@@ -5,6 +5,7 @@
  */
 package shiftmanagement.Business.Utilizador;
 
+import java.util.ArrayList;
 import shiftmanagement.database.ProfessorDAO;
 
 /**
@@ -19,6 +20,28 @@ public class GestaoProfessores {
         this.listaProfessores = new ProfessorDAO();
     }
     
+    public Professor verificaDados(String username, String pass) throws UsernameErradoException, PassErradaException{
+        if(this.listaProfessores.containsKey(username)){
+            if(this.listaProfessores.get(username).getPass().equals(pass)){
+                return this.listaProfessores.get(username);
+            }
+            else{
+               throw new PassErradaException("Password Incorreta!");
+            }
+        }
+        else{
+            throw new UsernameErradoException("Username Errado!");
+        }
+    }
+    
+    public ArrayList<String> getTodos(){
+        ArrayList<String> res = new ArrayList<>();
+        for(Professor p: this.listaProfessores.values()){
+            res.add(p.getUsername() + " - " + p.getNome());
+        }
+        return res;
+    }
+    
     public String getEmail(String username){
         return this.listaProfessores.get(username).getMail();
     }
@@ -31,9 +54,9 @@ public class GestaoProfessores {
         return this.listaProfessores.get(username);
     }
    
-    public Professor getProfPorNome(String nome){
+    public Professor getProfByUsername(String user){
         for(Professor p: this.listaProfessores.values()){
-            if(p.getNome().equals(nome)) return p;
+            if(p.getUsername().equals(user)) return p;
         }
         return null;
     }

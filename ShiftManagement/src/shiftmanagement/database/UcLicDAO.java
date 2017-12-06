@@ -43,7 +43,7 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
         for(UCLicenciatura uc: this.values()){
             if(uc.getCodigo().equals(codigoUC)){
                 for(Professor p: uc.getEquipaDocente()){
-                    res.add(p.getUserame() + " - " + p.getNome());
+                    res.add(p.getUsername() + " - " + p.getNome());
                 }
             }
         }

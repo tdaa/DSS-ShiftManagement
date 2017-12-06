@@ -6,6 +6,7 @@
 package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 
@@ -32,8 +33,8 @@ public class UCPerfil extends UC{
      * @param diaSemana
      * @param turnos
      */
-    public UCPerfil(String diaS, int id, String nome, String cod, Professor p, ArrayList<Turno> turnos, ArrayList<Professor> docentes){
-        super(id, nome, cod, p, turnos, docentes);
+    public UCPerfil(String diaS, String nome, String cod, Professor p, ArrayList<Turno> turnos, HashSet<Professor> docentes){
+        super(nome, cod, p, turnos, docentes);
         this.diaSemana = diaS;
     }
 }

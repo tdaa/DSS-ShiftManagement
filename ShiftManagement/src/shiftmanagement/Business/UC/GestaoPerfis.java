@@ -14,13 +14,17 @@ import shiftmanagement.database.PerfilDAO;
  */
 public class GestaoPerfis {
     
-    private PerfilDAO listaPerfis;
+    private ArrayList<Perfil> listaPerfis;
     
     public GestaoPerfis(){
         this.listaPerfis = new PerfilDAO();
     }
     
     public ArrayList<String> getNomePerfis(){
-        return this.listaPerfis.getPerfisPorNome();
+        ArrayList<String> res = new ArrayList<>();
+            for(Perfil p: this.listaPerfis){
+                res.add(p.getNome());
+            }
+        return res;
     }
 }

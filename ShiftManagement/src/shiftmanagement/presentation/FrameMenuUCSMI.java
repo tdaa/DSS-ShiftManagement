@@ -113,6 +113,11 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         });
 
         remUcLicButon.setText("Remover UC");
+        remUcLicButon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remUcLicButonActionPerformed(evt);
+            }
+        });
 
         addUcLicButton.setText("Adicionar UC");
         addUcLicButton.addActionListener(new java.awt.event.ActionListener() {
@@ -322,8 +327,18 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
 
     private void addUcLicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUcLicButtonActionPerformed
         // botao adicionar UC lic
-        
+        FrameAddUcLic addUcLic = new FrameAddUcLic(this.system);
+        addUcLic.setVisible(true);
     }//GEN-LAST:event_addUcLicButtonActionPerformed
+
+    private void remUcLicButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remUcLicButonActionPerformed
+        // botao remover
+        String s = this.ucsLicenciaturaList.getSelectedValue();
+        if(s!=null){
+            s = s.substring(0, s.indexOf(" "));
+            this.system.removeUcLic(s);
+        }
+    }//GEN-LAST:event_remUcLicButonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPerfilButton;

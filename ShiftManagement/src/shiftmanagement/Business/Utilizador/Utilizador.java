@@ -11,6 +11,7 @@ package shiftmanagement.Business.Utilizador;
  */
 public class Utilizador{
     
+    private String username; 
     private String nome;
     private String mail;
     private String password;
@@ -21,10 +22,15 @@ public class Utilizador{
         this.password = "";
     }
     
-    public Utilizador(String nome, String mail, String pass){
+    public Utilizador(String username, String nome, String mail, String pass){
+        this.username = username;
         this.nome = nome;
         this.mail = mail;
         this.password = pass;
+    }
+    
+    public String getUsername(){
+       return this.username;
     }
     
     public String getNome(){

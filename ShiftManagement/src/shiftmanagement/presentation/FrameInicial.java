@@ -135,32 +135,30 @@ public class FrameInicial extends javax.swing.JFrame {
         //botao login
         String username = nameText.getText();
         String pass = passText.getText();
-        if(username.charAt(0)=='a'){
-            try {
+        try {
+            if(username.charAt(0)=='a'){
                 system.iniciaSessao(username, pass, 2);
                 FrameAluno homeAluno = new FrameAluno(this.system);
+                homeAluno.setVisible(true);
                 this.dispose();
-            } catch (UsernameErradoException ex) {
-                Logger.getLogger(FrameInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        if(username.charAt(0)=='p'){
-            try {
+            if(username.charAt(0)=='p'){
                 system.iniciaSessao(username, pass, 3);
                 FrameProfessor homeProfessor = new FrameProfessor(this.system);
+                homeProfessor.setVisible(true);
                 this.dispose();
-            } catch (UsernameErradoException ex) {
-                Logger.getLogger(FrameInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        if(username.equals("admin.di")){
-            try {
+            if(username.equals("admin.di")){ 
                 system.iniciaSessao(username, pass, 1);
-                FrameAdmin homeAdmin = new FrameAdmin(this.system);
+                DialogTipoCurso tipoCurso = new DialogTipoCurso(this, true, this.system);
+                tipoCurso.setVisible(true);
+                String curso = this.system.getCurso().getTipo();
+                FrameAdmin homeAdmin = new FrameAdmin(this.system, curso);
+                homeAdmin.setVisible(true);
                 this.dispose();
-            } catch (UsernameErradoException ex) {
-                Logger.getLogger(FrameInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }catch(Exception e) {
+            Logger.getLogger(FrameInicial.class.getName()).log(Level.SEVERE, null, e);
         }
 
     }//GEN-LAST:event_loginButtonActionPerformed

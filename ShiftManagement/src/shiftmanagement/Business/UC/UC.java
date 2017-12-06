@@ -6,6 +6,7 @@
 package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 
@@ -19,17 +20,24 @@ public class UC {
     private String codigo;
     private Professor responsavel;
     private ArrayList<Turno> turnos;
-    private ArrayList<Professor> equipaDocente;
+    private HashSet<Professor> equipaDocente;
     
     public UC(){
         this.nome = "";
         this.codigo = "";
         this.responsavel = null;
         this.turnos = new ArrayList<>();
-        this.equipaDocente = new ArrayList<>();
+        this.equipaDocente = new HashSet<>();
     }
     
-    public UC(int id, String n, String cod, Professor p, ArrayList<Turno> turnos, ArrayList<Professor> docentes){
+    public UC(String n, String cod, Professor p, HashSet<Professor> equipaDocente){
+        this.nome = n;
+        this.codigo = cod;
+        this.responsavel = p;
+        this.equipaDocente = equipaDocente;
+    }
+    
+    public UC(String n, String cod, Professor p, ArrayList<Turno> turnos, HashSet<Professor> docentes){
         this.nome = n;
         this.codigo = cod;
         this.responsavel = p;
@@ -56,8 +64,8 @@ public class UC {
         return this.codigo;
     }
     
-     public ArrayList<Professor> getEquipaDocente(){
-        ArrayList<Professor> lista = new ArrayList<>();
+     public HashSet<Professor> getEquipaDocente(){
+        HashSet<Professor> lista = new HashSet<>();
         for(Professor p : this.equipaDocente)
             lista.add(p);
         return lista;

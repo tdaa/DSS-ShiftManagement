@@ -22,6 +22,14 @@ public class GestaoUCsLicenciatura {
         listaUCs = new UcLicDAO();
     }
     
+    public void removeUc(String codigo){
+        this.listaUCs.remove(codigo);
+    }
+    
+    public void addNovaUc(UCLicenciatura uc){
+        this.listaUCs.put(uc.getCodigo(), uc);
+    }
+    
     public int getIdUltimoTurno(String codigoUC, String tipoTurno){
         return this.listaUCs.get(codigoUC).ultimoTurno(tipoTurno);
     }

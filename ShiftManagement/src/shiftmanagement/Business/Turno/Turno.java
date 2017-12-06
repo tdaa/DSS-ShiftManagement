@@ -5,7 +5,6 @@
  */
 package shiftmanagement.Business.Turno;
 
-import shiftmanagement.Business.Utilizador.Professor;
 import java.time.LocalTime;
 
 /**
@@ -16,7 +15,7 @@ public class Turno {
     
     private String id;
     private Sala sala;
-    private Professor professor;
+    private String professor;
     private LocalTime hora;
     
     
@@ -24,7 +23,7 @@ public class Turno {
         this.id = "";
     }
     
-    public Turno(String id, Sala s, Professor p, LocalTime l){
+    public Turno(String id, Sala s, String p, LocalTime l){
         this.id = id;
         this.sala = s;
         this.professor = p;
@@ -39,7 +38,7 @@ public class Turno {
         return this.sala;
     }
     
-    public Professor getProf(){
+    public String getProf(){
         return this.professor;
     }
     

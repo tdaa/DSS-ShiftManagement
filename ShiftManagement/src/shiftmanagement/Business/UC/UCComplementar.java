@@ -6,6 +6,7 @@
 package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 
@@ -24,8 +25,8 @@ public class UCComplementar extends UC{
         this.per = "";
     }
     
-    public UCComplementar(String nome, int id, String cod, Professor p, String diaSemana, String per, ArrayList<Turno> turnos, ArrayList<Professor> profs){
-        super(id, nome, cod, p, turnos, profs);
+    public UCComplementar(String nome, String cod, Professor p, String diaSemana, String per, ArrayList<Turno> turnos, HashSet<Professor> profs){
+        super(nome, cod, p, turnos, profs);
         this.diaSemana = diaSemana;
         this.per = per;
     }

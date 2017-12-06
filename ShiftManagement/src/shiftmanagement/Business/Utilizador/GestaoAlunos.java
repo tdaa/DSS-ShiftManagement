@@ -18,4 +18,18 @@ public class GestaoAlunos {
     public GestaoAlunos(){
         this.listaAlunos = new AlunoDAO();
     }
+    
+    public Aluno verificaDados(String username, String pass) throws UsernameErradoException, PassErradaException{
+        if(this.listaAlunos.containsKey(username)){
+            if(this.listaAlunos.get(username).getPass().equals(pass)){
+                return this.listaAlunos.get(username);
+            }
+            else{
+               throw new PassErradaException("Password Incorreta!");
+            }
+        }
+        else{
+            throw new UsernameErradoException("Username Errado!");
+        }
+    }
 }

@@ -268,7 +268,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
         // botao associar professor
         String s;
         if((s = this.profList.getSelectedValue()) != null){
-            this.p = this.system.getProfNome(s);
+            this.p = this.system.getProfPorUsername(s);
             javax.swing.JOptionPane.showMessageDialog(this, "Professor associado!", "Feito.", 0);
         }
     }//GEN-LAST:event_associarButtonActionPerformed
@@ -277,7 +277,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
         // botao confirmar
         String id = (String) this.comboBox.getSelectedItem();
         if(id!=null && (id.equals("PL") || id.equals("TP"))){
-            if(this.p != null){
+            if(this.p != null && this.nomeSalaField.getText()!=null && this.maxField.getText()!=null && this.horaField.getText()!=null && this.maxAlunosField.getText()!=null){
                 String nomeSala = this.nomeSalaField.getText();
                 int max = Integer.parseInt(this.maxField.getText());
                 LocalTime hora = LocalTime.parse(this.horaField.getText());
@@ -291,8 +291,15 @@ public class DialogAddTurno extends javax.swing.JDialog {
                     TP t = new TP(id, maxAlunos, s, this.p, hora);
                     this.system.addTurno(t, codigoUC);
                 }
+                this.dispose();
+            }
+            else{
+                javax.swing.JOptionPane.showMessageDialog(this, "Por favor preencher todos os campos!", "Feito.", 0);
             }
         }
+        else{
+                javax.swing.JOptionPane.showMessageDialog(this, "Por favor preencher todos os campos!", "Feito.", 0);
+            }
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed

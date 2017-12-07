@@ -5,10 +5,8 @@
  */
 package shiftmanagement.Business.Turno;
 
-import shiftmanagement.Business.Turno.Turno;
-import shiftmanagement.Business.Utilizador.Professor;
 import java.time.LocalTime;
-import shiftmanagement.Business.Sala;
+import shiftmanagement.Business.Utilizador.Professor;
 
 /**
  *

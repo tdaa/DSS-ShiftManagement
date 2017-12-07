@@ -20,12 +20,16 @@ public class PL extends Turno{
     
     public PL(){
         super();
+        this.maxAlunos = 0;
     }
     
     public PL(String id, int max, Sala s, Professor p, LocalTime l){
         super(id, s, p, l);
         this.maxAlunos = max;
     }
-   
+    
+    public int getMax(){
+        return this.maxAlunos;
+    }
     
 }

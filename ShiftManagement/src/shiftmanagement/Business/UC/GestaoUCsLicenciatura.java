@@ -22,6 +22,10 @@ public class GestaoUCsLicenciatura {
         listaUCs = new UcLicDAO();
     }
     
+    public String getStor(String codigoUC){
+        return this.listaUCs.get(codigoUC).getResponsavel();
+    }
+    
     public void removeUc(String codigo){
         this.listaUCs.remove(codigo);
     }

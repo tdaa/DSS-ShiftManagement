@@ -5,7 +5,6 @@
  */
 package shiftmanagement.Business;
 
-import shiftmanagement.Business.Utilizador.Aluno;
 import shiftmanagement.Business.Utilizador.Professor;
 import shiftmanagement.Business.Utilizador.Admin;
 import java.util.ArrayList;
@@ -14,17 +13,18 @@ import shiftmanagement.Business.UC.GestaoUCsComplementares;
 import shiftmanagement.Business.UC.GestaoUCsLicenciatura;
 import shiftmanagement.Business.Utilizador.GestaoAlunos;
 import shiftmanagement.Business.UC.GestaoPerfis;
+import shiftmanagement.Business.UC.UCLicenciatura;
 import shiftmanagement.Business.Utilizador.GestaoProfessores;
+import shiftmanagement.Business.Utilizador.Utilizador;
 
 /**
  *
  * @author Tiago
  */
 public class ShiftManagement {
-
-    private Aluno aluno;
-    private Professor professor;
+    
     private Admin admin;
+    private Utilizador utilizador;
     private GestaoUCsLicenciatura listaUCsLic;
     private GestaoUCsComplementares listaUCsComp;
     private GestaoPerfis listaPerfis;
@@ -34,52 +34,40 @@ public class ShiftManagement {
     
     
     public ShiftManagement(){
-        aluno = null;
-        professor = null;
         admin = null;
+        utilizador = null;
         curso = null;
+        listaUCslic = 
     }
     
     public ShiftManagement(ShiftManagement s){
-        aluno = s.getAluno();
-        professor = s.getProfessor();
-        admin = s.getAdmin();
+        utilizador = s.getUtilizador();
         curso = s.getCurso();
     }
     
-    public ShiftManagement(Aluno a, Professor p, Admin ad, Curso c){
-        aluno = a;
-        professor = p;
-        admin = ad;
+    public ShiftManagement(Utilizador u, Curso c){
+        this.utilizador = u;
         curso = c;
+    }
+    
+    public Utilizador getUtilizador(){
+        return this.utilizador;
     }
     
     public Curso getCurso(){
         return this.curso;
     }
     
-    public Aluno getAluno(){
-        return aluno;
-    }
-    
-    public Professor getProfessor(){
-        return professor;
-    }
-    
-    public Admin getAdmin(){
-        return admin;
-    }
-    
     public void iniciaSessao(String username, String pass, int id) throws UsernameErradoException{
         try{
             if(id == 1){
-                this.admin.verificaDados(username, pass);
+                this.utilizador = this.admin.verificaDados(username, pass);
             }
             if(id == 2){
-                this.aluno.verificaDados(username, pass);
+                this.utilizador = this.listaAlunos.verificaDados(username, pass);
             }
             if(id == 3){
-                this.professor.verificaDados(username, pass);
+                this.utilizador = this.listaProfs.verificaDados(username, pass);
             }
         }
         catch(Exception e){
@@ -93,8 +81,9 @@ public class ShiftManagement {
     }
     
     public String getProfUc(String codigoUc){
-        String prof = this.listaUCsLic.get(codigoUc).getResponsavel().getNome();
-        return prof;
+        String userprof = this.listaUCsLic.getStor(codigoUc);
+        String res = this.listaProfs.getProfNome(userprof);
+        return res;
     }
     
     public ArrayList<String> getListaProfs(String codigoUC){
@@ -145,12 +134,20 @@ public class ShiftManagement {
         return res;
     }
     
+    public ArrayList<String> getListaTodosProfs(){
+        ArrayList<String> res = new ArrayList<>();
+        for(String s: this.listaProfs.getTodos()){
+            res.add(s);
+        }
+        return res;
+    }
+    
     public String getNomeProf(String username){
         return this.listaProfs.getProfNome(username);
     }
     
-    public Professor getProfNome(String nome){
-        return this.listaProfs.getProfPorNome(nome);
+    public Professor getProfPorUsername(String username){
+        return this.listaProfs.getProfByUsername(username);
     }
     
     public String getEmailProf(String usernameProf){
@@ -194,5 +191,13 @@ public class ShiftManagement {
     
     public void atualizaIdTurnos(String idTurno, String codigoUC){
         this.listaUCsLic.atualizaTurnos(idTurno, codigoUC);
+    }
+    
+    public void addUc(UCLicenciatura uc){
+        this.listaUCsLic.addNovaUc(uc);
+    }
+    
+    public void removeUcLic(String codigo){
+        this.listaUCsLic.removeUc(codigo);
     }
 }

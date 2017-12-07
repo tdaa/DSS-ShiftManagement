@@ -18,29 +18,29 @@ public class UC {
     
     private String nome;
     private String codigo;
-    private Professor responsavel;
+    private String usernameResponsavel;
     private ArrayList<Turno> turnos;
     private HashSet<Professor> equipaDocente;
     
     public UC(){
         this.nome = "";
         this.codigo = "";
-        this.responsavel = null;
+        this.usernameResponsavel = null;
         this.turnos = new ArrayList<>();
         this.equipaDocente = new HashSet<>();
     }
     
-    public UC(String n, String cod, Professor p, HashSet<Professor> equipaDocente){
+    public UC(String n, String cod, String p, HashSet<Professor> equipaDocente){
         this.nome = n;
         this.codigo = cod;
-        this.responsavel = p;
+        this.usernameResponsavel = p;
         this.equipaDocente = equipaDocente;
     }
     
-    public UC(String n, String cod, Professor p, ArrayList<Turno> turnos, HashSet<Professor> docentes){
+    public UC(String n, String cod, String p, ArrayList<Turno> turnos, HashSet<Professor> docentes){
         this.nome = n;
         this.codigo = cod;
-        this.responsavel = p;
+        this.usernameResponsavel = p;
         this.turnos = turnos;
         this.equipaDocente = docentes;
     }
@@ -49,8 +49,8 @@ public class UC {
         return this.nome;
     }
     
-    public Professor getResponsavel(){
-        return this.responsavel;
+    public String getResponsavel(){
+        return this.usernameResponsavel;
     }
     
     public ArrayList<Turno> getTurnos(){

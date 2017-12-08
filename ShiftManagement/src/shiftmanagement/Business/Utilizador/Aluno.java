@@ -6,8 +6,6 @@
 package shiftmanagement.Business.Utilizador;
 
 import java.util.ArrayList;
-import shiftmanagement.Business.Turno.Turno;
-
 /**
  *
  * @author Tiago
@@ -15,7 +13,7 @@ import shiftmanagement.Business.Turno.Turno;
 public class Aluno extends Utilizador{
     
     private boolean trabalhador;
-    private ArrayList<Turno> horario;
+    private ArrayList<String> horario;
     
     public Aluno(){
         super();
@@ -27,20 +25,29 @@ public class Aluno extends Utilizador{
         this.trabalhador = trabalhador;
     }
     
-    public void adicionaTurno(Turno t){
-        this.horario.add(t);
-    }
-    
-    public ArrayList<Turno> getHorario(){
-        ArrayList<Turno> res = new ArrayList<Turno>();
-        for(Turno t: this.horario)
+    public ArrayList<String> getHorario(){
+        ArrayList<String> res = new ArrayList<>();
+        for(String t: this.horario)
             res.add(t);
         return res;
     }
     
-    public boolean verificaTrabalhador(){
+    public boolean getTrabalhador(){
         return this.trabalhador;
     }
+    
+    public void setHorario(ArrayList<String> horario){
+        this.horario = horario;
+    }
+    
+    public void setTrabalhador(boolean r){
+        this.trabalhador = r;
+    }
+    
+    public void adicionaTurno(String t){
+        this.horario.add(t);
+    }
+   
     
     public boolean equals(Object o){
         if(o==null || this.getClass()!=o.getClass()) return false;
@@ -49,7 +56,7 @@ public class Aluno extends Utilizador{
             Aluno s = (Aluno) o;
             return (this.getNome().equals(s.getNome()) &&
                     this.getPass().equals(s.getPass()) && this.getMail().equals(s.getMail()) 
-                    && this.verificaTrabalhador() == s.verificaTrabalhador() );
+                    && this.getTrabalhador() == s.getTrabalhador() );
         }
     }
     
@@ -59,7 +66,7 @@ public class Aluno extends Utilizador{
         sb.append(",");
         sb.append(this.getMail());
         sb.append(",");
-        sb.append("Trabalhador: " +  this.verificaTrabalhador());
+        sb.append("Trabalhador: " +  this.getTrabalhador());
         sb.append(")");
         return sb.toString();
     }

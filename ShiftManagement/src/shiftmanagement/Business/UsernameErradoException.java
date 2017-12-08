@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shiftmanagement.Business.Utilizador;
+package shiftmanagement.Business;
 
 /**
  *
@@ -11,11 +11,11 @@ package shiftmanagement.Business.Utilizador;
  */
 class UsernameErradoException extends Exception {
     
-    public UsernameErradoException(){
-        super();
+    public UsernameErradoException(String s){
+        super(s);
     }
     
-    public UsernameErradoException(String m){
-        super(m);
+    public UsernameErradoException(){
+        super();
     }
 }

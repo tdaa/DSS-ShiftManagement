@@ -17,7 +17,6 @@ public class GestaoProfessores {
     private ProfessorDAO listaProfessores;
     
     public GestaoProfessores(){
-        this.listaProfessores = new ProfessorDAO();
     }
     
     public Professor verificaDados(String username, String pass) throws UsernameErradoException, PassErradaException{

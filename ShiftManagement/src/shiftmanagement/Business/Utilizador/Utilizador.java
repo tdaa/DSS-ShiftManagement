@@ -45,7 +45,21 @@ public class Utilizador{
         return this.password;
     }
     
-   
+    public void setUsername(String username){
+        this.username = username;
+    }
+    
+    public void setNome(String nome){
+        this.nome = nome;
+    }
+    
+    public void setPassword(String password){
+        this.password = password;
+    }
+    
+    public void setMail(String mail){
+        this.mail = mail;
+    }
     
     public String toString() {
         StringBuffer sb = new StringBuffer("Aluno(");

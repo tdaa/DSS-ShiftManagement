@@ -11,8 +11,8 @@ package shiftmanagement.Business.Turno;
  */
 public class Sala {
     
-    private final int maxLugares;
-    private final String nomeSala;
+    private int maxLugares;
+    private String nomeSala;
     
     public Sala(){
         this.maxLugares = 0;
@@ -27,4 +27,14 @@ public class Sala {
     public String getNome(){
         return this.nomeSala;
     }
+    
+    public void setNomeSala(String n){
+        this.nomeSala = n;
+    }
+    
+    public void setMax(int m){
+        this.maxLugares = m;
+    }
+    
+    
 }

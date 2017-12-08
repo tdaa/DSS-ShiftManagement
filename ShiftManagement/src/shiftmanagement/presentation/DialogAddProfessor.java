@@ -159,6 +159,7 @@ public class DialogAddProfessor extends javax.swing.JDialog {
         // add Button
         if(listaProfs.getSelectedValue()!=null){
             String prof = listaProfs.getSelectedValue();
+            prof = prof.substring(prof.indexOf("-")+2, prof.length());
             this.system.addProfToUCLic(prof, this.codigoUC);
         }
     }//GEN-LAST:event_addButtonActionPerformed

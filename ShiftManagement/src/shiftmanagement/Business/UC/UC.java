@@ -18,29 +18,29 @@ public class UC {
     
     private String nome;
     private String codigo;
-    private Professor responsavel;
-    private ArrayList<Turno> turnos;
+    private String usernameResponsavel;
+    private HashSet<Turno> turnos;
     private HashSet<Professor> equipaDocente;
     
     public UC(){
         this.nome = "";
         this.codigo = "";
-        this.responsavel = null;
-        this.turnos = new ArrayList<>();
+        this.usernameResponsavel = null;
+        this.turnos = new HashSet<>();
         this.equipaDocente = new HashSet<>();
     }
     
-    public UC(String n, String cod, Professor p, HashSet<Professor> equipaDocente){
+    public UC(String n, String cod, String p, HashSet<Professor> equipaDocente){
         this.nome = n;
         this.codigo = cod;
-        this.responsavel = p;
+        this.usernameResponsavel = p;
         this.equipaDocente = equipaDocente;
     }
     
-    public UC(String n, String cod, Professor p, ArrayList<Turno> turnos, HashSet<Professor> docentes){
+    public UC(String n, String cod, String p, HashSet<Turno> turnos, HashSet<Professor> docentes){
         this.nome = n;
         this.codigo = cod;
-        this.responsavel = p;
+        this.usernameResponsavel = p;
         this.turnos = turnos;
         this.equipaDocente = docentes;
     }
@@ -49,12 +49,12 @@ public class UC {
         return this.nome;
     }
     
-    public Professor getResponsavel(){
-        return this.responsavel;
+    public String getResponsavel(){
+        return this.usernameResponsavel;
     }
     
-    public ArrayList<Turno> getTurnos(){
-       ArrayList<Turno> lista = new ArrayList<>();
+    public HashSet<Turno> getTurnos(){
+       HashSet<Turno> lista = new HashSet<>();
        for(Turno t : this.turnos)
            lista.add(t);
        return lista;
@@ -69,6 +69,26 @@ public class UC {
         for(Professor p : this.equipaDocente)
             lista.add(p);
         return lista;
+    }
+     
+    public void setNome(String n){
+        this.nome = n;
+    }
+    
+    public void setCodigo(String c){
+        this.codigo = c;
+    }
+    
+    public void setResponsavel(String p){
+        this.usernameResponsavel = p;
+    }
+    
+    public void setTurnos(HashSet<Turno> t){
+        this.turnos = t;
+    }
+    
+    public void setDocentes(HashSet<Professor> profs){
+        this.equipaDocente = profs;
     }
      
     public void addTurno(Turno t){

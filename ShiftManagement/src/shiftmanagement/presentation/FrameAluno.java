@@ -5,17 +5,21 @@
  */
 package shiftmanagement.presentation;
 
+import shiftmanagement.Business.ShiftManagement;
+
 /**
  *
  * @author Tiago
  */
 public class FrameAluno extends javax.swing.JFrame {
-
+    
+    private ShiftManagement system;
     /**
      * Creates new form FrameAluno
      */
-    public FrameAluno() {
+    public FrameAluno(ShiftManagement s) {
         initComponents();
+        this.system = s;
     }
 
     /**

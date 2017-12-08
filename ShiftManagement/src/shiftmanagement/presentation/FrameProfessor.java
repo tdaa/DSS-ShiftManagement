@@ -5,17 +5,22 @@
  */
 package shiftmanagement.presentation;
 
+import shiftmanagement.Business.ShiftManagement;
+
 /**
  *
  * @author Tiago
  */
 public class FrameProfessor extends javax.swing.JFrame {
-
+    
+    private ShiftManagement system;
     /**
      * Creates new form FrameProfessor
+     * @param s
      */
-    public FrameProfessor() {
+    public FrameProfessor(ShiftManagement s) {
         initComponents();
+        this.system = s;
     }
 
     /**

@@ -5,10 +5,7 @@
  */
 package shiftmanagement.Business.Turno;
 
-import shiftmanagement.Business.Turno.Turno;
-import shiftmanagement.Business.Utilizador.Professor;
-import java.time.LocalTime;
-import shiftmanagement.Business.Turno.Sala;
+import java.sql.Time;
 
 /**
  *
@@ -20,10 +17,19 @@ public class TP extends Turno{
     
     public TP(){
         super();
+        maxAlunos = 0;
     }
     
-    public TP(String id, int max, Sala s, Professor p, LocalTime l){
-        super(id, s, p, l);
+    public TP(String id, int max, Sala s, String p, Time l, String uc){
+        super(id, s, p, l, uc);
         this.maxAlunos = max;
+    }
+    
+    public int getMax(){
+        return this.maxAlunos;
+    }
+    
+    public void setMax(int m){
+        this.maxAlunos = m;
     }
 }

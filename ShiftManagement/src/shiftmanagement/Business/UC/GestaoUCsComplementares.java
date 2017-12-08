@@ -21,7 +21,11 @@ public class GestaoUCsComplementares {
     }
     
     public ArrayList<String> getNomeUcs(){
-        return this.listaUCs.getNomesUcs();
+        ArrayList<String> res = new ArrayList<>();
+        for(UCComplementar uc: this.listaUCs.values()){
+            res.add(uc.getCodigo() + " - " + uc.getNome());
+        }
+        return res;
     }
     
 }

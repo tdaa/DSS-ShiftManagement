@@ -16,6 +16,7 @@ import shiftmanagement.Business.UC.GestaoPerfis;
 import shiftmanagement.Business.UC.UCLicenciatura;
 import shiftmanagement.Business.Utilizador.GestaoProfessores;
 import shiftmanagement.Business.Utilizador.Utilizador;
+import shiftmanagement.Business.Utilizador.*;
 
 /**
  *
@@ -32,32 +33,62 @@ public class ShiftManagement {
     private GestaoProfessores listaProfs;
     private Curso curso;
     
-    
+    /**
+     *
+     */
     public ShiftManagement(){
         admin = null;
         utilizador = null;
         curso = null;
-        listaUCslic = 
+        this.listaUCsLic = new GestaoUCsLicenciatura();
+        this.listaUCsComp = new GestaoUCsComplementares();
+        this.listaAlunos = new GestaoAlunos();
+        this.listaProfs = new GestaoProfessores();
+        this.listaPerfis = new GestaoPerfis();
     }
     
+    /**
+     *
+     * @param s
+     */
     public ShiftManagement(ShiftManagement s){
         utilizador = s.getUtilizador();
         curso = s.getCurso();
     }
     
+    /**
+     *
+     * @param u
+     * @param c
+     */
     public ShiftManagement(Utilizador u, Curso c){
         this.utilizador = u;
         curso = c;
     }
     
+    /**
+     *
+     * @return
+     */
     public Utilizador getUtilizador(){
         return this.utilizador;
     }
     
+    /**
+     *
+     * @return
+     */
     public Curso getCurso(){
         return this.curso;
     }
     
+    /**
+     *
+     * @param username
+     * @param pass
+     * @param id
+     * @throws shiftmanagement.Business.UsernameErradoException
+     */
     public void iniciaSessao(String username, String pass, int id) throws UsernameErradoException{
         try{
             if(id == 1){
@@ -75,92 +106,157 @@ public class ShiftManagement {
         }
     }
     
+    /**
+     *
+     * @param nomeUc
+     * @return
+     */
     public String getCodigoUc(String nomeUc){
         String codigo = this.listaUCsLic.getCodigoUC(nomeUc);
         return codigo;
     }
     
+    /**
+     *
+     * @param codigoUc
+     * @return
+     */
     public String getProfUc(String codigoUc){
         String userprof = this.listaUCsLic.getStor(codigoUc);
         String res = this.listaProfs.getProfNome(userprof);
         return res;
     }
     
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
     public ArrayList<String> getListaProfs(String codigoUC){
         ArrayList<String> profs = new ArrayList<>();
-        for(String s: this.listaUCsLic.getListaProfs(codigoUC)){
+        this.listaUCsLic.getListaProfs(codigoUC).forEach((s) -> {
             profs.add(s);
-        }
+        });
         return profs;
     }
     
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
     public ArrayList<String> getListaTurnos(String codigoUC){
         ArrayList<String> turnos = new ArrayList<>();
-        for(String s: this.listaUCsLic.getListaTurnos(codigoUC)){
+        this.listaUCsLic.getListaTurnos(codigoUC).forEach((s) -> {
             turnos.add(s);
-        }
+        });
         return turnos;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getUcsLicPorNome(){
         ArrayList<String> ucs = new ArrayList<>();
-        for(String s: this.listaUCsLic.getNomesUCs()){
+        this.listaUCsLic.get_Nomes_E_Cod_UCs().forEach((s) -> {
             ucs.add(s);
-        }
+        });
         return ucs;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getPerfisPorNome(){
         ArrayList<String> perfis = new ArrayList<>();
-        for(String s: this.listaPerfis.getNomePerfis()){
+        this.listaPerfis.getNomePerfis().forEach((s) -> {
             perfis.add(s);
-        }
+        });
         return perfis;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getUcsComplementaresPorNome(){
         ArrayList<String> compl = new ArrayList<>();
-        for(String s: this.listaUCsComp.getNomeUcs()){
+        this.listaUCsComp.getNomeUcs().forEach((s) -> {
             compl.add(s);
-        }
+        });
         return compl;
     }
     
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
     public ArrayList<String> getListaNomeProfs(String codigoUC){
         ArrayList<String> res = new ArrayList<>();
-        for(String s: this.listaUCsLic.getNomesProfs(codigoUC)){
+        this.listaUCsLic.getNomesProfs(codigoUC).forEach((s) -> {
             res.add(s);
-        }
+        });
         return res;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getListaTodosProfs(){
         ArrayList<String> res = new ArrayList<>();
-        for(String s: this.listaProfs.getTodos()){
+        this.listaProfs.getTodos().forEach((s) -> {
             res.add(s);
-        }
+        });
         return res;
     }
     
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getNomeProf(String username){
         return this.listaProfs.getProfNome(username);
     }
     
+    /**
+     *
+     * @param username
+     * @return
+     */
     public Professor getProfPorUsername(String username){
         return this.listaProfs.getProfByUsername(username);
     }
     
+    /**
+     *
+     * @param usernameProf
+     * @return
+     */
     public String getEmailProf(String usernameProf){
         String email = this.listaProfs.getEmail(usernameProf);
         return email;
     }
     
+    /**
+     *
+     * @param t
+     */
     public void setTipoCurso(String t){
         this.curso.setTipo(t);
     }
   
+    /**
+     *
+     * @param prof
+     * @param codigoUC
+     */
     public void addProfToUCLic(String prof, String codigoUC){
-        Professor p = this.listaProfs.getProfPorNome(prof);
+        Professor p = this.listaProfs.getProf(prof);
         this.listaUCsLic.addProf(p, codigoUC);
     }
     

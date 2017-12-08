@@ -6,7 +6,6 @@
 package shiftmanagement.Business.UC;
 
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import shiftmanagement.Business.Utilizador.Professor;
@@ -27,7 +26,7 @@ public class UCLicenciatura extends UC{
         super(n, cod, p, equipaDocente);
     }
     
-    public UCLicenciatura(String nome, String cod, String p, HashSet<Professor> listaProfs, ArrayList<Turno> listaTurnos){
+    public UCLicenciatura(String nome, String cod, String p, HashSet<Professor> listaProfs, HashSet<Turno> listaTurnos){
         super(nome, cod, p, listaTurnos, listaProfs);
     }
     

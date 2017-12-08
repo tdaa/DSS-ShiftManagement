@@ -25,16 +25,23 @@ public class UCPerfil extends UC{
     
     /**
      *
-     * @param diaSemana
-     * @param id
+     * @param diaS
      * @param nome
      * @param cod
+     * @param docentes
      * @param p
-     * @param diaSemana
      * @param turnos
      */
-    public UCPerfil(String diaS, String nome, String cod, String p, ArrayList<Turno> turnos, HashSet<Professor> docentes){
+    public UCPerfil(String diaS, String nome, String cod, String p, HashSet<Turno> turnos, HashSet<Professor> docentes){
         super(nome, cod, p, turnos, docentes);
         this.diaSemana = diaS;
+    }
+    
+    public String getDiaS(){
+        return this.diaSemana;
+    }
+    
+    public void setDiaS(String s){
+        this.diaSemana = s;
     }
 }

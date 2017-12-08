@@ -15,7 +15,7 @@ import shiftmanagement.Business.Turno.Turno;
 public class Professor extends Utilizador{
    
    private boolean regente;
-   private ArrayList<String> turnos;
+   private ArrayList<Turno> turnos;
     
    public Professor(){
        super();
@@ -33,9 +33,9 @@ public class Professor extends Utilizador{
        return this.regente;
    }
    
-   public ArrayList<String> getTurnos(){
-       ArrayList<String> res = new ArrayList<>();
-       for(String t: this.turnos)
+   public ArrayList<Turno> getTurnos(){
+       ArrayList<Turno> res = new ArrayList<>();
+       for(Turno t: this.turnos)
            res.add(t);
        return res;
    }
@@ -44,11 +44,11 @@ public class Professor extends Utilizador{
        this.regente = r;
    }
    
-   public void setTurnos(ArrayList<String> t){
+   public void setTurnos(ArrayList<Turno> t){
        this.turnos = t;
    }
    
-   public void adicionarTurno(String t){
+   public void adicionarTurno(Turno t){
        this.turnos.add(t);
    }
     

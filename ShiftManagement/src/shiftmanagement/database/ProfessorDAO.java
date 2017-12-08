@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import shiftmanagement.Business.Turno.Sala;
+import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 
 /**
@@ -68,12 +70,27 @@ public class ProfessorDAO implements Map<String, Professor>{
                 p.setPassword(rs.getString("Password"));
                 p.setRegente(rs.getBoolean("Regente"));
                 
-                ArrayList<String> turnos = new ArrayList<>();
+                ArrayList<Turno> turnos = new ArrayList<>();
                 ps = con.prepareStatement("SELECT * FROM Turno WHERE UsernameProf = ?");
                 ps.setString(1,(String) key);
                 rs = ps.executeQuery();
-                while(rs.next()){
-                    turnos.add(rs.getString("id"));
+                Turno t = new Turno();
+                PreparedStatement ps2;
+                while(rs.next()){                   
+                    ps2 = con.prepareStatement("SELECT * FROM Sala INNER JOIN Turno ON Turno.idSala = Sala.idSala "
+                            + "INNER JOIN Professor ON Professor.Username = Turno.UsernameProf WHERE Turno.idTurno = ?");
+                    ps2.setString(1, rs.getString("idTurno"));
+                    ResultSet rs2 = ps2.executeQuery();
+                    if(rs2.next()){
+                        Sala s = new Sala();
+                        s.setNomeSala(rs2.getString("idSala"));
+                        s.setMax(rs2.getInt("MaxLugares"));
+                        t.setSala(s);
+                    }
+                    t.setHora(rs.getTime("Hora"));
+                    t.setId(rs.getString("idTurno"));
+                    t.setProf(rs.getString("UsernameProf"));
+                    turnos.add(t);
                 }
                 p.setTurnos(turnos);
             }
@@ -115,21 +132,16 @@ public class ProfessorDAO implements Map<String, Professor>{
             ps.setBoolean(5, value.getRegente());
             ps.executeUpdate();
             
-            ArrayList<String> turnos = value.getTurnos();
+            ArrayList<Turno> turnos = value.getTurnos();
             if(turnos != null){
-                for(String id : turnos){
-                    ps = con.prepareStatement("SELECT * FROM Turno WHERE UsernameProf = ?");
-                    ps.setString(1, key);
-                    ResultSet rs = ps.executeQuery();
-                    while(rs.next()){
-                        ps = con.prepareStatement("INSERT INTO Turno (id, Hora, idSala, codigoUC, UsernameProf) VALUES (?,?,?,?,?)");
-                        ps.setString(1, rs.getString("id"));
-                        ps.setTime(2, rs.getTime("Hora"));
-                        ps.setString(3, rs.getString("idSala"));
-                        ps.setString(4, rs.getString("codigoUC"));
-                        ps.setString(5, rs.getString("UsernameProf"));
+                for(Turno t : turnos){
+                        ps = con.prepareStatement("INSERT INTO Turno (id, codigoUC, Hora, idSala, UsernameProf) VALUES (?,?,?,?,?)");
+                        ps.setString(1, t.getId());
+                        ps.setString(2, t.getUc());
+                        ps.setTime(3, t.getHora());
+                        ps.setString(4, t.getSala().getNome());
+                        ps.setString(5, t.getProf());
                         ps.executeUpdate();
-                    }
                 }
             }
         }
@@ -176,7 +188,7 @@ public class ProfessorDAO implements Map<String, Professor>{
     public void clear() {
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM Professor");
+            PreparedStatement ps = con.prepareStatement("DELETE * FROM Professor");
             ps.executeUpdate();
         }
         catch(SQLException e){
@@ -223,9 +235,9 @@ public class ProfessorDAO implements Map<String, Professor>{
     public Collection<Professor> values() {
         Set<Professor> set = new HashSet<>();
         Set<String> keys = new HashSet<>(this.keySet());
-        for(String key : keys){
+        keys.forEach((key) -> {
             set.add(this.get(key));
-        }
+        });
         return set;
     }
 
@@ -234,10 +246,51 @@ public class ProfessorDAO implements Map<String, Professor>{
         Set<String> keys = new HashSet<>(this.keySet());
         
         HashMap<String,Professor> map = new HashMap<>();
-        for(String key : keys){
+        keys.forEach((key) -> {
             map.put(key,this.get(key));
-        }
+        });
         return map.entrySet();
+    }
+    
+    @Override
+    public int size() {
+        int size = -1;
+
+        try{
+            con = Connect.connect();
+            PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Professor");
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                size = rs.getInt(1);
+            }
+        }
+        catch(SQLException e){
+            System.out.printf(e.getMessage());
+        }
+        finally{
+            try{
+                Connect.close(con);
+            }
+            catch(Exception e){
+                System.out.printf(e.getMessage());
+            }
+        }
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.size()==0;
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void putAll(Map<? extends String, ? extends Professor> m) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

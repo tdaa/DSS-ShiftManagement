@@ -19,14 +19,14 @@ public class UC {
     private String nome;
     private String codigo;
     private String usernameResponsavel;
-    private ArrayList<Turno> turnos;
+    private HashSet<Turno> turnos;
     private HashSet<Professor> equipaDocente;
     
     public UC(){
         this.nome = "";
         this.codigo = "";
         this.usernameResponsavel = null;
-        this.turnos = new ArrayList<>();
+        this.turnos = new HashSet<>();
         this.equipaDocente = new HashSet<>();
     }
     
@@ -37,7 +37,7 @@ public class UC {
         this.equipaDocente = equipaDocente;
     }
     
-    public UC(String n, String cod, String p, ArrayList<Turno> turnos, HashSet<Professor> docentes){
+    public UC(String n, String cod, String p, HashSet<Turno> turnos, HashSet<Professor> docentes){
         this.nome = n;
         this.codigo = cod;
         this.usernameResponsavel = p;
@@ -53,8 +53,8 @@ public class UC {
         return this.usernameResponsavel;
     }
     
-    public ArrayList<Turno> getTurnos(){
-       ArrayList<Turno> lista = new ArrayList<>();
+    public HashSet<Turno> getTurnos(){
+       HashSet<Turno> lista = new HashSet<>();
        for(Turno t : this.turnos)
            lista.add(t);
        return lista;
@@ -69,6 +69,26 @@ public class UC {
         for(Professor p : this.equipaDocente)
             lista.add(p);
         return lista;
+    }
+     
+    public void setNome(String n){
+        this.nome = n;
+    }
+    
+    public void setCodigo(String c){
+        this.codigo = c;
+    }
+    
+    public void setResponsavel(String p){
+        this.usernameResponsavel = p;
+    }
+    
+    public void setTurnos(HashSet<Turno> t){
+        this.turnos = t;
+    }
+    
+    public void setDocentes(HashSet<Professor> profs){
+        this.equipaDocente = profs;
     }
      
     public void addTurno(Turno t){

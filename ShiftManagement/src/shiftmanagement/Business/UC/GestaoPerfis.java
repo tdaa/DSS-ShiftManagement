@@ -6,7 +6,6 @@
 package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
-import shiftmanagement.database.PerfilDAO;
 
 /**
  *
@@ -17,14 +16,14 @@ public class GestaoPerfis {
     private ArrayList<Perfil> listaPerfis;
     
     public GestaoPerfis(){
-        this.listaPerfis = new PerfilDAO();
+        this.listaPerfis = new ArrayList<>();
     }
     
     public ArrayList<String> getNomePerfis(){
         ArrayList<String> res = new ArrayList<>();
-            for(Perfil p: this.listaPerfis){
-                res.add(p.getNome());
-            }
+        this.listaPerfis.forEach((p) -> {
+            res.add(p.getNome());
+    });
         return res;
     }
 }

@@ -19,7 +19,7 @@ public class GestaoUCsLicenciatura {
     private UcLicDAO listaUCs;
     
     public GestaoUCsLicenciatura(){
-        listaUCs = new UcLicDAO();
+        this.listaUCs = new UcLicDAO();
     }
     
     public String getStor(String codigoUC){
@@ -42,24 +42,44 @@ public class GestaoUCsLicenciatura {
         return this.listaUCs.get(codigoUC).getTurnoById(idTurno);
     }
     
-    public ArrayList<String> getNomesUCs(){
-        return this.listaUCs.getNomesUcs();
+    public ArrayList<String> get_Nomes_E_Cod_UCs(){
+        ArrayList<String> res = new ArrayList<>();
+        this.listaUCs.values().forEach((uc) -> {
+            res.add(uc.getCodigo() + " - " + uc.getNome());
+        });
+        return res;
     }
     
     public String getCodigoUC(String nome){
-        return this.listaUCs.getCodigo(nome);
+        for(UCLicenciatura uc: this.listaUCs.values()){
+            if(uc.getNome().equals(nome)) return uc.getCodigo();
+        }
+        return null;
     }
     
     public ArrayList<String> getListaProfs(String codigoUC){
-        return this.listaUCs.getProfs(codigoUC);
+        ArrayList<String> res = new ArrayList<>();
+        this.listaUCs.get(codigoUC).getEquipaDocente().forEach((p) -> {
+            res.add(p.getUsername() + " - " + p.getNome());
+        });
+        return res;
     }
     
     public ArrayList<String> getListaTurnos(String codigoUC){
-        return this.listaUCs.getTurnos(codigoUC);
+        ArrayList<String> res = new ArrayList<>();
+        UCLicenciatura uc = this.listaUCs.get(codigoUC);
+        uc.getTurnos().forEach((t) -> {
+            res.add(t.getId());
+        });
+        return res;
     }
     
     public ArrayList<String> getNomesProfs(String codigoUC){
-        return this.listaUCs.getProfsPorNome(codigoUC);
+        ArrayList<String> res = new ArrayList<>();
+        this.listaUCs.get(codigoUC).getEquipaDocente().forEach((p) -> {
+            res.add(p.getNome() + " - " + p.getUsername());
+        });
+        return res;
     }
     
     public void addProf(Professor p, String codigoUC){

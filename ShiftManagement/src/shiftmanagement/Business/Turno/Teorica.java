@@ -5,6 +5,7 @@
  */
 package shiftmanagement.Business.Turno;
 
+import java.sql.Time;
 import java.time.LocalTime;
 import shiftmanagement.Business.Utilizador.Professor;
 
@@ -18,8 +19,8 @@ public class Teorica extends Turno{
         super();
     }
     
-    public Teorica(String n, Sala s, Professor p, LocalTime l){
-        super(n, s, p, l);
+    public Teorica(String n, Sala s, String p, Time l, String uc){
+        super(n, s, p, l, uc);
     }
     
 }

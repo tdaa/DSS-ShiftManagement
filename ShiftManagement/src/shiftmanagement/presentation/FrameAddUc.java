@@ -5,44 +5,55 @@
  */
 package shiftmanagement.presentation;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.HashSet;
 import javax.swing.DefaultListModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import shiftmanagement.Business.ShiftManagement;
-import shiftmanagement.Business.UC.UCLicenciatura;
 import shiftmanagement.Business.Utilizador.Professor;
 
 /**
  *
  * @author Tiago
  */
-public class FrameAddUcLic extends javax.swing.JFrame {
+public class FrameAddUc extends javax.swing.JFrame {
     
     private ShiftManagement system;
     private boolean jaDefinido = false;
-    private Professor regente;
-    private ArrayList<Professor> equipa;
+    private String regente;
+    private HashSet<Professor> equipa;
+    private int tipoUC;
+    private String nomePerfil;
     
     /**
      * Creates new form FrameAddUcLic
+     * @param s
+     * @param tipoUC
      */
-    public FrameAddUcLic(ShiftManagement s) {
+    public FrameAddUc(ShiftManagement s, int tipoUC) {
         initComponents();
         this.system = s;
+        this.tipoUC = tipoUC;
+        this.nomePerfil = null;
         atualizaLista();
         atualizaJanela();
-        
     }
     
+    public FrameAddUc(ShiftManagement s, int tipoUC, String nomePerfil){
+        initComponents();
+        this.system = s;
+        this.tipoUC = tipoUC;
+        this.nomePerfil = nomePerfil;
+        atualizaLista();
+        atualizaJanela();
+    }
     
+    //username + nome
     private void atualizaLista(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        for(String s: this.system.getListaTodosProfs()){
+        this.system.getListaTodosProfs().forEach((s) -> {
             dlm.addElement(s);
-        }
+        });
         profList.setModel(dlm);
     }
     
@@ -59,7 +70,7 @@ public class FrameAddUcLic extends javax.swing.JFrame {
     }
     
     public void filterModel(DefaultListModel<String> model, String filter) {
-        for (String s : this.system.getListaTodosProfs()) {
+        this.system.getListaTodosProfs().forEach((s) -> {
             if (!s.startsWith(filter)) {
                 if (model.contains(s)) {
                     model.removeElement(s);
@@ -69,7 +80,7 @@ public class FrameAddUcLic extends javax.swing.JFrame {
                     model.addElement(s);
                 }
             }
-        }
+        });
     }
     
     
@@ -98,6 +109,10 @@ public class FrameAddUcLic extends javax.swing.JFrame {
         equipaButton = new javax.swing.JButton();
         confirmButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,35 +160,51 @@ public class FrameAddUcLic extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Dia Semana");
+
+        jLabel6.setText("Per");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(regButton)
+                                            .addComponent(equipaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(113, 113, 113)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(confirmButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(cancelButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel2))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(nomeField)
-                                            .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(regButton)
-                                            .addComponent(equipaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(confirmButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(cancelButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                                            .addComponent(nomeField, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                            .addComponent(codigoField))
+                                        .addGap(39, 39, 39)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jComboBox1, 0, 162, Short.MAX_VALUE)
+                                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(73, 73, 73))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -185,15 +216,20 @@ public class FrameAddUcLic extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,7 +243,7 @@ public class FrameAddUcLic extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(equipaButton)
                     .addComponent(cancelButton))
-                .addGap(0, 26, Short.MAX_VALUE))
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         pack();
@@ -218,8 +254,7 @@ public class FrameAddUcLic extends javax.swing.JFrame {
         if(this.jaDefinido == false){
             String s;
             if((s = this.profList.getSelectedValue()) != null){
-                s = s.substring(0, s.indexOf(" "));
-                this.regente = this.system.getProfPorUsername(s);
+                this.regente = s.substring(0, s.indexOf(" "));
                 this.jaDefinido = true;
                 javax.swing.JOptionPane.showMessageDialog(this, "Professor associado!", "Feito.", 0);
             }
@@ -237,7 +272,7 @@ public class FrameAddUcLic extends javax.swing.JFrame {
         String nome = nomeField.getText();
         String codigo = codigoField.getText();
         if(nome!=null && codigo!=null){
-            FrameConfirmaçao confirmaUc = new FrameConfirmaçao(system, nome, codigo, regente, equipa);
+            FrameConfirmaçao confirmaUc = new FrameConfirmaçao(system, nome, codigo, regente, equipa, this.tipoUC, this.nomePerfil);
             confirmaUc.setVisible(true);
             this.dispose();
         }        
@@ -268,10 +303,14 @@ public class FrameAddUcLic extends javax.swing.JFrame {
     private javax.swing.JTextField codigoField;
     private javax.swing.JButton confirmButton;
     private javax.swing.JButton equipaButton;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nomeField;
     private javax.swing.JList<String> profList;

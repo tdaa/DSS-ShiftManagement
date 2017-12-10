@@ -5,8 +5,8 @@
  */
 package shiftmanagement.Business.UC;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 
@@ -44,6 +44,7 @@ public class UC {
         this.turnos = turnos;
         this.equipaDocente = docentes;
     }
+   
     
     public String getNome(){
         return this.nome;
@@ -95,10 +96,42 @@ public class UC {
         this.turnos.add(t);
     }
     
+    public void ripTurno(String turno){
+        Turno t = getTurno(turno);
+        this.getTurnos().remove(t);
+    }
+    
     public Turno getTurno(String turno){
         for(Turno t: this.getTurnos()){
             if(t.getId().equals(turno)) return t;
         }
         return null;
+    }
+    
+    public void addProfToDocentes(Professor p){
+        if(p!=null){
+            this.getEquipaDocente().add(p);
+        }
+    }
+    
+    public void removeDeDocentes(Professor p){
+        this.getEquipaDocente().remove(p);
+    }
+    
+    public void corrigeIdTurnos(String turno){
+        int idT;
+        int id = Integer.parseInt(Character.toString(turno.charAt(turno.length())));
+        Iterator<Turno> it = this.getTurnos().iterator();
+        Turno t;
+        while(it.hasNext()){
+            t = it.next();
+            if(t.getClass().equals("PL") || t.getClass().equals("TP")){
+                idT = Integer.parseInt(Character.toString(t.getId().charAt(t.getId().length())));
+                if(idT > id){
+                    String newId = t.getId().substring(0, 1) + Integer.toString(id + (idT-id));
+                    t.setId(newId);
+                }
+            }
+        }
     }
 }

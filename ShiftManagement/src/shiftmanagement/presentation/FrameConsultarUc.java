@@ -13,48 +13,81 @@ import shiftmanagement.Business.ShiftManagement;
  *
  * @author Tiago
  */
-public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
+public class FrameConsultarUc extends javax.swing.JFrame {
     
     private ShiftManagement system;
     private String nomeUC;
     private String codigoUC;
+    private String nomePerfil;
+    private int tipoUC;//1 para lic; 2 para comp.
     
      /**
      * Creates new form FrameConsultarUcLicenciatura
+     * @param system
+     * @param uc
+     * @param tipoUC
      */
-    public FrameConsultarUcLicenciatura(ShiftManagement system, String uc) {
+    public FrameConsultarUc(ShiftManagement system, String uc, int tipoUC) {
         initComponents();
         this.system = system;
         this.nomeUC = uc.substring(uc.indexOf(uc.indexOf("-") + 2), uc.length());
         this.codigoUC = uc.substring(0, uc.indexOf(" "));
+        this.tipoUC = tipoUC;
+        this.nomePerfil = null;
         atualizaJanela();
     }
     
+    /**
+     *
+     * @param system
+     * @param uc
+     * @param nomePerfil
+     * @param tipoUC
+     */
+    public FrameConsultarUc(ShiftManagement system, String uc, String nomePerfil, int tipoUC){
+        initComponents();
+        this.system = system;
+        this.nomeUC = uc.substring(uc.indexOf(uc.indexOf("-") + 2), uc.length());
+        this.codigoUC = uc.substring(0, uc.indexOf(" "));
+        this.nomePerfil = nomePerfil;
+        this.tipoUC = tipoUC;
+        atualizaJanela();
+    }
+    
+    /**
+     *
+     */
     public void atualizaJanela(){
         nomeDaUc.setText(this.nomeUC);
         designacaoUcField.setText(this.nomeUC);
         codigoField.setText(this.codigoUC);
-        String nomeProf = this.system.getProfUc(this.codigoUC);
+        String nomeProf = this.system.getProfUc(this.codigoUC, this.tipoUC, this.nomePerfil);
         regField.setText(nomeProf);
         atualizaListaProfessores();
         atualizaListaTurnos();
     }
     
+    /**
+     *
+     */
     public void atualizaListaProfessores(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        ArrayList<String> Profs = this.system.getListaProfs(this.codigoUC);
+        ArrayList<String> Profs = this.system.getListaProfs(this.codigoUC, this.tipoUC, this.nomePerfil);
         for(String s : Profs){
             dlm.addElement(s);
         }
         docentesList.setModel(dlm);
     }
     
+    /**
+     *
+     */
     public void atualizaListaTurnos(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        ArrayList<String> lista = this.system.getListaTurnos(this.codigoUC);
-        for(String s: lista){
+        ArrayList<String> lista = this.system.getListaTurnos(this.codigoUC, this.tipoUC, this.nomePerfil);
+        lista.forEach((s) -> {
             dlm.addElement(s);
-        }
+        });
         turnosList.setModel(dlm);
     }
 
@@ -333,7 +366,7 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
 
     private void addProfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProfButtonActionPerformed
         // botao adicionar professor
-        DialogAddProfessor addProf = new DialogAddProfessor(this, true, this.system, this.codigoUC);
+        DialogAddProfessor addProf = new DialogAddProfessor(this, true, this.system, this.codigoUC, this.tipoUC, this.nomePerfil);
         addProf.setVisible(true);
         atualizaJanela();
     }//GEN-LAST:event_addProfButtonActionPerformed
@@ -343,7 +376,7 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
         String prof = docentesList.getSelectedValue();
         if(prof!=null){
             String username = prof.substring(0, prof.indexOf(" ")-1);
-            this.system.removeProfDeUc(username, codigoUC);
+            this.system.removeProfDeUc(username, codigoUC, tipoUC, nomePerfil);
             atualizaJanela();
         }
  
@@ -353,14 +386,14 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
         // ver turno botao
         String turno = turnosList.getSelectedValue();
         if(turno != null){
-            DialogVerTurno verTurno = new DialogVerTurno(this, true, this.system, turno, this.codigoUC);
+            DialogVerTurno verTurno = new DialogVerTurno(this, true, this.system, turno, this.codigoUC, this.tipoUC, this.nomePerfil);
             verTurno.setVisible(true);
         }
     }//GEN-LAST:event_verTurnoButtonActionPerformed
 
     private void addTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTurnoButtonActionPerformed
         // botao adicionar turno
-        DialogAddTurno addTurno = new DialogAddTurno(this, true, this.system, this.codigoUC);
+        DialogAddTurno addTurno = new DialogAddTurno(this, true, this.system, this.codigoUC, this.tipoUC, this.nomePerfil);
         addTurno.setVisible(true);
         atualizaJanela();
     }//GEN-LAST:event_addTurnoButtonActionPerformed
@@ -369,8 +402,8 @@ public class FrameConsultarUcLicenciatura extends javax.swing.JFrame {
         // botao remover turno
         String turno = turnosList.getSelectedValue();
         if(turno != null){
-            this.system.removeTurnoDeUc(turno, this.codigoUC);
-            this.system.atualizaIdTurnos(turno, this.codigoUC);
+            this.system.removeTurnoDeUc(turno, this.codigoUC, this.tipoUC, this.nomePerfil);
+            this.system.atualizaIdTurnos(turno, this.codigoUC, this.tipoUC, this.nomePerfil);
             atualizaJanela();
         }
     }//GEN-LAST:event_removButtonActionPerformed

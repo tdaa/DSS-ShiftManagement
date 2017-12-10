@@ -62,6 +62,11 @@ public class FrameAdmin extends javax.swing.JFrame {
         });
 
         profButton.setText("Professores");
+        profButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,9 +75,6 @@ public class FrameAdmin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(185, 185, 185)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ucButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -80,7 +82,10 @@ public class FrameAdmin extends javax.swing.JFrame {
                         .addGap(68, 68, 68)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(alunosButton, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                            .addComponent(profButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(profButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(191, 191, 191)
+                        .addComponent(jLabel1)))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,14 +114,18 @@ public class FrameAdmin extends javax.swing.JFrame {
             menuUcsMi.setVisible(true);
         }
         else{
-            FramaMenuUCSL menuUcsL = new FrameMenuUCSL(this.system);
+            FrameMenuUCSL menuUcsL = new FrameMenuUCSL(this.system);
             menuUcsL.setVisible(true);
         }
     }//GEN-LAST:event_ucButtonActionPerformed
 
     private void horarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horarioButtonActionPerformed
-        //botao professores
+        //botao horario
     }//GEN-LAST:event_horarioButtonActionPerformed
+
+    private void profButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profButtonActionPerformed
+        // botao professores
+    }//GEN-LAST:event_profButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

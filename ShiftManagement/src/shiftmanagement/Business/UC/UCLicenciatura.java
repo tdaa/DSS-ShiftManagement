@@ -30,16 +30,6 @@ public class UCLicenciatura extends UC{
         super(nome, cod, p, listaTurnos, listaProfs);
     }
     
-    public void addProfToDocentes(Professor p){
-        if(p!=null){
-            this.getEquipaDocente().add(p);
-        }
-    }
-    
-    public void removeDeDocentes(Professor p){
-        this.getEquipaDocente().remove(p);
-    }
-    
     public Turno getTurnoById(String idTurno){
         for(Turno t: this.getTurnos()){
             if(t.getId().equals(idTurno)) return t;
@@ -67,28 +57,7 @@ public class UCLicenciatura extends UC{
         }
         return false;
     }
-    
-    public void ripTurno(String turno){
-        Turno t = this.getTurno(turno);
-        this.getTurnos().remove(t);
-    }
-    
-    public void corrigeIdTurnos(String turno){
-        int idT;
-        int id = Integer.parseInt(Character.toString(turno.charAt(turno.length())));
-        Iterator<Turno> it = this.getTurnos().iterator();
-        Turno t;
-        while(it.hasNext()){
-            t = it.next();
-            if(t.getClass().equals("PL") || t.getClass().equals("TP")){
-                idT = Integer.parseInt(Character.toString(t.getId().charAt(t.getId().length())));
-                if(idT > id){
-                    String newId = t.getId().substring(0, 1) + Integer.toString(id + (idT-id));
-                    t.setId(newId);
-                }
-            }
-        }
-    }
+   
     
     
 }

@@ -6,6 +6,7 @@
 package shiftmanagement.Business.UC;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 
@@ -22,6 +23,12 @@ public class UCComplementar extends UC{
         super();
         this.diaSemana = "";
         this.per = "";
+    }
+    
+    public UCComplementar(String nome, String cod, String p, String diaSemana, String per, HashSet<Professor> profs){
+        super(nome, cod, p, profs);
+        this.diaSemana = diaSemana;
+        this.per = per;
     }
     
     public UCComplementar(String nome, String cod, String p, String diaSemana, String per, HashSet<Turno> turnos, HashSet<Professor> profs){
@@ -44,6 +51,18 @@ public class UCComplementar extends UC{
     
     public void setPer(String p){
         this.per = p;
+    }
+    
+    public boolean existeTeorica(){
+        for(Turno t: this.getTurnos()){
+            if(t.getClass().equals("T")) return true;
+        }
+        return false;
+    }
+    
+    public void ripTurno(String turno){
+        Turno t = this.getTurno(turno);
+        this.getTurnos().remove(t);
     }
     
 }

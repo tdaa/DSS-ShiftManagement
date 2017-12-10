@@ -6,8 +6,11 @@
 package shiftmanagement.presentation;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import shiftmanagement.Business.ShiftManagement;
+import shiftmanagement.Business.UC.UCComplementar;
 import shiftmanagement.Business.UC.UCLicenciatura;
+import shiftmanagement.Business.UC.UCPerfil;
 import shiftmanagement.Business.Utilizador.Professor;
 
 /**
@@ -20,19 +23,32 @@ public class FrameConfirmaçao extends javax.swing.JFrame {
     private ShiftManagement system;
     private String nomeUC;
     private String codigoUC;
-    private Professor regente;
-    private ArrayList<Professor> equipa;
+    private String regente;
+    private HashSet<Professor> equipa;
+    private String diaS;
+    private String per;
+    private int tipoUC;
+    private String nomePerfil=null;
             
     /**
      * Creates new form FrameConfirmaçao
+     * @param s
+     * @param nome
+     * @param equipa
+     * @param p
+     * @param codigo
+     * @param tipoUC
+     * @param nomePerfil
      */
-    public FrameConfirmaçao(ShiftManagement s, String nome, String codigo, Professor p, ArrayList<Professor> equipa) {
+    public FrameConfirmaçao(ShiftManagement s, String nome, String codigo, String p, HashSet<Professor> equipa, int tipoUC, String nomePerfil) {
         initComponents();
         this.system = s;
         this.nomeUC = nome;
         this.codigoUC = codigo;
         this.regente = p;
         this.equipa = equipa;
+        this.tipoUC = tipoUC;
+        this.nomePerfil = nomePerfil;
     }
 
     /**
@@ -100,9 +116,19 @@ public class FrameConfirmaçao extends javax.swing.JFrame {
 
     private void simButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simButtonActionPerformed
         //botao sim
-        UCLicenciatura uc = new UCLicenciatura(nomeUC, codigoUC, regente, equipa);
-        this.system.addUc(uc);
-        DialogAddTurno novoTurno = new DialogAddTurno(this, true, this.system, this.codigoUC);
+        if(this.tipoUC == 1) {
+            UCLicenciatura uc = new UCLicenciatura(nomeUC, codigoUC, regente, equipa);
+            this.system.addUcLic(uc);
+        }
+        if(this.tipoUC == 2){
+            UCComplementar uc = new UCComplementar(nomeUC, codigoUC, regente, diaS, per, equipa);
+            this.system.addUcComp(uc);
+        }
+        else{
+            UCPerfil uc = new UCPerfil(diaS, nomeUC, codigoUC, regente, equipa);
+            this.system.addUcPerfil(uc, this.nomePerfil);
+        }
+        DialogAddTurno novoTurno = new DialogAddTurno(this, true, this.system, this.codigoUC, this.tipoUC, this.nomePerfil);
         novoTurno.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_simButtonActionPerformed

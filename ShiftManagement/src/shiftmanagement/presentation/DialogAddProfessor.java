@@ -18,15 +18,24 @@ public class DialogAddProfessor extends javax.swing.JDialog {
     
     private ShiftManagement system;
     private String codigoUC;
+    private int tipoUC;
+    private String nomePerfil;
     
     /**
      * Creates new form DialogAddProfessor
+     * @param parent
+     * @param modal
+     * @param s
+     * @param codigo
+     * @param tipoUC
      */
-    public DialogAddProfessor(java.awt.Frame parent, boolean modal, ShiftManagement s, String codigo) {
+    public DialogAddProfessor(java.awt.Frame parent, boolean modal, ShiftManagement s, String codigo, int tipoUC, String nomePerfil) {
         super(parent, modal);
         initComponents();
         this.system = s;
         this.codigoUC = codigo;
+        this.tipoUC = tipoUC;
+        this.nomePerfil = nomePerfil;
         atualizaJanela();
         atualizaLista();
     }
@@ -44,24 +53,24 @@ public class DialogAddProfessor extends javax.swing.JDialog {
     }
     
        public void filterModel(DefaultListModel<String> model, String filter) {
-        for (String s : this.system.getListaNomeProfs(this.codigoUC)) {
-            if (!s.startsWith(filter)) {
-                if (model.contains(s)) {
-                    model.removeElement(s);
-                }
-            } else {
-                if (!model.contains(s)) {
-                    model.addElement(s);
-                }
-            }
-        }
+           this.system.getListaNomeProfs(this.codigoUC, this.tipoUC, this.nomePerfil).forEach((s) -> {
+               if (!s.startsWith(filter)) {
+                   if (model.contains(s)) {
+                       model.removeElement(s);
+                   }
+               } else {
+                   if (!model.contains(s)) {
+                       model.addElement(s);
+                   }
+               }
+        });
     }
     
     private void atualizaLista(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        for(String s: this.system.getListaNomeProfs(codigoUC)){
+        this.system.getListaNomeProfs(codigoUC, tipoUC, this.nomePerfil).forEach((s) -> {
             dlm.addElement(s);
-        }
+        });
         listaProfs.setModel(dlm);
     }
    
@@ -160,7 +169,7 @@ public class DialogAddProfessor extends javax.swing.JDialog {
         if(listaProfs.getSelectedValue()!=null){
             String prof = listaProfs.getSelectedValue();
             prof = prof.substring(prof.indexOf("-")+2, prof.length());
-            this.system.addProfToUCLic(prof, this.codigoUC);
+            this.system.addProfToUC(prof, this.codigoUC, this.tipoUC, this.nomePerfil);
         }
     }//GEN-LAST:event_addButtonActionPerformed
 

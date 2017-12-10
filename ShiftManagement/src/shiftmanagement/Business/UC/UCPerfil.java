@@ -37,6 +37,11 @@ public class UCPerfil extends UC{
         this.diaSemana = diaS;
     }
     
+    public UCPerfil(String diaS, String nome, String cod, String p, HashSet<Professor> docentes){
+        super(nome, cod, p, docentes);
+        this.diaSemana = diaS;
+    }
+    
     public String getDiaS(){
         return this.diaSemana;
     }

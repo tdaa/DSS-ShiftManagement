@@ -17,22 +17,32 @@ public class DialogVerTurno extends javax.swing.JDialog {
     private ShiftManagement system;
     private Turno turno;
     private String codigoUC;
+    private int tipoUC;
+    private String nomePerfil;
     
     /**
      * Creates new form DialogVerTurno
+     * @param parent
+     * @param modal
+     * @param s
+     * @param idTurno
+     * @param codigoUC
+     * @param tipoUC
      */
-    public DialogVerTurno(java.awt.Frame parent, boolean modal, ShiftManagement s, String idTurno, String codigoUC) {
+    public DialogVerTurno(java.awt.Frame parent, boolean modal, ShiftManagement s, String idTurno, String codigoUC, int tipoUC, String nomePerfil) {
         super(parent, modal);
         initComponents();
         this.system = s;
-        this.turno = this.system.getTurno(idTurno, codigoUC);
+        this.tipoUC = tipoUC;
+        this.nomePerfil = nomePerfil;
+        this.turno = this.system.getTurno(idTurno, codigoUC, this.tipoUC, this.nomePerfil);
         this.codigoUC = codigoUC;
         atualizaJanela();
     }
 
     private void atualizaJanela(){
         idField.setText(this.turno.getId());
-        profField.setText(this.turno.getProf().getNome() + " - " + this.turno.getProf().getUserame());
+        profField.setText(this.turno.getProf() + " - " + this.system.getProfPorUsername(turno.getProf()));
         salaField.setText(this.turno.getSala().getNome());
         horaField.setText(this.turno.getHora().toString());
     }

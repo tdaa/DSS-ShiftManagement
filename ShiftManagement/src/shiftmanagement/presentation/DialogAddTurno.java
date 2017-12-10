@@ -5,7 +5,12 @@
  */
 package shiftmanagement.presentation;
 
-import java.time.LocalTime;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -13,8 +18,6 @@ import shiftmanagement.Business.ShiftManagement;
 import shiftmanagement.Business.Turno.PL;
 import shiftmanagement.Business.Turno.Sala;
 import shiftmanagement.Business.Turno.TP;
-import shiftmanagement.Business.Turno.Turno;
-import shiftmanagement.Business.Utilizador.Professor;
 
 /**
  *
@@ -24,7 +27,9 @@ public class DialogAddTurno extends javax.swing.JDialog {
     
     private ShiftManagement system;
     private String codigoUC;
-    private Professor p;
+    private String usernameProf;
+    private int tipoUC;
+    private String nomePerfil=null;
     
     /**
      * Creates new form DialogAddTurno
@@ -32,12 +37,17 @@ public class DialogAddTurno extends javax.swing.JDialog {
      * @param modal
      * @param s
      * @param codigoUC
+     * @param tipoUC
+     * @param nomePerfil
      */
-    public DialogAddTurno(java.awt.Frame parent, boolean modal, ShiftManagement s, String codigoUC) {
+    public DialogAddTurno(java.awt.Frame parent, boolean modal, ShiftManagement s, String codigoUC, int tipoUC, String nomePerfil) {
         super(parent, modal);
         initComponents();
         this.system = s;
+        this.tipoUC = tipoUC;
         this.codigoUC = codigoUC;
+        this.usernameProf = null;
+        this.nomePerfil = nomePerfil;
         atualizaJanela();
         atualizaLista();
         atualizaCombo();
@@ -45,7 +55,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
     
     private void atualizaLista(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        for(String s: this.system.getListaNomeProfs(codigoUC)){
+        for(String s: this.system.getListaNomeProfs(codigoUC, this.tipoUC, this.nomePerfil)){
             dlm.addElement(s);
         }
         profList.setModel(dlm);
@@ -66,7 +76,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
     private void atualizaCombo(){
         this.comboBox.addItem("TP");
         this.comboBox.addItem("PL");
-        if(this.system.getTeorica(codigoUC)==false){
+        if(this.system.getTeorica(codigoUC, tipoUC)==false){
             this.comboBox.addItem("T");
         }
     }
@@ -74,7 +84,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
     
     
     public void filterModel(DefaultListModel<String> model, String filter) {
-        for (String s : this.system.getListaNomeProfs(this.codigoUC)) {
+        this.system.getListaNomeProfs(this.codigoUC, this.tipoUC, this.nomePerfil).forEach((s) -> {
             if (!s.startsWith(filter)) {
                 if (model.contains(s)) {
                     model.removeElement(s);
@@ -84,7 +94,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
                     model.addElement(s);
                 }
             }
-        }
+        });
     }
 
     /**
@@ -268,7 +278,9 @@ public class DialogAddTurno extends javax.swing.JDialog {
         // botao associar professor
         String s;
         if((s = this.profList.getSelectedValue()) != null){
-            this.p = this.system.getProfPorUsername(s);
+            s = s.substring(s.indexOf("-")+2, s.length());
+            this.usernameProf = s;
+            //this.p = this.system.getProfPorUsername(s);
             javax.swing.JOptionPane.showMessageDialog(this, "Professor associado!", "Feito.", 0);
         }
     }//GEN-LAST:event_associarButtonActionPerformed
@@ -277,19 +289,26 @@ public class DialogAddTurno extends javax.swing.JDialog {
         // botao confirmar
         String id = (String) this.comboBox.getSelectedItem();
         if(id!=null && (id.equals("PL") || id.equals("TP"))){
-            if(this.p != null && this.nomeSalaField.getText()!=null && this.maxField.getText()!=null && this.horaField.getText()!=null && this.maxAlunosField.getText()!=null){
+            if(this.usernameProf != null && this.nomeSalaField.getText()!=null && this.maxField.getText()!=null && this.horaField.getText()!=null && this.maxAlunosField.getText()!=null){
                 String nomeSala = this.nomeSalaField.getText();
                 int max = Integer.parseInt(this.maxField.getText());
-                LocalTime hora = LocalTime.parse(this.horaField.getText());
+                DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
+                long h = 0;
+                try {
+                    h = formatter.parse(this.horaField.getText()).getTime();
+                } catch (ParseException ex) {
+                    Logger.getLogger(DialogAddTurno.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Time hora = new Time(h);
                 int maxAlunos = Integer.parseInt(this.maxAlunosField.getText());
                 Sala s = new Sala(max, nomeSala);
                 if(id.equals("PL")){
-                    PL t = new PL(id, maxAlunos, s, this.p, hora);
-                    this.system.addTurno(t, this.codigoUC);
+                    PL t = new PL(id, maxAlunos, s, this.usernameProf, hora, codigoUC);
+                    this.system.addTurno(t, this.codigoUC, this.tipoUC, this.nomePerfil);
                 }
                 if(id.equals("TP")){
-                    TP t = new TP(id, maxAlunos, s, this.p, hora);
-                    this.system.addTurno(t, codigoUC);
+                    TP t = new TP(id, maxAlunos, s, this.usernameProf, hora, codigoUC);
+                    this.system.addTurno(t, codigoUC, this.tipoUC, this.nomePerfil);
                 }
                 this.dispose();
             }
@@ -328,4 +347,8 @@ public class DialogAddTurno extends javax.swing.JDialog {
     private javax.swing.JList<String> profList;
     private javax.swing.JTextField searchBox;
     // End of variables declaration//GEN-END:variables
+
+    private String subtring(int i, int length) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -126,7 +126,7 @@
                               <Component id="jScrollPane3" min="-2" pref="279" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="17" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -185,6 +185,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Importar UC&apos;s"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importUcLicButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -228,7 +231,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="274" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
@@ -265,6 +268,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar Perfil"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarPerfilButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="addPerfilButton">
               <Properties>
@@ -330,7 +336,7 @@
                               <Component id="importUcCompButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -365,16 +371,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar UC"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarUCCompButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="addUcComptButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar UC"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addUcComptButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="remUcCompButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Remover UC"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remUcCompButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="importUcCompButton">
               <Properties>

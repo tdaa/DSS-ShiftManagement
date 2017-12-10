@@ -19,6 +19,7 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
 
     /**
      * Creates new form FrameMenuUCS
+     * @param system
      */
     public FrameMenuUCSMI(ShiftManagement system) {
         initComponents();
@@ -26,36 +27,36 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         atualizaListas();
     }
     
-    public void atualizaListas(){
+    private void atualizaListas(){
         atualizaListaUcsLic();
         atualizaListaPerfis();
         atualizaListaUcsComp();
     }
     
-    public void atualizaListaUcsLic(){
+    private void atualizaListaUcsLic(){
         DefaultListModel<String> lista = new DefaultListModel<>();
-        ArrayList<String> ucs = this.system.getUcsLicPorNome();
-        for(String s: ucs){
+        ArrayList<String> ucs = this.system.getUcsLicPorCodENome();
+        ucs.forEach((s) -> {
             lista.addElement(s);
-        }
+        });
         ucsLicenciaturaList.setModel(lista);
     }
     
-    public void atualizaListaPerfis(){
+    private void atualizaListaPerfis(){
         DefaultListModel<String> lista = new DefaultListModel<>();
-        ArrayList<String> perfis = this.system.getPerfisPorNome();
-        for(String s: perfis){
+        ArrayList<String> perfis = this.system.getPerfisPorCodENome();
+        perfis.forEach((s) -> {
             lista.addElement(s);
-        }
+        });
         perfisList.setModel(lista);
     }
     
-    public void atualizaListaUcsComp(){
+    private void atualizaListaUcsComp(){
         DefaultListModel<String> lista = new DefaultListModel<>();
-        ArrayList<String> ucsComp = this.system.getUcsComplementaresPorNome();
-        for(String s: ucsComp){
+        ArrayList<String> ucsComp = this.system.getUcsCompPorCodENome();
+        ucsComp.forEach((s) -> {
             lista.addElement(s);
-        }
+        });
         perfisList.setModel(lista);
     }
     
@@ -127,6 +128,11 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         });
 
         importUcLicButton.setText("Importar UC's");
+        importUcLicButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importUcLicButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,6 +184,11 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         jScrollPane4.setViewportView(perfisList);
 
         consultarPerfilButton.setText("Consultar Perfil");
+        consultarPerfilButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarPerfilButtonActionPerformed(evt);
+            }
+        });
 
         addPerfilButton.setText("Adicionar Perfil");
 
@@ -228,10 +239,25 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         jScrollPane5.setViewportView(ucsCompList);
 
         consultarUCCompButton.setText("Consultar UC");
+        consultarUCCompButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarUCCompButtonActionPerformed(evt);
+            }
+        });
 
         addUcComptButton.setText("Adicionar UC");
+        addUcComptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUcComptButtonActionPerformed(evt);
+            }
+        });
 
         remUcCompButton.setText("Remover UC");
+        remUcCompButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remUcCompButtonActionPerformed(evt);
+            }
+        });
 
         importUcCompButton.setText("Importar UC's");
 
@@ -316,7 +342,7 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         //botao consultar UC (Licenciatura)
         String uc = ucsLicenciaturaList.getSelectedValue();
         if(uc != null){
-            FrameConsultarUcLicenciatura ucDeLicenciatura = new FrameConsultarUcLicenciatura(this.system, uc);
+            FrameConsultarUc ucDeLicenciatura = new FrameConsultarUc(this.system, uc, 1);
         }
     }//GEN-LAST:event_consultarUcLicButtonActionPerformed
 
@@ -327,7 +353,7 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
 
     private void addUcLicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUcLicButtonActionPerformed
         // botao adicionar UC lic
-        FrameAddUcLic addUcLic = new FrameAddUcLic(this.system);
+        FrameAddUc addUcLic = new FrameAddUc(this.system, 1);
         addUcLic.setVisible(true);
     }//GEN-LAST:event_addUcLicButtonActionPerformed
 
@@ -336,9 +362,46 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         String s = this.ucsLicenciaturaList.getSelectedValue();
         if(s!=null){
             s = s.substring(0, s.indexOf(" "));
-            this.system.removeUcLic(s);
+            this.system.removeUc(s, 1, null);
         }
     }//GEN-LAST:event_remUcLicButonActionPerformed
+
+    private void importUcLicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importUcLicButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_importUcLicButtonActionPerformed
+
+    private void consultarUCCompButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarUCCompButtonActionPerformed
+        // botao consultar uc complementar
+        String uc = ucsCompList.getSelectedValue();
+        if(uc != null){
+            FrameConsultarUc consultarUC = new FrameConsultarUc(this.system, uc, 2);
+            consultarUC.setVisible(true);
+        }
+    }//GEN-LAST:event_consultarUCCompButtonActionPerformed
+
+    private void addUcComptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUcComptButtonActionPerformed
+        //botao adicionar uc complementar
+        FrameAddUc addUcLic = new FrameAddUc(this.system, 2);
+        addUcLic.setVisible(true);
+    }//GEN-LAST:event_addUcComptButtonActionPerformed
+
+    private void remUcCompButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remUcCompButtonActionPerformed
+        // botao remover
+        String s = this.ucsCompList.getSelectedValue();
+        if(s!=null){
+            s = s.substring(0, s.indexOf(" "));
+            this.system.removeUc(s, 2, null);
+        }
+    }//GEN-LAST:event_remUcCompButtonActionPerformed
+
+    private void consultarPerfilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarPerfilButtonActionPerformed
+        // botao consultar perfil
+        String perfil = this.perfisList.getSelectedValue();
+        if(perfil != null){
+            FrameConsultarPerfil consultarPerfil = new FrameConsultarPerfil(this.system, perfil);
+            consultarPerfil.setVisible(true);
+        }
+    }//GEN-LAST:event_consultarPerfilButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPerfilButton;

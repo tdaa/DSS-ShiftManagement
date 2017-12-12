@@ -19,7 +19,7 @@ public class Main {
         FrameInicial frameInicio = new FrameInicial(system);
         frameInicio.setVisible(true);*/
         Parser n = new Parser();
-        n.parserUcs();
+        n.parseShifts();
     }
     
 }

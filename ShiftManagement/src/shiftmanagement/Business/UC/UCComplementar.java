@@ -25,6 +25,12 @@ public class UCComplementar extends UC{
         this.per = "";
     }
     
+    public UCComplementar(String nome, String cod, String p, String diaSemana){
+        super(nome, cod);
+        this.diaSemana = diaSemana;
+        this.per = per;
+    }
+    
     public UCComplementar(String nome, String cod, String p, String diaSemana, String per, HashSet<Professor> profs){
         super(nome, cod, p, profs);
         this.diaSemana = diaSemana;

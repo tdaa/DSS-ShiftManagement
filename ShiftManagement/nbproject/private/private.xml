@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/Aluno.java</file>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/Sala.java</file>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/Turno.java</file>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/Professor.java</file>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/PL.java</file>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/ShiftManagement.java</file>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/Teorica.java</file>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/TP.java</file>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/Pessoa.java</file>
-            <file>file:/Users/Tiago/Desktop/Universidade/3ano/1semestre/ShiftManagement/src/shiftmanagement/Disciplina.java</file>
+            <file>file:/home/franciscolira/Documents/DSS/DSS-ShiftManagement/ShiftManagement/src/shiftmanagement/Main.java</file>
+            <file>file:/home/franciscolira/Documents/DSS/DSS-ShiftManagement/ShiftManagement/src/shiftmanagement/Business/UC/UC.java</file>
+            <file>file:/home/franciscolira/Documents/DSS/DSS-ShiftManagement/ShiftManagement/src/shiftmanagement/Parser/Parser.java</file>
+            <file>file:/home/franciscolira/Documents/DSS/DSS-ShiftManagement/ShiftManagement/src/shiftmanagement/Business/UC/UCPerfil.java</file>
         </group>
     </open-files>
 </project-private>

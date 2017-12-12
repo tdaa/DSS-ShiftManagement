@@ -17,9 +17,18 @@ import shiftmanagement.Business.Turno.Turno;
  */
 public class UCLicenciatura extends UC{
     
+    private String abreviatura;
+    
     
     public UCLicenciatura(){
         super();
+        this.abreviatura = "";
+
+    }
+    
+    public UCLicenciatura(String n, String code, String abr){
+        super(n, code);
+        this.abreviatura = abr;
     }
     
     public UCLicenciatura(String n, String cod, String p, HashSet<Professor> equipaDocente){

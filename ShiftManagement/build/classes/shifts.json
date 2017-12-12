@@ -1,0 +1,357 @@
+{
+    "horario": [{
+        "ano": 1,
+        "turno": [
+            [{
+                "UC": "Calc",
+                "cod": "TP1"
+            }, {
+                "UC": "AL",
+                "cod": "TP4"
+            }, {
+                "UC": "TMD",
+                "cod": "TP1"
+            }, {
+                "UC": "PF",
+                "cod": "TP1"
+            }, {
+                "UC": "LI1",
+                "cod": "PL6"
+            }, {
+                "UC": "EES",
+                "cod": "PL1"
+            }],
+            [{
+                "UC": "Calc",
+                "cod": "TP2"
+            }, {
+                "UC": "AL",
+                "cod": "TP3"
+            }, {
+                "UC": "TMD",
+                "cod": "TP2"
+            }, {
+                "UC": "PF",
+                "cod": "TP3"
+            }, {
+                "UC": "LI1",
+                "cod": "PL7"
+            }, {
+                "UC": "EES",
+                "cod": "PL3"
+            }],
+            [{
+                "UC": "Calc",
+                "cod": "TP2"
+            }, {
+                "UC": "AL",
+                "cod": "TP3"
+            }, {
+                "UC": "TMD",
+                "cod": "TP2"
+            }, {
+                "UC": "PF",
+                "cod": "TP6"
+            }, {
+                "UC": "LI1",
+                "cod": "PL1"
+            }, {
+                "UC": "EES",
+                "cod": "PL7"
+            }],
+            [{
+                "UC": "Calc",
+                "cod": "TP3"
+            }, {
+                "UC": "AL",
+                "cod": "TP2"
+            }, {
+                "UC": "TMD",
+                "cod": "TP3"
+            }, {
+                "UC": "PF",
+                "cod": "TP5"
+            }, {
+                "UC": "LI1",
+                "cod": "PL5"
+            }, {
+                "UC": "EES",
+                "cod": "PL5"
+            }],
+            [{
+                "UC": "Calc",
+                "cod": "TP3"
+            }, {
+                "UC": "AL",
+                "cod": "TP2"
+            }, {
+                "UC": "TMD",
+                "cod": "TP3"
+            }, {
+                "UC": "PF",
+                "cod": "TP7"
+            }, {
+                "UC": "LI1",
+                "cod": "PL2"
+            }, {
+                "UC": "EES",
+                "cod": "PL7"
+            }],
+            [{
+                "UC": "Calc",
+                "cod": "TP3"
+            }, {
+                "UC": "AL",
+                "cod": "TP2"
+            }, {
+                "UC": "TMD",
+                "cod": "TP3"
+            }, {
+                "UC": "PF",
+                "cod": "TP7"
+            }, {
+                "UC": "LI1",
+                "cod": "PL2"
+            }, {
+                "UC": "EES",
+                "cod": "PL7"
+            }],
+            [{
+                "UC": "Calc",
+                "cod": "TP4"
+            }, {
+                "UC": "AL",
+                "cod": "TP1"
+            }, {
+                "UC": "TMD",
+                "cod": "TP4"
+            }, {
+                "UC": "PF",
+                "cod": "TP4"
+            }, {
+                "UC": "LI1",
+                "cod": "PL4"
+            }, {
+                "UC": "EES",
+                "cod": "PL1"
+            }],
+            [{
+                "UC": "Calc",
+                "cod": "TP4"
+            }, {
+                "UC": "AL",
+                "cod": "TP1"
+            }, {
+                "UC": "TMD",
+                "cod": "TP4"
+            }, {
+                "UC": "PF",
+                "cod": "TP8"
+            }, {
+                "UC": "LI1",
+                "cod": "PL8"
+            }, {
+                "UC": "EES",
+                "cod": "PL2"
+            }]
+        ]
+    }, {
+        "ano": 2,
+        "turno": [
+            [{
+                "UC": "EA",
+                "cod": "TP3"
+            }, {
+                "UC": "EE",
+                "cod": "TP4"
+            }, {
+                "UC": "ISD",
+                "cod": "TP3"
+            }, {
+                "UC": "CD",
+                "cod": "TP1"
+            }, {
+                "UC": "ALG",
+                "cod": "PL7"
+            }, {
+                "UC": "AC",
+                "cod": "PL2"
+            }],
+            [{
+                "UC": "EA",
+                "cod": "TP3"
+            }, {
+                "UC": "EE",
+                "cod": "TP4"
+            }, {
+                "UC": "ISD",
+                "cod": "TP3"
+            }, {
+                "UC": "CD",
+                "cod": "TP1"
+            }, {
+                "UC": "ALG",
+                "cod": "PL4"
+            }, {
+                "UC": "AC",
+                "cod": "PL1"
+            }],
+            [{
+                "UC": "EA",
+                "cod": "TP2"
+            }, {
+                "UC": "EE",
+                "cod": "TP2"
+            }, {
+                "UC": "ISD",
+                "cod": "TP1"
+            }, {
+                "UC": "CD",
+                "cod": "TP4"
+            }, {
+                "UC": "ALG",
+                "cod": "PL1"
+            }, {
+                "UC": "AC",
+                "cod": "PL4"
+            }],
+            [{
+                "UC": "EA",
+                "cod": "TP2"
+            }, {
+                "UC": "EE",
+                "cod": "TP2"
+            }, {
+                "UC": "ISD",
+                "cod": "TP1"
+            }, {
+                "UC": "CD",
+                "cod": "TP4"
+            }, {
+                "UC": "ALG",
+                "cod": "PL6"
+            }, {
+                "UC": "AC",
+                "cod": "PL6"
+            }],
+            [{
+                "UC": "EA",
+                "cod": "TP1"
+            }, {
+                "UC": "EE",
+                "cod": "TP3"
+            }, {
+                "UC": "ISD",
+                "cod": "TP2"
+            }, {
+                "UC": "CD",
+                "cod": "TP3"
+            }, {
+                "UC": "ALG",
+                "cod": "PL2"
+            }, {
+                "UC": "AC",
+                "cod": "PL3"
+            }],
+            [{
+                "UC": "EA",
+                "cod": "TP1"
+            }, {
+                "UC": "EE",
+                "cod": "TP3"
+            }, {
+                "UC": "ISD",
+                "cod": "TP2"
+            }, {
+                "UC": "CD",
+                "cod": "TP3"
+            }, {
+                "UC": "ALG",
+                "cod": "PL5"
+            }, {
+                "UC": "AC",
+                "cod": "PL5"
+            }]
+        ]
+    }, {
+        "ano": 3,
+        "turno": [
+            [{
+                "UC": "RC",
+                "cod": "PL4"
+            }, {
+                "UC": "BD",
+                "cod": "TP6"
+            }, {
+                "UC": "SD",
+                "cod": "PL5"
+            }, {
+                "UC": "MNOnL",
+                "cod": "PL1"
+            }, {
+                "UC": "DSS",
+                "cod": "PL4"
+            }, {
+                "UC": "MDIO",
+                "cod": "TP1"
+            }],
+            [{
+                "UC": "RC",
+                "cod": "PL1"
+            }, {
+                "UC": "BD",
+                "cod": "PL5"
+            }, {
+                "UC": "SD",
+                "cod": "PL1"
+            }, {
+                "UC": "MNOnL",
+                "cod": "PL5"
+            }, {
+                "UC": "DSS",
+                "cod": "PL5"
+            }, {
+                "UC": "MDIO",
+                "cod": "TP2"
+            }],
+            [{
+                "UC": "RC",
+                "cod": "PL3"
+            }, {
+                "UC": "BD",
+                "cod": "PL3"
+            }, {
+                "UC": "SD",
+                "cod": "PL3"
+            }, {
+                "UC": "MNOnL",
+                "cod": "PL2"
+            }, {
+                "UC": "DSS",
+                "cod": "PL6"
+            }, {
+                "UC": "MDIO",
+                "cod": "TP3"
+            }],
+            [{
+                "UC": "RC",
+                "cod": "PL6"
+            }, {
+                "UC": "BD",
+                "cod": "PL2"
+            }, {
+                "UC": "SD",
+                "cod": "PL6"
+            }, {
+                "UC": "MNOnL",
+                "cod": "PL4"
+            }, {
+                "UC": "DSS",
+                "cod": "PL3"
+            }, {
+                "UC": "MDIO",
+                "cod": "TP4"
+            }]
+        ]
+    }]
+}

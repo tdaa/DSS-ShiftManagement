@@ -5,6 +5,7 @@
  */
 package shiftmanagement.presentation;
 
+import javax.swing.DefaultListModel;
 import shiftmanagement.Business.ShiftManagement;
 
 /**
@@ -14,12 +15,24 @@ import shiftmanagement.Business.ShiftManagement;
 public class FrameAluno extends javax.swing.JFrame {
     
     private ShiftManagement system;
+    
     /**
      * Creates new form FrameAluno
+     * @param s
+     * @param curso
      */
     public FrameAluno(ShiftManagement s) {
         initComponents();
         this.system = s;
+        atualizaJanela();
+    }
+    
+    private void atualizaJanela(){
+         DefaultListModel<String> dlm = new DefaultListModel<>();
+        for(String s: this.system.getRegistados()){
+            dlm.addElement(s);
+        }
+        this.registadosList.setModel(dlm);
     }
 
     /**
@@ -32,33 +45,171 @@ public class FrameAluno extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        registadosList = new javax.swing.JList<>();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollBar2 = new javax.swing.JScrollBar();
+        alocarButton = new javax.swing.JButton();
+        verbutton = new javax.swing.JButton();
+        sairButton = new javax.swing.JButton();
+        importarButton = new javax.swing.JButton();
+        novoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("LSTKClarendon", 1, 48)); // NOI18N
         jLabel1.setText("Aluno");
+
+        registadosList.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        registadosList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(registadosList);
+
+        jLabel3.setFont(new java.awt.Font("Lucida Bright", 0, 14)); // NOI18N
+        jLabel3.setText("Alunos registados");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel3)
+                .addContainerGap(639, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        alocarButton.setText("Alocar Aluno");
+
+        verbutton.setText("Ver Aluno");
+        verbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verbuttonActionPerformed(evt);
+            }
+        });
+
+        sairButton.setText("Sair");
+        sairButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sairButtonActionPerformed(evt);
+            }
+        });
+
+        importarButton.setText("Importar Alunos");
+        importarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importarButtonActionPerformed(evt);
+            }
+        });
+
+        novoButton.setText("Novo Aluno");
+        novoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novoButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(221, 221, 221)
-                .addComponent(jLabel1)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(341, 341, 341)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(importarButton)
+                        .addGap(29, 29, 29)
+                        .addComponent(alocarButton)
+                        .addGap(28, 28, 28)
+                        .addComponent(verbutton)
+                        .addGap(38, 38, 38)
+                        .addComponent(novoButton)
+                        .addGap(48, 48, 48)
+                        .addComponent(sairButton)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(66, 66, 66)
                 .addComponent(jLabel1)
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(alocarButton)
+                    .addComponent(verbutton)
+                    .addComponent(importarButton)
+                    .addComponent(novoButton)
+                    .addComponent(sairButton))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void sairButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairButtonActionPerformed
+        // botao sair
+        this.dispose();
+    }//GEN-LAST:event_sairButtonActionPerformed
+
+    private void importarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarButtonActionPerformed
+        // botao importar
+        
+    }//GEN-LAST:event_importarButtonActionPerformed
+
+    private void verbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verbuttonActionPerformed
+        // botao ver
+        String aluno = this.registadosList.getSelectedValue();
+        if(aluno != null){
+            DialogVerAluno verAluno = new DialogVerAluno(this, true, this.system, aluno);
+            verAluno.setVisible(true);
+        }
+    }//GEN-LAST:event_verbuttonActionPerformed
+
+    private void novoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoButtonActionPerformed
+        // botao aluno
+        DialogAddAluno novoAluno = new DialogAddAluno(this, true, this.system);
+        novoAluno.setVisible(true);
+    }//GEN-LAST:event_novoButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alocarButton;
+    private javax.swing.JButton importarButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollBar jScrollBar2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton novoButton;
+    private javax.swing.JList<String> registadosList;
+    private javax.swing.JButton sairButton;
+    private javax.swing.JButton verbutton;
     // End of variables declaration//GEN-END:variables
 }

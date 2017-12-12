@@ -343,6 +343,7 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         String uc = ucsLicenciaturaList.getSelectedValue();
         if(uc != null){
             FrameConsultarUc ucDeLicenciatura = new FrameConsultarUc(this.system, uc, 1);
+            ucDeLicenciatura.setVisible(true);
         }
     }//GEN-LAST:event_consultarUcLicButtonActionPerformed
 

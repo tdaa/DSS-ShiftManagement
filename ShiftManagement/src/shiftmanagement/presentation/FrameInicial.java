@@ -7,6 +7,7 @@ package shiftmanagement.presentation;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import shiftmanagement.Business.*;
 
 /**
@@ -65,10 +66,14 @@ public class FrameInicial extends javax.swing.JFrame {
             }
         });
 
-        passText.setText("jPasswordField1");
+        passText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passTextActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
-        jLabel3.setText("Bem-Vindo!");
+        jLabel3.setFont(new java.awt.Font("Dead Kansas", 0, 48)); // NOI18N
+        jLabel3.setText("SHIFT MANAGEMENT");
 
         jButton1.setText("Fechar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -84,44 +89,47 @@ public class FrameInicial extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(jLabel3))
+                        .addGap(220, 220, 220)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(loginButton)
-                                .addGap(29, 29, 29)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(passText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(186, Short.MAX_VALUE))
+                        .addGap(223, 223, 223)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(passText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(226, 226, 226)
+                        .addComponent(loginButton)
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton1)))
+                .addGap(145, 208, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(68, 68, 68))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(61, 61, 61)
                 .addComponent(jLabel3)
-                .addGap(66, 66, 66)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGap(77, 77, 77)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel1))
                     .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel2))
                     .addComponent(passText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(80, 80, 80)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(loginButton)
-                    .addComponent(jButton1))
-                .addGap(32, 32, 32))
+                    .addComponent(jButton1)))
         );
 
         pack();
@@ -157,6 +165,9 @@ public class FrameInicial extends javax.swing.JFrame {
                 homeAdmin.setVisible(true);
                 this.dispose();
             }
+            else{
+                JOptionPane.showMessageDialog(this, "Por favor introduzir campos válidos!");
+            }
         }catch(Exception e) {
             Logger.getLogger(FrameInicial.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -164,8 +175,13 @@ public class FrameInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // botao fechar
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void passTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passTextActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -13,6 +13,7 @@ import shiftmanagement.Business.UC.GestaoUCsComplementares;
 import shiftmanagement.Business.UC.GestaoUCsLicenciatura;
 import shiftmanagement.Business.Utilizador.GestaoAlunos;
 import shiftmanagement.Business.UC.GestaoPerfis;
+import shiftmanagement.Business.UC.GestaoRegistos;
 import shiftmanagement.Business.UC.UCComplementar;
 import shiftmanagement.Business.UC.UCLicenciatura;
 import shiftmanagement.Business.UC.UCPerfil;
@@ -33,6 +34,7 @@ public class ShiftManagement {
     private GestaoPerfis listaPerfis;
     private GestaoAlunos listaAlunos;
     private GestaoProfessores listaProfs;
+    private GestaoRegistos listaRegistos;
     private Curso curso;
     
     /**
@@ -270,6 +272,10 @@ public class ShiftManagement {
         return res;
     }
     
+    public void addNovoAluno(Aluno a){
+        this.listaAlunos.addAluno(a);
+    }
+    
     /**
      *
      * @param username
@@ -434,5 +440,13 @@ public class ShiftManagement {
         if(tipoUC == 1) this.listaUCsLic.removeUc(codigo);
         if(tipoUC == 2) this.listaUCsComp.removeUc(codigo);
         else this.listaPerfis.removeUc(codigo, nomePerfil);
+    }
+    
+    public ArrayList<String> getRegistados(){
+        return this.listaAlunos.getAsList();
+    }
+    
+    public Aluno getAlunoPorUsername(String username){
+        return this.listaAlunos.getAluno(username);
     }
 }

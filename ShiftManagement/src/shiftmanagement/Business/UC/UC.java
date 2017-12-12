@@ -30,6 +30,13 @@ public class UC {
         this.equipaDocente = new HashSet<>();
     }
     
+    public UC(String n, String cod){
+        this.nome = n;
+        this.codigo = cod;
+        this.usernameResponsavel = null;
+        this.equipaDocente = new HashSet<>();
+    }
+    
     public UC(String n, String cod, String p, HashSet<Professor> equipaDocente){
         this.nome = n;
         this.codigo = cod;

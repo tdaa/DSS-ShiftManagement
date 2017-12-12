@@ -23,6 +23,11 @@ public class UCPerfil extends UC{
         this.diaSemana = "";
     }
     
+    public UCPerfil(String nome, String cod, String diaS){
+        super(nome, cod);
+        this.diaSemana = diaS;
+    }
+    
     /**
      *
      * @param diaS

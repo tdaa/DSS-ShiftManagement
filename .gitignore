@@ -1,0 +1,6 @@
+ShiftManagement/dist/
+ShiftManagement/build/
+ShiftManagement/nbprodects/private
+ShiftManagement/nbbuild/
+ShiftManagement/nbdist/
+ShiftManagement/.nb-gradle/

@@ -23,6 +23,10 @@ public class GestaoPerfis {
         this.listaPerfis = new HashMap<>();
     }
     
+    public void addPerfil(Perfil p){
+        this.listaPerfis.put(p.getNome(), p);
+    }
+    
     public void addNovaUc(UCPerfil uc, String nomePerfil){
         this.listaPerfis.get(nomePerfil).novaUc(uc);
     }

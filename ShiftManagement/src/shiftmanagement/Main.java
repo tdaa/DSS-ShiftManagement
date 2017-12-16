@@ -15,11 +15,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*ShiftManagement system = new ShiftManagement();
+        ShiftManagement system = new ShiftManagement();
         FrameInicial frameInicio = new FrameInicial(system);
-        frameInicio.setVisible(true);*/
-        Parser n = new Parser();
-        n.parseShifts();
+        frameInicio.setVisible(true);
     }
     
 }

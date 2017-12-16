@@ -14,6 +14,7 @@ import shiftmanagement.Business.UC.GestaoUCsLicenciatura;
 import shiftmanagement.Business.Utilizador.GestaoAlunos;
 import shiftmanagement.Business.UC.GestaoPerfis;
 import shiftmanagement.Business.UC.GestaoRegistos;
+import shiftmanagement.Business.UC.Perfil;
 import shiftmanagement.Business.UC.UCComplementar;
 import shiftmanagement.Business.UC.UCLicenciatura;
 import shiftmanagement.Business.UC.UCPerfil;
@@ -41,8 +42,8 @@ public class ShiftManagement {
      *
      */
     public ShiftManagement(){
-        admin = null;
-        utilizador = null;
+        admin = new Admin();
+        utilizador = new Utilizador();
         curso = null;
         this.listaUCsLic = new GestaoUCsLicenciatura();
         this.listaUCsComp = new GestaoUCsComplementares();
@@ -96,7 +97,7 @@ public class ShiftManagement {
     public void iniciaSessao(String username, String pass, int id) throws UsernameErradoException{
         try{
             if(id == 1){
-                this.utilizador = this.admin.verificaDados(username, pass);
+                this.admin = this.admin.verificaDados(username, pass);
             }
             if(id == 2){
                 this.utilizador = this.listaAlunos.verificaDados(username, pass);
@@ -129,9 +130,13 @@ public class ShiftManagement {
      */
     public String getProfUc(String codigoUc, int tipoUC, String nomePerfil){
         String userprof;
-        if(tipoUC == 1) userprof = this.listaUCsLic.getStor(codigoUc);
-        if(tipoUC == 2) userprof = this.listaUCsComp.getStor(codigoUc);
-        else userprof = this.listaPerfis.getStor(codigoUc, nomePerfil);
+        if(tipoUC == 1) {
+            userprof = this.listaUCsLic.getStor(codigoUc);
+        }
+        else{
+            if(tipoUC == 2) userprof = this.listaUCsComp.getStor(codigoUc);
+            else userprof = this.listaPerfis.getStor(codigoUc, nomePerfil);
+        }
         String res = this.listaProfs.getProfNome(userprof);
         return res;
     }
@@ -309,7 +314,7 @@ public class ShiftManagement {
      * @param t
      */
     public void setTipoCurso(String t){
-        this.curso.setTipo(t);
+        this.curso = new Curso(t);
     }
   
     /**
@@ -448,5 +453,18 @@ public class ShiftManagement {
     
     public Aluno getAlunoPorUsername(String username){
         return this.listaAlunos.getAluno(username);
+    }
+    
+    public void insereUCLic(UCLicenciatura uc){
+        this.listaUCsLic.addNovaUc(uc);
+    }
+    
+    public void insereUCPerfil(UCPerfil uc, String nomePerfil){
+        this.listaPerfis.addNovaUc(uc, nomePerfil);
+    }
+    
+    public void inserePerfil(String nomePerfil){
+        Perfil p = new Perfil(nomePerfil);
+        this.listaPerfis.addPerfil(p);
     }
 }

@@ -11,8 +11,8 @@ package shiftmanagement.Business.Utilizador;
  */
 public class Admin extends Utilizador{
     
-    private String username = "admin.di";
-    private String password = "dirmiei1718";
+    private final String username = "admin";
+    private final String password = "dir1718";
     
     public Admin(){}
     

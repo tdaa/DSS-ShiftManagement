@@ -9,16 +9,22 @@ import com.google.gson.*;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import shiftmanagement.Business.ShiftManagement;
 import shiftmanagement.Business.UC.UCPerfil;
 import shiftmanagement.Business.UC.UCLicenciatura;
 import shiftmanagement.Business.UC.UCComplementar;
-import shiftmanagement.database.UcPerfilDAO;
 
 /**
  * 
  * @author franciscolira
  */
 public class Parser {
+    
+    private ShiftManagement system;
+    
+    public Parser(ShiftManagement s){
+        this.system = s;
+    }
         
     public void parsePerfis(){
         JsonParser parser = new JsonParser();
@@ -27,13 +33,19 @@ public class Parser {
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonArray perfis = rootObject.getAsJsonArray("perfil");
+        String aux = "";
         for(int i=0; i<perfis.size(); i++){
             JsonObject item = perfis.get(i).getAsJsonObject();
             String code = item.get("cod").getAsString();
             String name = item.get("nome").getAsString();
             String diasem = item.get("diasem").getAsString();
             UCPerfil ucperfil = new UCPerfil(name,code,diasem);
-            //UcPerfilDAO.put(code,ucperfil);
+            String nomePerfil = code.substring(0, code.indexOf("-"));
+            if(!aux.equals(nomePerfil)){
+                aux = nomePerfil;
+                this.system.inserePerfil(nomePerfil);
+            }
+            this.system.insereUCPerfil(ucperfil, nomePerfil);
         }
     }
     
@@ -50,7 +62,7 @@ public class Parser {
             String name = item.get("name").getAsString();
             String abr = item.get("abr").getAsString();
             UCLicenciatura uclic = new UCLicenciatura(name,code,abr);
-            //UcLicenciaturaDAO.put(code,uclic);
+            this.system.insereUCLic(uclic);
         }
     }
     

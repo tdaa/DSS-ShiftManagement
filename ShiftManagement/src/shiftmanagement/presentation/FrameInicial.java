@@ -87,49 +87,45 @@ public class FrameInicial extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(206, 206, 206)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(passText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(226, 226, 226)
+                        .addGap(3, 3, 3)
                         .addComponent(loginButton)
-                        .addGap(29, 29, 29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)))
-                .addGap(145, 208, Short.MAX_VALUE))
+                .addGap(165, 228, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(68, 68, 68))
+                .addGap(81, 81, 81))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(70, 70, 70)
                 .addComponent(jLabel3)
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel1))
-                    .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel2))
-                    .addComponent(passText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(88, 88, 88)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton)
-                    .addComponent(jButton1)))
+                    .addComponent(jButton1))
+                .addGap(52, 52, 52))
         );
 
         pack();
@@ -144,7 +140,16 @@ public class FrameInicial extends javax.swing.JFrame {
         String username = nameText.getText();
         String pass = passText.getText();
         try {
-            if(username.charAt(0)=='a'){
+            if(username.equals("admin")){ 
+                system.iniciaSessao(username, pass, 1);
+                DialogTipoCurso tipoCurso = new DialogTipoCurso(this, true, this.system);
+                tipoCurso.setVisible(true);
+                String curso = this.system.getCurso().getTipo();
+                FrameAdmin homeAdmin = new FrameAdmin(this.system, curso);
+                homeAdmin.setVisible(true);
+                this.dispose();
+            }
+            if(username.charAt(0)=='a' && !username.equals("admin")){
                 system.iniciaSessao(username, pass, 2);
                 FrameAluno homeAluno = new FrameAluno(this.system);
                 homeAluno.setVisible(true);
@@ -156,20 +161,9 @@ public class FrameInicial extends javax.swing.JFrame {
                 homeProfessor.setVisible(true);
                 this.dispose();
             }
-            if(username.equals("admin.di")){ 
-                system.iniciaSessao(username, pass, 1);
-                DialogTipoCurso tipoCurso = new DialogTipoCurso(this, true, this.system);
-                tipoCurso.setVisible(true);
-                String curso = this.system.getCurso().getTipo();
-                FrameAdmin homeAdmin = new FrameAdmin(this.system, curso);
-                homeAdmin.setVisible(true);
-                this.dispose();
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Por favor introduzir campos válidos!");
-            }
-        }catch(Exception e) {
-            Logger.getLogger(FrameInicial.class.getName()).log(Level.SEVERE, null, e);
+        }catch(Exception e){
+            DialogExceptions exception = new DialogExceptions(null,true,e.getMessage());
+            exception.setVisible(true);
         }
 
     }//GEN-LAST:event_loginButtonActionPerformed

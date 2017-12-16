@@ -8,6 +8,7 @@ package shiftmanagement.presentation;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import shiftmanagement.Business.ShiftManagement;
+import shiftmanagement.Parser.Parser;
 
 /**
  *
@@ -171,7 +172,7 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("UC's de Licenciatura", jPanel1);
@@ -195,6 +196,11 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         remPerfilButton.setText("Remover Perfil");
 
         importPerfilButton.setText("Importar Perfis");
+        importPerfilButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importPerfilButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -224,7 +230,7 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
                 .addComponent(importPerfilButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -260,6 +266,11 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         });
 
         importUcCompButton.setText("Importar UC's");
+        importUcCompButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importUcCompButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -293,7 +304,7 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
                         .addComponent(remUcCompButton)
                         .addGap(18, 18, 18)
                         .addComponent(importUcCompButton)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("UC's Complementares", jPanel3);
@@ -369,6 +380,9 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
 
     private void importUcLicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importUcLicButtonActionPerformed
         // TODO add your handling code here:
+        Parser p = new Parser(this.system);
+        p.parseUcs();
+        this.atualizaListaUcsLic();
     }//GEN-LAST:event_importUcLicButtonActionPerformed
 
     private void consultarUCCompButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarUCCompButtonActionPerformed
@@ -403,6 +417,20 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
             consultarPerfil.setVisible(true);
         }
     }//GEN-LAST:event_consultarPerfilButtonActionPerformed
+
+    private void importUcCompButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importUcCompButtonActionPerformed
+        // botao impotar ucs
+        Parser p = new Parser(this.system);
+        p.parseUcComp();
+        this.atualizaListaUcsComp();
+    }//GEN-LAST:event_importUcCompButtonActionPerformed
+
+    private void importPerfilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importPerfilButtonActionPerformed
+        // TODO add your handling code here:
+        Parser p = new Parser(this.system);
+        p.parsePerfis();
+        this.atualizaListaPerfis();
+    }//GEN-LAST:event_importPerfilButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPerfilButton;

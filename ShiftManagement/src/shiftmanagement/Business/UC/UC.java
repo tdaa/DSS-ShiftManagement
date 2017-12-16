@@ -63,8 +63,12 @@ public class UC {
     
     public HashSet<Turno> getTurnos(){
        HashSet<Turno> lista = new HashSet<>();
+       try{
        for(Turno t : this.turnos)
            lista.add(t);
+       }catch(Exception e){
+           System.out.println(e.getMessage());
+       }
        return lista;
     }
     

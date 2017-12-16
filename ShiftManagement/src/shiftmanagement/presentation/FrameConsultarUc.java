@@ -30,7 +30,7 @@ public class FrameConsultarUc extends javax.swing.JFrame {
     public FrameConsultarUc(ShiftManagement system, String uc, int tipoUC) {
         initComponents();
         this.system = system;
-        this.nomeUC = uc.substring(uc.indexOf(uc.indexOf("-") + 2), uc.length());
+        this.nomeUC = uc.substring((uc.indexOf("-") + 2), uc.length()-1);
         this.codigoUC = uc.substring(0, uc.indexOf(" "));
         this.tipoUC = tipoUC;
         this.nomePerfil = null;

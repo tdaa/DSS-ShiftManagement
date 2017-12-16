@@ -117,9 +117,11 @@ public class DialogTipoCurso extends javax.swing.JDialog {
         // confirmar button
        if(licBox.isSelected() && !miBox.isSelected()){
            this.system.setTipoCurso("Licenciatura");
+           this.dispose();
        }
        if(!licBox.isSelected() && miBox.isSelected()){
            this.system.setTipoCurso("Mestrado Integrado");
+           this.dispose();
        }
        if(licBox.isSelected() && miBox.isSelected()){
            javax.swing.JOptionPane.showMessageDialog(this, "Selecione apenas um campo!", "Apenas um.", 0);

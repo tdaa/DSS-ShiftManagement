@@ -286,6 +286,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Importar Perfis"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importPerfilButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -395,6 +398,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Importar UC&apos;s"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importUcCompButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

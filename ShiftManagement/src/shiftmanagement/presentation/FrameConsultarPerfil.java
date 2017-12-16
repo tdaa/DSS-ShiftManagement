@@ -31,6 +31,7 @@ public class FrameConsultarPerfil extends javax.swing.JFrame {
     }
     
     private void atualizaJanela(){
+        this.jLabel1.setText(this.nomePerfil);
         DefaultListModel<String> lista = new DefaultListModel<>();
         ArrayList<String> ucs = this.system.getUcsPerfil(this.nomePerfil);
         ucs.forEach((s) -> {

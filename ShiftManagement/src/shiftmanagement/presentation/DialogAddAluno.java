@@ -47,11 +47,11 @@ public class DialogAddAluno extends javax.swing.JDialog {
         sim = new javax.swing.JCheckBox();
         nao = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
-        passField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         userField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
+        passField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -115,8 +115,8 @@ public class DialogAddAluno extends javax.swing.JDialog {
                                 .addComponent(userField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                                 .addComponent(nomeField, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(emailField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(passField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)))))
+                                .addComponent(passField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(emailField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)))))
                 .addContainerGap(144, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,9 +134,9 @@ public class DialogAddAluno extends javax.swing.JDialog {
                 .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(passField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,15 +172,17 @@ public class DialogAddAluno extends javax.swing.JDialog {
                 a = new Aluno(username, nome, mail, password, true);
                 this.system.addNovoAluno(a);
             }
-            if(!sim.isSelected() && nao.isSelected()){
-                a = new Aluno(username, nome, mail, password, false);
-                this.system.addNovoAluno(a);
+            else {
+                if(!sim.isSelected() && nao.isSelected()){
+                    a = new Aluno(username, nome, mail, password, false);
+                    this.system.addNovoAluno(a);
+                }
+                else{
+                    JOptionPane.showMessageDialog(rootPane, "Por favor preencher todos os dados!", "Falta de dados.", 0);
+                }
             }
         }
-        else{
-            JOptionPane.showMessageDialog(rootPane, "Por favor preencher todos os dados!", "Falta de dados.", 0);
-        }
-        
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -195,7 +197,7 @@ public class DialogAddAluno extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JCheckBox nao;
     private javax.swing.JTextField nomeField;
-    private javax.swing.JTextField passField;
+    private javax.swing.JPasswordField passField;
     private javax.swing.JCheckBox sim;
     private javax.swing.JTextField userField;
     // End of variables declaration//GEN-END:variables

@@ -277,6 +277,10 @@ public class ShiftManagement {
         return res;
     }
     
+    /**
+     *
+     * @param a
+     */
     public void addNovoAluno(Aluno a){
         this.listaAlunos.addAluno(a);
     }

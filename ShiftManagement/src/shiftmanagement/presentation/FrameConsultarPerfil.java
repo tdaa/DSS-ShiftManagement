@@ -57,7 +57,7 @@ public class FrameConsultarPerfil extends javax.swing.JFrame {
         addButton = new javax.swing.JButton();
         fecharButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
         jLabel1.setText("NOME DO PERFIL");

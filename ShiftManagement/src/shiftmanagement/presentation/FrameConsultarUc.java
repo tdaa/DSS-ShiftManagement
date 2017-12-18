@@ -122,7 +122,7 @@ public class FrameConsultarUc extends javax.swing.JFrame {
         removerButton = new javax.swing.JButton();
         fecharButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         nomeDaUc.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
         nomeDaUc.setText("NOME DA UC");

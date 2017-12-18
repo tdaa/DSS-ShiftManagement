@@ -31,7 +31,7 @@ public class AlunoDAO implements Map<String, Aluno>{
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Aluno WHERE Username = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Aluno WHERE idAluno = ?");
             ps.setString(1, (String) key);
             ResultSet rs = ps.executeQuery();
             res = rs.next();
@@ -57,11 +57,11 @@ public class AlunoDAO implements Map<String, Aluno>{
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Aluno WHERE Username = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Aluno WHERE idAluno = ?");
             ps.setString(1, (String) key);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                a.setUsername(rs.getString("Username"));
+                a.setUsername(rs.getString("idAluno"));
                 a.setNome(rs.getString("Nome"));
                 a.setPassword(rs.getString("Password"));
                 a.setMail(rs.getString("Mail"));
@@ -106,11 +106,11 @@ public class AlunoDAO implements Map<String, Aluno>{
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM Aluno WHERE Username = ?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Aluno WHERE idAluno = ?");
             ps.setString(1, key);
             ps.executeUpdate();
             
-            ps = con.prepareStatement("INSERT INTO Aluno (Username, Nome, Password, Email, Trabalhador) VALUES (?,?,?,?,?)");
+            ps = con.prepareStatement("INSERT INTO Aluno (idAluno, Nome, Password, Email, Trabalhador) VALUES (?,?,?,?,?)");
             ps.setString(1, key);
             ps.setString(2, value.getNome());
             ps.setString(3, value.getPass());

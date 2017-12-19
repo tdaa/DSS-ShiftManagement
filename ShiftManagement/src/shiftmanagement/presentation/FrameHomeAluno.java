@@ -44,7 +44,7 @@ public class FrameHomeAluno extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Horário");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -54,6 +54,11 @@ public class FrameHomeAluno extends javax.swing.JFrame {
         });
 
         jButton2.setText("Troca de turnos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Perfil");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +74,7 @@ public class FrameHomeAluno extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Drugs", 0, 48)); // NOI18N
         jLabel1.setText("Menu Aluno");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -132,6 +137,10 @@ public class FrameHomeAluno extends javax.swing.JFrame {
         FrameAlunoPerfil alunop = new FrameAlunoPerfil(this.system, this.username);
         alunop.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

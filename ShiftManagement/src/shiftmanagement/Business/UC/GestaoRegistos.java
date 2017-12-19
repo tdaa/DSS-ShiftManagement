@@ -66,4 +66,26 @@ public class GestaoRegistos {
         });
         return codigos;
     }
+    
+    public void removeAluno_UC(String codigoUC, String userAluno){
+        for(Registo r: this.registos.values()){
+            if(r.getIdAluno().equals(userAluno) && r.getIdUC().equals(codigoUC)){
+                this.registos.remove(r.getId());
+            }
+        }
+    }
+    
+    public void removeRegisto(String aluno, String turno, String uc){
+        for(Registo r: this.registos.values()){
+            if(r.getIdAluno().equals(aluno) && r.getIdTurno().equals(turno) && r.getIdUC().equals(uc)){
+                this.registos.remove(r.getId());
+                break;
+            }
+        }
+    }
+    
+    public void novoRegisto(String aluno, String turno, String uc){
+        Registo r = new Registo(id, aluno, uc, turno);
+        this.registos.put(id, r);
+    }
 }

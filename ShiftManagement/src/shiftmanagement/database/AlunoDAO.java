@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import shiftmanagement.Business.Turno.Troca;
 import shiftmanagement.Business.Utilizador.Aluno;
 
 /**
@@ -64,7 +65,7 @@ public class AlunoDAO implements Map<String, Aluno>{
                 a.setUsername(rs.getString("idAluno"));
                 a.setNome(rs.getString("Nome"));
                 a.setPassword(rs.getString("Password"));
-                a.setMail(rs.getString("Mail"));
+                a.setMail(rs.getString("Email"));
                 a.setTrabalhador(rs.getBoolean("Trabalhador"));
                 
                 ArrayList<String> turnos = new ArrayList<>();
@@ -79,6 +80,24 @@ public class AlunoDAO implements Map<String, Aluno>{
                     turnos.add(uc + " - " + rs.getString("idTurno"));
                 }
                 a.setHorario(turnos);
+                
+                ArrayList<Troca> trocas = new ArrayList<>();
+                ps = con.prepareStatement("SELECT * FROM Troca "
+                        + "INNER JOIN Aluno ON Aluno.idAluno = Troca.idAluno "
+                        + "WHERE Aluno.idAluno = ?");
+                ps.setString(1, (String) key);
+                rs = ps.executeQuery();
+                Troca t;
+                while(rs.next()){
+                    t = new Troca();
+                    t.setId(rs.getInt("idTroca"));
+                    t.setCodigoUC(rs.getString("codigoUC"));
+                    t.setIdTurnoFinal(rs.getString("idTurnoDesejado"));
+                    t.setIdTurnoInicial(rs.getString("idTurnoAtual"));
+                    trocas.add(t);
+                }
+                a.setTrocas(trocas);
+                
             }
         } 
         catch(SQLException e){

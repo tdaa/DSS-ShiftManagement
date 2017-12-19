@@ -553,4 +553,90 @@ public class ShiftManagement {
     public void addNovoProfessor(Professor p){
         this.listaProfs.addProf(p);
     }
+    
+    public ArrayList<String> getAlunoHorario(String username){
+        return this.listaAlunos.getHorario(username);
+    }
+    
+    public int getTipoUC(String codigoUC){
+        if(this.listaUCsLic.existeUc(codigoUC)) return 1;
+        if(this.listaUCsComp.existeUc(codigoUC)) return 2;
+        if(this.listaPerfis.existeUc(codigoUC)) return 3;
+        return 0;
+    }
+    
+    public String getCodigoUC(String nomeUC){
+        if(this.listaUCsLic.getCodigoUC(nomeUC) != null) {
+            return this.listaUCsLic.getCodigoUC(nomeUC);
+        }
+        if(this.listaUCsComp.getCodigoUC(nomeUC) != null){
+            return this.listaUCsComp.getCodigoUC(nomeUC);
+        }
+        if(this.listaPerfis.getCodigoUC(nomeUC) != null){
+            return this.listaPerfis.getCodigoUC(nomeUC);
+        }
+        
+        return null;
+    }
+    
+    public String getPerfil(String codigoUC){
+        return this.listaPerfis.getPerfilDeUC(codigoUC);
+    }
+    
+    public void removeAlunoDeUC(String codigoUC, String userAluno){
+        this.listaRegistos.removeAluno_UC(codigoUC, userAluno);
+    }
+    
+    public String getTurno_UC_Aluno(String nomeUC, String username){
+        return this.listaAlunos.getTurnoDeUc(nomeUC, username);
+    }
+    
+    public void trocaTurnos(String alunoOrigem, String alunoDestino, String turnoF, String turnoI, String nomeUC){
+        String codigoUC = this.getCodigoUC(nomeUC);
+        this.listaRegistos.removeRegisto(alunoOrigem, turnoI, codigoUC);
+        this.listaRegistos.removeRegisto(alunoDestino, turnoF, codigoUC);
+        this.listaRegistos.novoRegisto(alunoOrigem, turnoF, codigoUC);
+        this.listaRegistos.novoRegisto(alunoDestino, turnoI, codigoUC);
+    }
+    
+    public void criaTroca(String aluno, String nomeuc, String turnoF){
+        String codigoUC = this.getCodigoUC(nomeuc);
+        this.listaAlunos.insereTroca(aluno, codigoUC, nomeuc, turnoF);
+    }
+    
+    public ArrayList<String> getTrocas(){
+        String nomeUC, codigoUC, aluno, turnoI, turnoF;
+        ArrayList<String> res = new ArrayList<>();
+        for(String s: this.listaAlunos.getTodasTrocas()){
+            codigoUC = s.substring(s.indexOf("-")+2, s.indexOf("f")-4);
+            nomeUC = this.getNomeUc(codigoUC);
+            aluno = s.substring(0, s.indexOf(" "));
+            turnoF = s.substring(s.indexOf("f")+2, s.indexOf("i")-4);
+            turnoI = s.substring(s.indexOf("i")+2, s.length()-1);
+            res.add(aluno + " - UC: " + nomeUC + " - Turno Oferecido: " + turnoI + " - Turno Requerido: " + turnoF);
+        }
+        return res;
+        
+    }
+    
+    public String getNomeUc(String codigoUC){
+        if(this.listaUCsLic.getNomeUc(codigoUC) != null) {
+            return this.listaUCsLic.getCodigoUC(codigoUC);
+        }
+        if(this.listaUCsComp.getNomeUc(codigoUC) != null){
+            return this.listaUCsComp.getCodigoUC(codigoUC);
+        }
+        if(this.listaPerfis.getNomeUc(codigoUC) != null){
+            return this.listaPerfis.getNomeUc(codigoUC);
+        }
+        return null;
+    }
+    
+    public void alteraPassword(String username, String nova){
+        this.listaAlunos.mudaPassAluno(username, nova);
+    }
+    
+    public void alteraEmailAluno(String username, String nova){
+        this.listaAlunos.mudaEmailAluno(username, nova);
+    }
 }

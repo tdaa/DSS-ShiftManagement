@@ -7,6 +7,7 @@ package shiftmanagement.presentation;
 
 import javax.swing.DefaultListModel;
 import shiftmanagement.Business.ShiftManagement;
+import shiftmanagement.Parser.Parser;
 
 /**
  *
@@ -34,18 +35,28 @@ public class FrameUtilizadores extends javax.swing.JFrame {
     
     private void atualizaListaAlunos(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
+        try{
         for(String s: this.system.getAlunosRegistados()){
             dlm.addElement(s);
+        }
+        }
+        catch (Exception e ){
+            System.out.println(e.getMessage());
         }
         this.alunosList.setModel(dlm);
     }
     
     private void atualizaListaProfs(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
+        try{
         for(String s: this.system.getProfessoresRegistados()){
             dlm.addElement(s);
         }
         this.alunosList.setModel(dlm);
+        }
+        catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -66,16 +77,14 @@ public class FrameUtilizadores extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         profsList = new javax.swing.JList<>();
         verProfButton = new javax.swing.JButton();
-        alocarProfButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         alunosList = new javax.swing.JList<>();
-        alocarButton = new javax.swing.JButton();
         verbutton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Drugs", 1, 48)); // NOI18N
         jLabel1.setText("Utilizadores");
@@ -115,13 +124,6 @@ public class FrameUtilizadores extends javax.swing.JFrame {
             }
         });
 
-        alocarProfButton.setText("Alocar Professor");
-        alocarProfButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alocarProfButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -130,23 +132,19 @@ public class FrameUtilizadores extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(132, 132, 132)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(verProfButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(alocarProfButton)
-                .addGap(105, 105, 105))
+                .addGap(242, 242, 242))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(verProfButton)
-                    .addComponent(alocarProfButton))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(verProfButton)
+                .addGap(29, 29, 29))
         );
 
         jTabbedPane1.addTab("Professores", jPanel3);
@@ -157,8 +155,6 @@ public class FrameUtilizadores extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(alunosList);
-
-        alocarButton.setText("Alocar Aluno");
 
         verbutton.setText("Ver Aluno");
         verbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -173,32 +169,38 @@ public class FrameUtilizadores extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(alocarButton)
-                .addGap(124, 124, 124)
+                .addGap(251, 251, 251)
                 .addComponent(verbutton)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(alocarButton)
-                    .addComponent(verbutton))
-                .addGap(39, 39, 39))
+                .addGap(27, 27, 27)
+                .addComponent(verbutton)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Alunos", jPanel2);
 
         jButton3.setText("Importar Professores");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Novo Professor");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -253,7 +255,9 @@ public class FrameUtilizadores extends javax.swing.JFrame {
 
     private void importarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarButtonActionPerformed
         // botao importar
-        
+        Parser p = new Parser(this.system);
+        p.parseAlunos();
+        this.atualizaJanela();
     }//GEN-LAST:event_importarButtonActionPerformed
 
     private void verbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verbuttonActionPerformed
@@ -272,10 +276,6 @@ public class FrameUtilizadores extends javax.swing.JFrame {
         atualizaJanela();
     }//GEN-LAST:event_novoButtonActionPerformed
 
-    private void alocarProfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alocarProfButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_alocarProfButtonActionPerformed
-
     private void verProfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verProfButtonActionPerformed
         // botao ver prof
         String prof = this.profsList.getSelectedValue();
@@ -285,9 +285,17 @@ public class FrameUtilizadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_verProfButtonActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // botao Novo Professor
+        DialogNovoProfessor novoProf = new DialogNovoProfessor(this, true, this.system);
+        novoProf.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton alocarButton;
-    private javax.swing.JButton alocarProfButton;
     private javax.swing.JList<String> alunosList;
     private javax.swing.JButton importarButton;
     private javax.swing.JButton jButton3;

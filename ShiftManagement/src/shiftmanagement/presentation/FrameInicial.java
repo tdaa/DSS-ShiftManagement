@@ -148,19 +148,19 @@ public class FrameInicial extends javax.swing.JFrame {
                 String curso = this.system.getCurso().getTipo();
                 FrameAdmin homeAdmin = new FrameAdmin(this.system, curso);
                 homeAdmin.setVisible(true);
-                this.dispose();
+                //this.dispose();
             }
             if(username.charAt(0)=='a' && !username.equals("admin")){
                 system.iniciaSessao(username, pass, 2);
-                FrameUtilizadores homeAluno = new FrameUtilizadores(this.system);
+                FrameHomeAluno homeAluno = new FrameHomeAluno(this.system);
                 homeAluno.setVisible(true);
-                this.dispose();
+                //this.dispose();
             }
             if(username.charAt(0)=='p'){
                 system.iniciaSessao(username, pass, 3);
                 FrameHomeProfessor homeProfessor = new FrameHomeProfessor(this.system);
                 homeProfessor.setVisible(true);
-                this.dispose();
+                //this.dispose();
             }
         }catch(Exception e){
             DialogExceptions exception = new DialogExceptions(null,true,e.getMessage());

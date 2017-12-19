@@ -36,19 +36,29 @@ public final class FrameAlunoUC extends javax.swing.JFrame {
     }
     
     public void atualizaUCregistado(){
+        try{
         DefaultListModel<String> lista = new DefaultListModel<>();
         for(String s: this.system.getUCsAluno(this.username)){
             lista.addElement(s);
         }
         inscritos.setModel(lista);
+        }
+        catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
     }
     
     public void atualizaUCNaoregistado(){
         DefaultListModel<String> lista = new DefaultListModel<>();
+        try{
         for(String s: this.system.getUCsNIAluno(this.username)){
             lista.addElement(s);
         }
         inscrever.setModel(lista);
+        }
+        catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -162,21 +172,21 @@ public final class FrameAlunoUC extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Registar UC", jPanel2);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Drugs", 0, 24)); // NOI18N
         jLabel1.setText("Alunos UC");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(256, 256, 256))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,10 +214,11 @@ public final class FrameAlunoUC extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        //botao consultar uc
         String uc = inscritos.getSelectedValue();
         if (uc!=null){
-            int tipo = this.system.getTipo(uc);
+            String codigo = uc.substring(0, uc.indexOf(" "));
+            int tipo = this.system.getTipoUC(codigo);
             FrameConsultarUc consulta = new FrameConsultarUc(this.system, uc, tipo, true);
             consulta.setVisible(true);
         }
@@ -218,8 +229,8 @@ public final class FrameAlunoUC extends javax.swing.JFrame {
         // TODO add your handling code here:
         String uc = inscritos.getSelectedValue();
         if (uc!=null){
-            uc = uc.substring(0,uc.indexOf(' '));
-            this.system.removeAlunoUC(uc,this.username);
+            uc = uc.substring(0,uc.indexOf(" "));
+            this.system.removeAlunoDeUC(uc,this.username);
         }
         atualizaJanela();
     }//GEN-LAST:event_jButton4ActionPerformed

@@ -6,6 +6,8 @@
 package shiftmanagement.Business.Utilizador;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import shiftmanagement.Business.Turno.Troca;
 import shiftmanagement.database.AlunoDAO;
 
 /**
@@ -48,5 +50,58 @@ public class GestaoAlunos {
     
     public Aluno getAluno(String username){
         return this.listaAlunos.get(username);
+    }
+    
+    public ArrayList<String> getHorario(String username){
+        return this.listaAlunos.get(username).getHorario();
+        
+    }
+    
+    public String getTurnoDeUc(String nomeUC, String userAluno){
+        Aluno a = this.listaAlunos.get(userAluno);
+        String uc;
+        String turno = null;
+        boolean flag = false;
+        Iterator<String> it = a.getHorario().iterator();
+        String s;
+        while(it.hasNext() && !flag){
+            s = it.next();
+            uc = s.substring(0, s.indexOf(" "));
+            if(uc.equals(nomeUC)){
+                flag = true;
+                turno = s.substring(s.indexOf("-")+2, s.length()-1);
+            }
+        }
+        return turno;
+    }
+    
+    public void insereTroca(String aluno, String codigouc, String nomeuc, String turnoF){
+        Aluno a = this.listaAlunos.get(aluno);
+        String turnoI = a.getTurnoUC(nomeuc);
+        Troca t = new Troca(turnoI, turnoF, codigouc);
+        a.addTroca(t);
+        this.listaAlunos.put(a.getUsername(), a);
+    }
+    
+    public ArrayList<String> getTodasTrocas(){
+        String uc, turno;
+        ArrayList<String> res = new ArrayList<>();
+        for(Aluno a: this.listaAlunos.values()){
+            for(Troca t: a.getTrocas())
+                res.add(a.getUsername() + " - " + t.getCodigoUC() + " - f " + t.getIdTurnoFinal() + " - i " + t.getIdTurnoInicial());
+        }
+        return res;
+    }
+    
+    public void mudaPassAluno(String username, String nova){
+        Aluno a = this.listaAlunos.get(username);
+        a.setPassword(nova);
+        this.listaAlunos.put(a.getUsername(), a);
+    }
+    
+    public void mudaEmailAluno(String username, String nova){
+        Aluno a = this.listaAlunos.get(username);
+        a.setMail(nova);
+        this.listaAlunos.put(a.getUsername(), a);
     }
 }

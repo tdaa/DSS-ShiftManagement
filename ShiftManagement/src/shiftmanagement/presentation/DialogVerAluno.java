@@ -65,7 +65,7 @@ public class DialogVerAluno extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tituloLabel.setFont(new java.awt.Font("LSTKClarendon", 0, 36)); // NOI18N
+        tituloLabel.setFont(new java.awt.Font("Drugs", 0, 36)); // NOI18N
         tituloLabel.setText("Aluno X");
 
         jLabel2.setText("Nome");
@@ -74,7 +74,7 @@ public class DialogVerAluno extends javax.swing.JDialog {
 
         jLabel4.setText("Mail");
 
-        jLabel1.setFont(new java.awt.Font("LSTKClarendon", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Drugs", 0, 18)); // NOI18N
         jLabel1.setText("Turnos");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -113,9 +113,6 @@ public class DialogVerAluno extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addComponent(tituloLabel))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -148,6 +145,10 @@ public class DialogVerAluno extends javax.swing.JDialog {
                 .addGap(338, 338, 338)
                 .addComponent(sairButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(308, 308, 308)
+                .addComponent(tituloLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +175,7 @@ public class DialogVerAluno extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(sairButton)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pack();

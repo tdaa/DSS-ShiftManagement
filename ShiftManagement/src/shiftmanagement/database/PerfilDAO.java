@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import static java.sql.Types.NULL;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,17 +20,18 @@ import shiftmanagement.Business.Turno.Sala;
 import shiftmanagement.Business.Turno.TP;
 import shiftmanagement.Business.Turno.Teorica;
 import shiftmanagement.Business.Turno.Turno;
-import shiftmanagement.Business.UC.UCComplementar;
+import shiftmanagement.Business.UC.Perfil;
+import shiftmanagement.Business.UC.Registo;
+import shiftmanagement.Business.UC.UCPerfil;
 import shiftmanagement.Business.Utilizador.Professor;
 
 /**
  *
  * @author Tiago
  */
-public class UcCompDAO implements Map<String, UCComplementar>{
-    
+public class PerfilDAO implements Map<String, Perfil>{
+
     private Connection con;
-    
     
     @Override
     public int size() {
@@ -39,7 +39,7 @@ public class UcCompDAO implements Map<String, UCComplementar>{
 
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM UCComplementar");
+            PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM Perfil");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 size = rs.getInt(1);
@@ -70,7 +70,7 @@ public class UcCompDAO implements Map<String, UCComplementar>{
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM UCComplementar WHERE codigoUCComp = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Perfil WHERE idPerfil = ?");
             ps.setString(1, (String) key);
             ResultSet rs = ps.executeQuery();
             res = rs.next();
@@ -89,22 +89,39 @@ public class UcCompDAO implements Map<String, UCComplementar>{
         
         return res;
     }
-    
+
     @Override
-    public UCComplementar get(Object key) {
-        UCComplementar uc = new UCComplementar();
+    public boolean containsValue(Object value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Perfil get(Object key) {
+        Perfil p = new Perfil();
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM UC "
-                    + "INNER JOIN UCComplementar AS UCC ON UCC.codigoUCComp = UC.codigoUC "
-                    + "WHERE UCC.codigoUCComp = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Perfil WHERE idPerfil = ?");
             ps.setString(1, (String) key);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
+                p.setNome(rs.getString("idPerfil"));
+            }
+            
+            Map<String, UCPerfil> ucs = new HashMap<String, UCPerfil>();
+            ps = con.prepareStatement("SELECT UCPerfil.*, UC.* FROM UCPerfil "
+                    + "INNER JOIN Perfil ON Perfil.idPerfil = UCPerfil.idPerfil"
+                    + " INNER JOIN UC ON UC.codigoUC = UCPerfil.codigoUCPerfil"
+                    + " WHERE Perfil.idPerfil = ?");
+            ps.setString(1, (String) key);
+            rs = ps.executeQuery();
+            UCPerfil uc;
+            while(rs.next()){
+                uc = new UCPerfil();
+                uc.setCodigo(rs.getString("codigoUCPerfil"));
+                uc.setDiaS(rs.getString("diaSemana"));
                 uc.setNome(rs.getString("Designaçao"));
-                uc.setCodigo(rs.getString("codigoUC"));
-                uc.setResponsavel(rs.getString("usernameRegente"));
+                uc.setResponsavel("usernameRegente");
                 
                 HashSet<Turno> turnos = new HashSet<>();
                 ps = con.prepareStatement("SELECT Sala.idSala, Sala.MaxLugares, Turno.* FROM Turno"
@@ -149,28 +166,23 @@ public class UcCompDAO implements Map<String, UCComplementar>{
                         + " WHERE UC.codigoUC = ?");
                 ps.setString(1, (String) key);
                 rs = ps.executeQuery();
-                Professor p; 
+                Professor prof; 
                 while(rs.next()){
-                    p = new Professor();
-                    p.setNome(rs.getString("Username"));
-                    p.setNome(rs.getString("Nome"));
-                    p.setMail(rs.getString("Mail"));
-                    p.setPassword(rs.getString("Password"));
-                    p.setRegente(rs.getBoolean("Regente"));
-                    profs.add(p);
+                    prof = new Professor();
+                    prof.setNome(rs.getString("Username"));
+                    prof.setNome(rs.getString("Nome"));
+                    prof.setMail(rs.getString("Mail"));
+                    prof.setPassword(rs.getString("Password"));
+                    prof.setRegente(rs.getBoolean("Regente"));
+                    profs.add(prof);
                 }
                 uc.setDocentes(profs);
+                
+                ucs.put(uc.getCodigo(), uc);
             }
-            ps = con.prepareStatement("SELECT * FROM UCComplementar AS UCC"
-                    + " INNER JOIN UC ON UC.codigoUC = UCC.codigoUCComp"
-                    + " WHERE UCC.codigoUCComp = ?");
-            ps.setString(1, (String) key);
-            rs = ps.executeQuery();
-            if(rs.next()){
-                uc.setDiaS(rs.getString("diaSemana"));
-                uc.setPer(rs.getString("Per"));
-            }     
-        }
+            
+            p.setListaUcs((HashMap<String, UCPerfil>) ucs);        
+        } 
         catch(SQLException e){
             System.out.printf(e.getMessage());
         } 
@@ -182,83 +194,89 @@ public class UcCompDAO implements Map<String, UCComplementar>{
                 System.out.printf(e.getMessage());
             }
         }
-        return uc;
+        return p;
     }
 
     @Override
-    public UCComplementar put(String key, UCComplementar value) {
-        UCComplementar uc;
-       
+    public Perfil put(String key, Perfil value) {
+        Perfil p;
+        
         if(this.containsKey(key))
-            uc = this.get(key);
+            p = this.get(key);
         
-        else uc = value;
+        else p = value;
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM UC WHERE codigoUC = ?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Perfil WHERE idPerfil = ?");
             ps.setString(1, (String) key);
             ps.executeUpdate();
             
-            ps = con.prepareStatement("DELETE FROM UCComplementar WHERE codigoUCComp = ?");
-            ps.setString(1, (String) key);
-            ps.executeUpdate();
-            
-            ps = con.prepareStatement("INSERT INTO UC (codigoUC, Designaçao, usernameRegente) VALUES (?,?,?)");
+            ps = con.prepareStatement("INSERT INTO Perfil (idPerfil) VALUES (?)");
             ps.setString(1, key);
-            ps.setString(2, value.getNome());
-            ps.setString(3, value.getResponsavel());
             ps.executeUpdate();
             
-            ps = con.prepareStatement("INSERT INTO UCComplementar (codigoUCComp, dia Semana, Per) VALUES (?,?,?)");
-            ps.setString(1, key);
-            ps.setString(2, value.getDiaS());
-            ps.setString(3, value.getPer());
-            ps.executeUpdate();
             
-            HashSet<Turno> turnos = value.getTurnos();
-            if(turnos != null){
-                for(Turno t: turnos){
-                    ps = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo) VALUES (?,?,?,?,?,?,?)");
-                    ps.setString(1, t.getId());
-                    ps.setString(2, t.getUc());
-                    ps.setTime(3, t.getHora());
-                    ps.setString(4, t.getSala().getNome());
-                    ps.setString(5, t.getProf());
-                    if(t instanceof TP){
-                        TP tp = (TP) t;
-                        ps.setInt(6, tp.getMax());
-                        ps.setString(7, "TP");
-                    }
-                    if(t instanceof PL){
-                        PL pl = (PL) t;
-                        ps.setInt(6, pl.getMax());
-                        ps.setString(7, "PL");
-                    }
-                    if(t instanceof Teorica){
-                        Teorica teo = (Teorica) t;
-                        ps.setInt(6, NULL);
-                        ps.setString(7, "Teorica");
-                    }
+            Map<String, UCPerfil> listaUcs = value.getListaUcs();
+            if(listaUcs!=null){
+                for(UCPerfil uc: listaUcs.values()){
+                    ps = con.prepareStatement("INSERT INTO UC (codigoUC, Designaçao, usernameRegente) VALUES (?,?,?)");
+                    ps.setString(1, uc.getCodigo());
+                    ps.setString(2, uc.getNome());
+                    ps.setString(3, uc.getResponsavel());
                     ps.executeUpdate();
-                    
-                    ps = con.prepareStatement("INSERT INTO Sala(idSala, MaxLugares) VALUES (?,?)");
-                    ps.setString(1, t.getSala().getNome());
-                    ps.setInt(2, t.getSala().getMax());
-                    ps.executeUpdate();
-                }
-            }
             
-            HashSet<Professor> profs = value.getEquipaDocente();
-            if(profs!=null){
-                for(Professor p: profs){
-                    ps = con.prepareStatement("INSERT INTO Professor (Username, Nome, Email, Password, Regente) VALUES (?,?,?,?,?)");
-                    ps.setString(1, p.getUsername());
-                    ps.setString(2, p.getNome());
-                    ps.setString(3, p.getMail());
-                    ps.setString(4, p.getPass());
-                    ps.setBoolean(5, p.getRegente());
+                    ps = con.prepareStatement("INSERT INTO UCPerfil (codigoUCPerfil, dia Semana, idPerfil) VALUES (?,?,?)");
+                    ps.setString(1, uc.getCodigo());
+                    ps.setString(2, uc.getDiaS());
+                    ps.setString(3, key);
                     ps.executeUpdate();
+
+                    HashSet<Turno> turnos = uc.getTurnos();
+                    if(turnos != null){
+                        for(Turno t: turnos){
+                            ps = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo) VALUES (?,?,?,?,?,?,?)");
+                            ps.setString(1, t.getId());
+                            ps.setString(2, t.getUc());
+                            ps.setTime(3, t.getHora());
+                            ps.setString(4, t.getSala().getNome());
+                            ps.setString(5, t.getProf());
+                            if(t instanceof TP){
+                                TP tp = (TP) t;
+                                ps.setInt(6, tp.getMax());
+                                ps.setString(7, "TP");
+                            }
+                            if(t instanceof PL){
+                                PL pl = (PL) t;
+                                ps.setInt(6, pl.getMax());
+                                ps.setString(7, "PL");
+                            }
+                            if(t instanceof Teorica){
+                                Teorica teo = (Teorica) t;
+                                ps.setInt(6, NULL);
+                                ps.setString(7, "Teorica");
+                            }
+                            ps.executeUpdate();
+
+                            ps = con.prepareStatement("INSERT INTO Sala(idSala, MaxLugares) VALUES (?,?)");
+                            ps.setString(1, t.getSala().getNome());
+                            ps.setInt(2, t.getSala().getMax());
+                            ps.executeUpdate();
+                        }
+                    }
+
+                    HashSet<Professor> professores = uc.getEquipaDocente();
+                    if(professores!=null){
+                        for(Professor prof: professores){
+                            ps = con.prepareStatement("INSERT INTO Professor (Username, Nome, Email, Password, Regente) VALUES (?,?,?,?,?)");
+                            ps.setString(1, prof.getUsername());
+                            ps.setString(2, prof.getNome());
+                            ps.setString(3, prof.getMail());
+                            ps.setString(4, prof.getPass());
+                            ps.setBoolean(5, prof.getRegente());
+                            ps.executeUpdate();
+                        }
+                    }
                 }
             }
         }
@@ -273,20 +291,16 @@ public class UcCompDAO implements Map<String, UCComplementar>{
                 System.out.printf(e.getMessage());
             }
         }
-        return uc;
+        return p;
     }
 
     @Override
-    public UCComplementar remove(Object key) {
-        UCComplementar uc = this.get((String) key);
+    public Perfil remove(Object key) {
+        Perfil p = this.get((String) key);
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM UC WHERE codigoUC = ?");
-            ps.setString(1, (String) key);
-            ps.executeUpdate();
-            
-            ps = con.prepareStatement("DELETE FROM UCComplementar WHERE codigoUCComp = ?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Perfil WHERE idPerfil = ?");
             ps.setString(1, (String) key);
             ps.executeUpdate();
             
@@ -301,14 +315,19 @@ public class UcCompDAO implements Map<String, UCComplementar>{
                 System.out.printf(e.getMessage());
             }
         }
-        return uc;
+        return p;
+    }
+
+    @Override
+    public void putAll(Map<? extends String, ? extends Perfil> m) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void clear() {
-        try{
+       try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("DELETE * FROM UCComplementar");
+            PreparedStatement ps = con.prepareStatement("DELETE * FROM Perfil");
             ps.executeUpdate();
         }
         catch(SQLException e){
@@ -326,15 +345,15 @@ public class UcCompDAO implements Map<String, UCComplementar>{
 
     @Override
     public Set<String> keySet() {
-        Set<String> set = null;
+       Set<String> set = null;
         
         try{
             con = Connect.connect();
             set = new HashSet<>();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM UCComplementar");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Perfil");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                set.add(rs.getString("codigoUCComp"));
+                set.add(rs.getString("idPerfil"));
             }   
         }
         catch(SQLException e){
@@ -352,8 +371,8 @@ public class UcCompDAO implements Map<String, UCComplementar>{
     }
 
     @Override
-    public Collection<UCComplementar> values() {
-        Set<UCComplementar> set = new HashSet<>();
+    public Collection<Perfil> values() {
+       Set<Perfil> set = new HashSet<>();
         Set<String> keys = new HashSet<>(this.keySet());
         keys.forEach((key) -> {
             set.add(this.get(key));
@@ -362,23 +381,15 @@ public class UcCompDAO implements Map<String, UCComplementar>{
     }
 
     @Override
-    public Set<Entry<String, UCComplementar>> entrySet() {
-        Set<String> keys = new HashSet<>(this.keySet());
+    public Set<Entry<String, Perfil>> entrySet() {
+       Set<String> keys = new HashSet<>(this.keySet());
         
-        HashMap<String, UCComplementar> map = new HashMap<>();
+        HashMap<String, Perfil> map = new HashMap<>();
         keys.forEach((key) -> {
             map.put(key,this.get(key));
         });
         return map.entrySet();
     }
+    
 
-    @Override
-    public boolean containsValue(Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void putAll(Map<? extends String, ? extends UCComplementar> m) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

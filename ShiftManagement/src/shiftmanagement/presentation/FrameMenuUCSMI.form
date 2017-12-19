@@ -276,11 +276,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar Perfil"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPerfilButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="remPerfilButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Remover Perfil"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remPerfilButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="importPerfilButton">
               <Properties>

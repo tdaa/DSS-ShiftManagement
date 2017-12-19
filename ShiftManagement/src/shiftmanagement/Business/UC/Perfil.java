@@ -6,6 +6,8 @@
 package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 import shiftmanagement.database.UcPerfilDAO;
@@ -17,14 +19,14 @@ import shiftmanagement.database.UcPerfilDAO;
 public class Perfil {
     
     private String nome;
-    private UcPerfilDAO listaUcs;
+    private Map<String, UCPerfil> listaUcs;
     
     /**
      *
      */
     public Perfil(){
         this.nome = "";
-        this.listaUcs = new UcPerfilDAO();
+        this.listaUcs = new HashMap<>();
     }
     
     /**
@@ -50,6 +52,18 @@ public class Perfil {
      */
     public void setNome(String n){
         this.nome = n;
+    }
+    
+    /**
+     *
+     * @param lista
+     */
+    public void setListaUcs(HashMap<String, UCPerfil> lista){
+        this.listaUcs = lista;
+    }
+    
+    public HashMap<String, UCPerfil> getListaUcs(){
+        return (HashMap<String, UCPerfil>) this.listaUcs;
     }
     
     public Turno getTurno(String codigoUC, String idTurno){

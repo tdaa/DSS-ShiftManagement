@@ -231,6 +231,11 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
                         ps.setString(7, "Teorica");
                     }
                     ps.executeUpdate();
+                    
+                    ps = con.prepareStatement("INSERT INTO Sala(idSala, MaxLugares) VALUES (?,?)");
+                    ps.setString(1, t.getSala().getNome());
+                    ps.setInt(2, t.getSala().getMax());
+                    ps.executeUpdate();
                 }
             }
             

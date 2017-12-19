@@ -39,8 +39,10 @@ public class FrameConfirmaçao extends javax.swing.JFrame {
      * @param codigo
      * @param tipoUC
      * @param nomePerfil
+     * @param per
+     * @param diaS
      */
-    public FrameConfirmaçao(ShiftManagement s, String nome, String codigo, String p, HashSet<Professor> equipa, int tipoUC, String nomePerfil) {
+    public FrameConfirmaçao(ShiftManagement s, String nome, String codigo, String p, HashSet<Professor> equipa, int tipoUC, String nomePerfil, String per, String diaS) {
         initComponents();
         this.system = s;
         this.nomeUC = nome;
@@ -49,6 +51,8 @@ public class FrameConfirmaçao extends javax.swing.JFrame {
         this.equipa = equipa;
         this.tipoUC = tipoUC;
         this.nomePerfil = nomePerfil;
+        this.diaS = diaS;
+        this.per = per;
     }
 
     /**

@@ -28,8 +28,21 @@ public class FrameUtilizadores extends javax.swing.JFrame {
     }
     
     private void atualizaJanela(){
-         DefaultListModel<String> dlm = new DefaultListModel<>();
-        for(String s: this.system.getRegistados()){
+         atualizaListaAlunos();
+         atualizaListaProfs();
+    }
+    
+    private void atualizaListaAlunos(){
+        DefaultListModel<String> dlm = new DefaultListModel<>();
+        for(String s: this.system.getAlunosRegistados()){
+            dlm.addElement(s);
+        }
+        this.alunosList.setModel(dlm);
+    }
+    
+    private void atualizaListaProfs(){
+        DefaultListModel<String> dlm = new DefaultListModel<>();
+        for(String s: this.system.getProfessoresRegistados()){
             dlm.addElement(s);
         }
         this.alunosList.setModel(dlm);
@@ -267,7 +280,7 @@ public class FrameUtilizadores extends javax.swing.JFrame {
         // botao ver prof
         String prof = this.profsList.getSelectedValue();
         if(prof != null){
-            DialogVerProfessor verProfessor = new DialogVerProfessor(this, true, this.system, prof);
+            DialogVerProfessor_Admin verProfessor = new DialogVerProfessor_Admin(this, true, this.system, prof);
             verProfessor.setVisible(true);
         }
     }//GEN-LAST:event_verProfButtonActionPerformed

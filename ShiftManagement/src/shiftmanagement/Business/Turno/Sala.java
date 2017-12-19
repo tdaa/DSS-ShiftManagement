@@ -36,5 +36,9 @@ public class Sala {
         this.maxLugares = m;
     }
     
+    public int getMax(){
+        return this.maxLugares;
+    }
+    
     
 }

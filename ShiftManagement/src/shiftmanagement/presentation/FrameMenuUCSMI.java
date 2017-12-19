@@ -7,6 +7,7 @@ package shiftmanagement.presentation;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import shiftmanagement.Business.ShiftManagement;
 import shiftmanagement.Parser.Parser;
 
@@ -45,7 +46,7 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
     
     private void atualizaListaPerfis(){
         DefaultListModel<String> lista = new DefaultListModel<>();
-        ArrayList<String> perfis = this.system.getPerfisPorCodENome();
+        ArrayList<String> perfis = this.system.getPerfisPorNome();
         perfis.forEach((s) -> {
             lista.addElement(s);
         });
@@ -192,8 +193,18 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         });
 
         addPerfilButton.setText("Adicionar Perfil");
+        addPerfilButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPerfilButtonActionPerformed(evt);
+            }
+        });
 
         remPerfilButton.setText("Remover Perfil");
+        remPerfilButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remPerfilButtonActionPerformed(evt);
+            }
+        });
 
         importPerfilButton.setText("Importar Perfis");
         importPerfilButton.addActionListener(new java.awt.event.ActionListener() {
@@ -431,6 +442,24 @@ public class FrameMenuUCSMI extends javax.swing.JFrame {
         p.parsePerfis();
         this.atualizaListaPerfis();
     }//GEN-LAST:event_importPerfilButtonActionPerformed
+
+    private void addPerfilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPerfilButtonActionPerformed
+        //botao adicionar perfil
+        FrameAddPerfil novoPerfil = new FrameAddPerfil(this.system);
+        novoPerfil.setVisible(true);
+    }//GEN-LAST:event_addPerfilButtonActionPerformed
+
+    private void remPerfilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remPerfilButtonActionPerformed
+        // botao remover Perfil
+        String perfil = this.perfisList.getSelectedValue();
+        if(perfil != null){
+            int suc = this.system.removePerfil(perfil);
+            if(suc != 0){
+                JOptionPane.showMessageDialog (null, "Perfil removido com sucesso!", "Rip Perfil", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else JOptionPane.showMessageDialog (null, "Erro! Perfil não removido!", "rip Perfil", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_remPerfilButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPerfilButton;

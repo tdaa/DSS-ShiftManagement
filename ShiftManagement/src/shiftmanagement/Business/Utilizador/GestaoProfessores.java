@@ -59,4 +59,16 @@ public class GestaoProfessores {
         }
         return null;
     }
+    
+    public ArrayList<String> getAsList(){
+        ArrayList<String> res = new ArrayList<>();
+        this.listaProfessores.values().forEach((a) -> {
+            res.add(a.getNome() + " - " + a.getUsername());
+        });
+        return res;
+    }
+    
+    public void addProf(Professor p){
+        this.listaProfessores.put(p.getUsername(), p);
+    }
 }

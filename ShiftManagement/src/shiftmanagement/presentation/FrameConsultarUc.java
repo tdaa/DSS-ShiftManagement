@@ -20,7 +20,7 @@ public class FrameConsultarUc extends javax.swing.JFrame {
     private String codigoUC;
     private String nomePerfil;
     private int tipoUC;//1 para lic; 2 para comp.
-    
+    private boolean isAluno;
      /**
      * Creates new form FrameConsultarUcLicenciatura
      * @param system
@@ -34,6 +34,18 @@ public class FrameConsultarUc extends javax.swing.JFrame {
         this.codigoUC = uc.substring(0, uc.indexOf(" "));
         this.tipoUC = tipoUC;
         this.nomePerfil = null;
+        this.isAluno = false;
+        atualizaJanela();
+    }
+    
+    public FrameConsultarUc(ShiftManagement system, String uc, int tipoUC, boolean aluno) {
+        initComponents();
+        this.system = system;
+        this.nomeUC = uc.substring((uc.indexOf("-") + 2), uc.length()-1);
+        this.codigoUC = uc.substring(0, uc.indexOf(" "));
+        this.tipoUC = tipoUC;
+        this.nomePerfil = null;
+        this.isAluno = true;
         atualizaJanela();
     }
     
@@ -58,6 +70,12 @@ public class FrameConsultarUc extends javax.swing.JFrame {
      *
      */
     public void atualizaJanela(){
+        if(this.isAluno==true){
+            this.addTurnoButton.setVisible(false);
+            this.removButton.setVisible(false);
+            this.addProfButton.setVisible(false);
+            this.removerButton.setVisible(false);
+        }
         nomeDaUc.setText(this.nomeUC);
         designacaoUcField.setText(this.nomeUC);
         codigoField.setText(this.codigoUC);

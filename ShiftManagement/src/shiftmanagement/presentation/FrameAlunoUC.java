@@ -5,17 +5,50 @@
  */
 package shiftmanagement.presentation;
 
+import javax.swing.DefaultListModel;
+import shiftmanagement.Business.ShiftManagement;
+
 /**
  *
  * @author sergio
  */
-public class FrameAlunoUC extends javax.swing.JFrame {
+public final class FrameAlunoUC extends javax.swing.JFrame {
 
+    private final ShiftManagement system;
+    private final String username;
+    
     /**
      * Creates new form AlunoUC
+     * @param s
+     * @param username
      */
-    public FrameAlunoUC() {
+    
+    public FrameAlunoUC(ShiftManagement s, String username) {
         initComponents();
+        this.system = s;
+        this.username = username;
+        atualizaJanela();
+    }
+    
+    public void atualizaJanela(){
+        atualizaUCregistado();
+        atualizaUCNaoregistado();
+    }
+    
+    public void atualizaUCregistado(){
+        DefaultListModel<String> lista = new DefaultListModel<>();
+        for(String s: this.system.getUCsAluno(this.username)){
+            lista.addElement(s);
+        }
+        inscritos.setModel(lista);
+    }
+    
+    public void atualizaUCNaoregistado(){
+        DefaultListModel<String> lista = new DefaultListModel<>();
+        for(String s: this.system.getUCsNIAluno(this.username)){
+            lista.addElement(s);
+        }
+        inscrever.setModel(lista);
     }
 
     /**
@@ -30,23 +63,23 @@ public class FrameAlunoUC extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        inscritos = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        inscrever = new javax.swing.JList<>();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        inscritos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(inscritos);
 
         jButton1.setText("Consultar UC");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -56,6 +89,11 @@ public class FrameAlunoUC extends javax.swing.JFrame {
         });
 
         jButton4.setText("Anular inscrição");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,12 +124,12 @@ public class FrameAlunoUC extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("UC's inscrito", jPanel1);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        inscrever.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(inscrever);
 
         jButton2.setText("Inscrever-me");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +162,7 @@ public class FrameAlunoUC extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Registar UC", jPanel2);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setText("Alunos UC");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,20 +195,43 @@ public class FrameAlunoUC extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String uc = inscrever.getSelectedValue();
+        if (uc!=null){
+            uc = uc.substring(0,uc.indexOf(' '));
+            this.system.insereAlunoUC(uc,this.username);
+        }
+        atualizaJanela();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        String uc = inscritos.getSelectedValue();
+        if (uc!=null){
+            int tipo = this.system.getTipo(uc);
+            FrameConsultarUc consulta = new FrameConsultarUc(this.system, uc, tipo, true);
+            consulta.setVisible(true);
+        }
+        atualizaJanela();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        String uc = inscritos.getSelectedValue();
+        if (uc!=null){
+            uc = uc.substring(0,uc.indexOf(' '));
+            this.system.removeAlunoUC(uc,this.username);
+        }
+        atualizaJanela();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> inscrever;
+    private javax.swing.JList<String> inscritos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

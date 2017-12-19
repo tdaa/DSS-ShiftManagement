@@ -6,10 +6,13 @@
 package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
+import shiftmanagement.database.PerfilDAO;
 
 /**
  *
@@ -17,14 +20,17 @@ import shiftmanagement.Business.Utilizador.Professor;
  */
 public class GestaoPerfis {
     
-    private HashMap<String, Perfil> listaPerfis;
+    private PerfilDAO listaPerfis;
     
     public GestaoPerfis(){
-        this.listaPerfis = new HashMap<>();
+        this.listaPerfis = new PerfilDAO();
     }
     
-    public void addPerfil(Perfil p){
+    public int addPerfil(Perfil p){
         this.listaPerfis.put(p.getNome(), p);
+        if(this.listaPerfis.containsKey(p.getNome()))
+            return 1;
+        else return 0;
     }
     
     public void addNovaUc(UCPerfil uc, String nomePerfil){
@@ -126,5 +132,31 @@ public class GestaoPerfis {
     public void removeUc(String codigoUC, String nomePerfil){
         this.listaPerfis.get(nomePerfil).eliminaUc(codigoUC);
     }
+    
+    public ArrayList<UCPerfil> getAllUcs(){
+        ArrayList<UCPerfil> res = new ArrayList<>();
+        for(Perfil p: this.listaPerfis.values()){
+            for(UCPerfil uc: p.getListaUcs().values())
+                res.add(uc);
+        }
+        return res;
+    }
    
+    public String getNomeUc(String codigoUC){
+        String nome = null;
+        for(Perfil p: this.listaPerfis.values()){
+            if(p.getListaUcs().containsKey(codigoUC)){
+                nome = p.getListaUcs().get(codigoUC).getNome();
+            }
+        }
+        return nome;
+    }
+    
+    public int eliminaPerfil(String perfil){
+        this.listaPerfis.remove(perfil);
+        if(!this.listaPerfis.containsKey(perfil)){
+            return 1;
+        }
+        else return 0;
+    }
 }

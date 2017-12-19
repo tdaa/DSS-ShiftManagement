@@ -6,6 +6,7 @@
 package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 import shiftmanagement.database.UcCompDAO;
@@ -164,6 +165,16 @@ public class GestaoUCsComplementares {
             if(t.getId().equals(idTurno)) return t;
         }
         return null;
+    }
+    
+    public Collection<UCComplementar> getAll(){
+        return this.listaUCs.values();
+    }
+    
+    public String getNomeUc(String codigoUC){
+        String nome = null;
+        if(this.listaUCs.containsKey(codigoUC)) nome = this.listaUCs.get(codigoUC).getNome();
+        return nome;
     }
     
 }

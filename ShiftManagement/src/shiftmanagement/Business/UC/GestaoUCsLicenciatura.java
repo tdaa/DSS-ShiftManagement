@@ -6,6 +6,7 @@
 package shiftmanagement.Business.UC;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 import shiftmanagement.database.UcLicDAO;
@@ -82,6 +83,12 @@ public class GestaoUCsLicenciatura {
         return res;
     }
     
+    public String getNomeUc(String codigoUC){
+        String nome = null;
+        if(this.listaUCs.containsKey(codigoUC)) nome = this.listaUCs.get(codigoUC).getNome();
+        return nome;
+    }
+    
     public void addProf(Professor p, String codigoUC){
         this.listaUCs.get(codigoUC).addProfToDocentes(p);
     }
@@ -104,6 +111,10 @@ public class GestaoUCsLicenciatura {
     
     public void atualizaTurnos(String idTurno, String codigoUC){
         this.listaUCs.get(codigoUC).corrigeIdTurnos(idTurno);
+    }
+    
+    public Collection<UCLicenciatura> getAll(){
+        return this.listaUCs.values();
     }
     
 }

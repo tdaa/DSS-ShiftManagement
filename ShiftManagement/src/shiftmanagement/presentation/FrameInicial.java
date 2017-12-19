@@ -158,7 +158,7 @@ public class FrameInicial extends javax.swing.JFrame {
             }
             if(username.charAt(0)=='p'){
                 system.iniciaSessao(username, pass, 3);
-                FrameProfessor homeProfessor = new FrameProfessor(this.system);
+                FrameHomeProfessor homeProfessor = new FrameHomeProfessor(this.system);
                 homeProfessor.setVisible(true);
                 this.dispose();
             }

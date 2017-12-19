@@ -211,7 +211,7 @@ public class ShiftManagement {
      *
      * @return
      */
-    public ArrayList<String> getPerfisPorCodENome(){
+    public ArrayList<String> getPerfisPorNome(){
         ArrayList<String> perfis = new ArrayList<>();
         this.listaPerfis.getNomePerfis().forEach((s) -> {
             perfis.add(s);
@@ -436,6 +436,11 @@ public class ShiftManagement {
         this.listaUCsComp.addNovaUc(uc);
     }
     
+    /**
+     *
+     * @param uc
+     * @param nomePerfil
+     */
     public void addUcPerfil(UCPerfil uc, String nomePerfil){
         this.listaPerfis.addNovaUc(uc, nomePerfil);
     }
@@ -451,24 +456,101 @@ public class ShiftManagement {
         else this.listaPerfis.removeUc(codigo, nomePerfil);
     }
     
-    public ArrayList<String> getRegistados(){
+    /**
+     *
+     * @return lista de alunos registados
+     */
+    public ArrayList<String> getAlunosRegistados(){
         return this.listaAlunos.getAsList();
     }
     
+    public ArrayList<String> getProfessoresRegistados(){
+        return this.listaProfs.getAsList();
+    }
+    
+    /**
+     *
+     * @param username
+     * @return aluno com determinado username
+     */
     public Aluno getAlunoPorUsername(String username){
         return this.listaAlunos.getAluno(username);
     }
     
+    /**
+     *
+     * @param uc
+     */
     public void insereUCLic(UCLicenciatura uc){
         this.listaUCsLic.addNovaUc(uc);
     }
     
+    /**
+     *
+     * @param uc
+     * @param nomePerfil
+     */
     public void insereUCPerfil(UCPerfil uc, String nomePerfil){
         this.listaPerfis.addNovaUc(uc, nomePerfil);
     }
     
+    /**
+     *
+     * @param nomePerfil
+     */
     public void inserePerfil(String nomePerfil){
         Perfil p = new Perfil(nomePerfil);
         this.listaPerfis.addPerfil(p);
+    }
+    
+    /**
+     *
+     * @param codigoUC
+     * @param userAluno
+     */
+    public void insereAlunoUC(String codigoUC, String userAluno){
+        this.listaRegistos.registaAlunoEmUc(codigoUC, userAluno);
+    }
+    
+    public ArrayList<String> getUCsAluno(String username){
+       ArrayList<String> res = new ArrayList<>();
+       ArrayList<String> codigos = this.listaRegistos.getUcsDeAluno(username);
+       for(String uc: codigos){
+           String nome = this.listaUCsLic.getNomeUc(uc);
+           if(nome==null){
+               nome = this.listaUCsComp.getNomeUc(uc);
+               if(nome==null){
+                   nome = this.listaPerfis.getNomeUc(uc);
+               }
+           }
+           res.add(uc + "-" + nome);
+       }
+       return res;
+    }
+    
+    public ArrayList<String> getUCsNIAluno(String username){
+        ArrayList<String> ucs = new ArrayList<>();
+        for(UCLicenciatura ucl: this.listaUCsLic.getAll()) 
+            ucs.add(ucl.getCodigo());
+        
+        for(UCComplementar ucc: this.listaUCsComp.getAll()) 
+            ucs.add(ucc.getCodigo());
+        
+        for(UCPerfil ucp: this.listaPerfis.getAllUcs()) 
+            ucs.add(ucp.getCodigo());
+        
+        return this.listaRegistos.getUcsNIAluno(username, ucs);
+    }
+    
+    public int addNovoPerfil(Perfil p){
+        return this.listaPerfis.addPerfil(p);
+    }
+    
+    public int removePerfil(String perfil){
+        return this.listaPerfis.eliminaPerfil(perfil);
+    }
+    
+    public void addNovoProfessor(Professor p){
+        this.listaProfs.addProf(p);
     }
 }

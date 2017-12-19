@@ -25,7 +25,7 @@ public class DialogVerProfessor_Admin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.system = s;
-        prof = prof.substring(prof.indexOf("-")+2, prof.length()-1);
+        prof = prof.substring(prof.indexOf("-")+2, prof.length());
         this.professor = this.system.getProfPorUsername(prof);
         atualizaJanela();
     }
@@ -35,6 +35,10 @@ public class DialogVerProfessor_Admin extends javax.swing.JDialog {
         this.nomeField.setText(this.professor.getNome());
         this.mailField.setText(this.professor.getMail());
         this.userField.setText(this.professor.getUsername());
+        this.mailField.setEditable(false);
+        this.nomeField.setEditable(false);
+        this.userField.setEditable(false);
+        
     }
 
     /**

@@ -106,11 +106,15 @@
     }, {
         "code": "H505N4",
         "name": "Sistemas Distribuídos",
-        "abr": "PF"
+        "abr": "SD"
     }, {
         "code": "H505N5",
+        "name": "Redes de Computadores",
+        "abr": "RC"
+    }, {
+        "code": "H505N6",
         "name": "Métodos Numéricos e Otimização não Linear",
-        "abr": "EES"
+        "abr": "MNOnL"
     }, {
         "code": "H506N1",
         "name": "Sistemas de Representação de Conhecimento e Raciocínio",

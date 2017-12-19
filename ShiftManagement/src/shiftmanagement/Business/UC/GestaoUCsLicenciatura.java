@@ -117,4 +117,8 @@ public class GestaoUCsLicenciatura {
         return this.listaUCs.values();
     }
     
+    public boolean existeUc(String codigoUC){
+        return this.listaUCs.containsKey(codigoUC);
+    }
+    
 }

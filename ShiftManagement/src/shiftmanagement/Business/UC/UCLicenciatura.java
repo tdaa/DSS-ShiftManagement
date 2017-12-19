@@ -62,7 +62,7 @@ public class UCLicenciatura extends UC{
     
     public boolean existeTeorica(){
         for(Turno t: this.getTurnos()){
-            if(t.getClass().equals("T")) return true;
+            if(t.getClass().equals("Teorica")) return true;
         }
         return false;
     }

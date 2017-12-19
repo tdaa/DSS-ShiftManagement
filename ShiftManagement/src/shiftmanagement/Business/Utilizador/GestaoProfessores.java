@@ -17,6 +17,7 @@ public class GestaoProfessores {
     private ProfessorDAO listaProfessores;
     
     public GestaoProfessores(){
+        this.listaProfessores = new ProfessorDAO();
     }
     
     public Professor verificaDados(String username, String pass) throws UsernameErradoException, PassErradaException{
@@ -54,10 +55,7 @@ public class GestaoProfessores {
     }
    
     public Professor getProfByUsername(String user){
-        for(Professor p: this.listaProfessores.values()){
-            if(p.getUsername().equals(user)) return p;
-        }
-        return null;
+        return this.listaProfessores.get(user);
     }
     
     public ArrayList<String> getAsList(){

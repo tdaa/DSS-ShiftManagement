@@ -52,7 +52,7 @@ public class FrameUtilizadores extends javax.swing.JFrame {
         for(String s: this.system.getProfessoresRegistados()){
             dlm.addElement(s);
         }
-        this.alunosList.setModel(dlm);
+        this.profsList.setModel(dlm);
         }
         catch (Exception e ){
             System.out.println(e.getMessage());
@@ -110,11 +110,6 @@ public class FrameUtilizadores extends javax.swing.JFrame {
             }
         });
 
-        profsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(profsList);
 
         verProfButton.setText("Ver Professor");
@@ -149,11 +144,6 @@ public class FrameUtilizadores extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Professores", jPanel3);
 
-        alunosList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(alunosList);
 
         verbutton.setText("Ver Aluno");
@@ -292,7 +282,10 @@ public class FrameUtilizadores extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        // botao importar professores
+        Parser p = new Parser(this.system);
+        p.parseProfessores();
+        this.atualizaJanela();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

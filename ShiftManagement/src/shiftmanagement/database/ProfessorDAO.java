@@ -66,7 +66,7 @@ public class ProfessorDAO implements Map<String, Professor>{
             if(rs.next()){
                 p.setUsername(rs.getString("Username"));
                 p.setNome(rs.getString("Nome"));
-                p.setMail(rs.getString("Mail"));
+                p.setMail(rs.getString("Email"));
                 p.setPassword(rs.getString("Password"));
                 p.setRegente(rs.getBoolean("Regente"));
                 

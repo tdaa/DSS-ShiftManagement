@@ -14,6 +14,7 @@ import shiftmanagement.Business.UC.UCPerfil;
 import shiftmanagement.Business.UC.UCLicenciatura;
 import shiftmanagement.Business.UC.UCComplementar;
 import shiftmanagement.Business.Utilizador.Aluno;
+import shiftmanagement.Business.Utilizador.Professor;
 
 /**
  * 
@@ -95,15 +96,33 @@ public class Parser {
         JsonArray ucsComp = rootObject.getAsJsonArray("Alunos");
         for(int i=0; i<ucsComp.size(); i++){
             JsonObject item = ucsComp.get(i).getAsJsonObject();
-            String name = item.get("name").getAsString();
+            String name = item.get("nome").getAsString();
             String username = item.get("username").getAsString();
             String pass = item.get("password").getAsString();
-            Aluno a = new Aluno(username, name, "xxx", pass, false);
+            String mail = item.get("email").getAsString();
+            boolean trabalhador = item.get("trabalhador").getAsBoolean();
+            Aluno a = new Aluno(username, name, mail, pass, trabalhador);
             this.system.addNovoAluno(a);
-            //UcLicenciaturaDAO.put(code,uclic);
         }
     }
     
+    public void parseProfessores(){
+        JsonParser parser = new JsonParser();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("Professores.json");
+        Reader reader = new InputStreamReader(inputStream);
+        JsonElement rootElement = parser.parse(reader);
+        JsonObject rootObject = rootElement.getAsJsonObject();
+        JsonArray ucsComp = rootObject.getAsJsonArray("Professores");
+        for(int i=0; i<ucsComp.size(); i++){
+            JsonObject item = ucsComp.get(i).getAsJsonObject();
+            String name = item.get("nome").getAsString();
+            String username = item.get("username").getAsString();
+            String pass = item.get("password").getAsString();
+            String mail = item.get("email").getAsString();
+            Professor p = new Professor(username, name, mail, pass);
+            this.system.addNovoProfessor(p);
+        }
+    }
     
     /*
     public void parseShifts(){

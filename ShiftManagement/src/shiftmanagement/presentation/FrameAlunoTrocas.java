@@ -59,10 +59,10 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Droid Sans Mono Dotted for Powerline", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Drugs", 0, 36)); // NOI18N
         jLabel1.setText("Trocas");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(389, 17, 132, 62);
+        jLabel1.setBounds(340, 30, 132, 62);
 
         jButton1.setText("Trocar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -129,8 +129,8 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(uctroca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(turnodesejado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -152,11 +152,11 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
         // TODO add your handling code here:
         String troca = trocas.getSelectedValue();
         if(troca != null){
-            String UC = troca.substring(troca.indexOf("UC")+3,troca.indexOf("Turno Oferecido")-1);
-            String meuturno = troca.substring(troca.indexOf("Turno Requerido")+16,troca.length()-1);
-            String turnoquequero = troca.substring(troca.indexOf("Turno Oferecido")+16,troca.indexOf("Turno Requerido")-17);
-            String idaluno = troca.substring(0, troca.indexOf("UC")-1);
-            if(this.system.getUCTurno(UC, username).equals(meuturno)){
+            String UC = troca.substring(troca.indexOf(":")+2,troca.indexOf(" - Turno Oferecido: ")-1);
+            String meuturno = troca.substring(troca.indexOf(" - Turno Requerido: ")+21,troca.length()-1);
+            String turnoquequero = troca.substring(troca.indexOf(" - Turno Oferecido: ")+21,troca.indexOf(" - Turno Requerido: ")-1);
+            String idaluno = troca.substring(0, troca.indexOf("-")-2);
+            if(this.system.getTurno_UC_Aluno(UC, username).equals(meuturno)){
                 this.system.trocaTurnos(username,idaluno,turnoquequero,meuturno,UC);
                 javax.swing.JOptionPane.showMessageDialog(this, "Turnos Trocados", "Trocado", 1);
             }
@@ -171,7 +171,7 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
         String uc = uctroca.getText();
         String turnod = turnodesejado.getText();
         try{
-            this.system.criarTroca(username, uc, turnod);
+            this.system.criaTroca(username, uc, turnod);
             atualizaJanela();
         } catch(Exception e){
             javax.swing.JOptionPane.showMessageDialog(this, "Turno ou UC inseridos não são compatíveis", "Problema", 0);

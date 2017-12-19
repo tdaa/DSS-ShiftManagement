@@ -159,4 +159,33 @@ public class GestaoPerfis {
         }
         else return 0;
     }
+    
+    public boolean existeUc(String codigoUC){
+        boolean res=false;
+        for(Perfil p: this.listaPerfis.values()){
+            for(UCPerfil uc: p.getListaUcs().values())
+                if(uc.getCodigo().equals(codigoUC)) return true;
+        }
+        return res;
+    }
+    
+    public String getCodigoUC(String nomeUC){
+        for(Perfil p: this.listaPerfis.values()){
+            for(UCPerfil uc: p.getListaUcs().values()){
+                if(uc.getNome().equals(nomeUC)){
+                    return uc.getCodigo();
+                }
+            }
+        }
+        return null;
+    }
+    
+    public String getPerfilDeUC(String codigoUC){
+        for(Perfil p: this.listaPerfis.values()){
+            if(p.getListaUcs().containsKey(codigoUC)){
+                p.getNome();
+            }
+        }
+        return null;
+    }
 }

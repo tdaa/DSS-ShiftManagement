@@ -177,4 +177,15 @@ public class GestaoUCsComplementares {
         return nome;
     }
     
+    public boolean existeUc(String codigoUC){
+        return this.listaUCs.containsKey(codigoUC);
+    }
+    
+    public String getCodigoUC(String nome){
+        for(UCComplementar uc: this.listaUCs.values()){
+            if(uc.getNome().equals(nome)) return uc.getCodigo();
+        }
+        return null;
+    }
+    
 }

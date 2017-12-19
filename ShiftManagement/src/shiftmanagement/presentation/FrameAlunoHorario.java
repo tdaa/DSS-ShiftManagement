@@ -54,7 +54,7 @@ public class FrameAlunoHorario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Droid Sans Mono Slashed for Powerline", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Drugs", 0, 36)); // NOI18N
         jLabel1.setText("Horário");
 
         listaturnos.setModel(new javax.swing.AbstractListModel<String>() {
@@ -65,7 +65,7 @@ public class FrameAlunoHorario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listaturnos);
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jButton1.setText("Ver turno");
+        jButton1.setText("Ver Turno");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -88,7 +88,7 @@ public class FrameAlunoHorario extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -102,16 +102,16 @@ public class FrameAlunoHorario extends javax.swing.JFrame {
                         .addGap(81, 81, 81)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(262, 262, 262)
+                        .addGap(272, 272, 272)
                         .addComponent(jLabel1)))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(30, 30, 30)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(68, Short.MAX_VALUE))
         );
@@ -125,15 +125,15 @@ public class FrameAlunoHorario extends javax.swing.JFrame {
         if(turno!=null){
             String codigoUC = this.system.getCodigoUC(turno.substring(0,turno.indexOf(" ")));
             String idTurno = turno.substring(turno.indexOf("-")+2,turno.length()-1);
-            String tipoUC = this.system.getTipoUC(codigoUC);
+            int tipoUC = this.system.getTipoUC(codigoUC);
             String nomePerfil;
-            if(tipoUC==3 ){
+            if(tipoUC==3){
                 nomePerfil = this.system.getPerfil(codigoUC);
             }
             else{
                 nomePerfil=null;
             }
-            DialogVerTurno dturno = new DialogVerTurno(this,true,idTurno, codigoUC, tipoUC, nomePerfil);
+            DialogVerTurno dturno = new DialogVerTurno(this, true, this.system, idTurno, codigoUC, tipoUC, nomePerfil);
             dturno.setVisible(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

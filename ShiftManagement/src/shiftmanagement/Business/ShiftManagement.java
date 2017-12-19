@@ -50,6 +50,7 @@ public class ShiftManagement {
         this.listaAlunos = new GestaoAlunos();
         this.listaProfs = new GestaoProfessores();
         this.listaPerfis = new GestaoPerfis();
+        this.listaRegistos = new GestaoRegistos();
     }
     
     /**
@@ -59,6 +60,12 @@ public class ShiftManagement {
     public ShiftManagement(ShiftManagement s){
         utilizador = s.getUtilizador();
         curso = s.getCurso();
+        this.listaUCsLic = new GestaoUCsLicenciatura();
+        this.listaUCsComp = new GestaoUCsComplementares();
+        this.listaAlunos = new GestaoAlunos();
+        this.listaProfs = new GestaoProfessores();
+        this.listaPerfis = new GestaoPerfis();
+        this.listaRegistos = new GestaoRegistos();
     }
     
     /**
@@ -69,6 +76,12 @@ public class ShiftManagement {
     public ShiftManagement(Utilizador u, Curso c){
         this.utilizador = u;
         curso = c;
+        this.listaUCsLic = new GestaoUCsLicenciatura();
+        this.listaUCsComp = new GestaoUCsComplementares();
+        this.listaAlunos = new GestaoAlunos();
+        this.listaProfs = new GestaoProfessores();
+        this.listaPerfis = new GestaoPerfis();
+        this.listaRegistos = new GestaoRegistos();
     }
     
     /**
@@ -464,6 +477,10 @@ public class ShiftManagement {
         return this.listaAlunos.getAsList();
     }
     
+    /**
+     *
+     * @return 
+     */
     public ArrayList<String> getProfessoresRegistados(){
         return this.listaProfs.getAsList();
     }
@@ -512,6 +529,11 @@ public class ShiftManagement {
         this.listaRegistos.registaAlunoEmUc(codigoUC, userAluno);
     }
     
+    /**
+     *
+     * @param username
+     * @return
+     */
     public ArrayList<String> getUCsAluno(String username){
        ArrayList<String> res = new ArrayList<>();
        ArrayList<String> codigos = this.listaRegistos.getUcsDeAluno(username);
@@ -528,6 +550,11 @@ public class ShiftManagement {
        return res;
     }
     
+    /**
+     *
+     * @param username
+     * @return
+     */
     public ArrayList<String> getUCsNIAluno(String username){
         ArrayList<String> ucs = new ArrayList<>();
         for(UCLicenciatura ucl: this.listaUCsLic.getAll()) 
@@ -542,15 +569,179 @@ public class ShiftManagement {
         return this.listaRegistos.getUcsNIAluno(username, ucs);
     }
     
+    /**
+     *
+     * @param p
+     * @return
+     */
     public int addNovoPerfil(Perfil p){
         return this.listaPerfis.addPerfil(p);
     }
     
+    /**
+     *
+     * @param perfil
+     * @return
+     */
     public int removePerfil(String perfil){
         return this.listaPerfis.eliminaPerfil(perfil);
     }
     
+    /**
+     *
+     * @param p
+     */
     public void addNovoProfessor(Professor p){
         this.listaProfs.addProf(p);
+    }
+    
+    /**
+     *
+     * @param username
+     * @return
+     */
+    public ArrayList<String> getAlunoHorario(String username){
+        return this.listaAlunos.getHorario(username);
+    }
+    
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
+    public int getTipoUC(String codigoUC){
+        if(this.listaUCsLic.existeUc(codigoUC)) return 1;
+        if(this.listaUCsComp.existeUc(codigoUC)) return 2;
+        if(this.listaPerfis.existeUc(codigoUC)) return 3;
+        return 0;
+    }
+    
+    /**
+     *
+     * @param nomeUC
+     * @return
+     */
+    public String getCodigoUC(String nomeUC){
+        if(this.listaUCsLic.getCodigoUC(nomeUC) != null) {
+            return this.listaUCsLic.getCodigoUC(nomeUC);
+        }
+        if(this.listaUCsComp.getCodigoUC(nomeUC) != null){
+            return this.listaUCsComp.getCodigoUC(nomeUC);
+        }
+        if(this.listaPerfis.getCodigoUC(nomeUC) != null){
+            return this.listaPerfis.getCodigoUC(nomeUC);
+        }
+        
+        return null;
+    }
+    
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
+    public String getPerfil(String codigoUC){
+        return this.listaPerfis.getPerfilDeUC(codigoUC);
+    }
+    
+    /**
+     *
+     * @param codigoUC
+     * @param userAluno
+     */
+    public void removeAlunoDeUC(String codigoUC, String userAluno){
+        this.listaRegistos.removeAluno_UC(codigoUC, userAluno);
+    }
+    
+    /**
+     *
+     * @param nomeUC
+     * @param username
+     * @return
+     */
+    public String getTurno_UC_Aluno(String nomeUC, String username){
+        return this.listaAlunos.getTurnoDeUc(nomeUC, username);
+    }
+    
+    /**
+     *
+     * @param alunoOrigem
+     * @param alunoDestino
+     * @param turnoF
+     * @param turnoI
+     * @param nomeUC
+     */
+    public void trocaTurnos(String alunoOrigem, String alunoDestino, String turnoF, String turnoI, String nomeUC){
+        String codigoUC = this.getCodigoUC(nomeUC);
+        this.listaRegistos.removeRegisto(alunoOrigem, turnoI, codigoUC);
+        this.listaRegistos.removeRegisto(alunoDestino, turnoF, codigoUC);
+        this.listaRegistos.novoRegisto(alunoOrigem, turnoF, codigoUC);
+        this.listaRegistos.novoRegisto(alunoDestino, turnoI, codigoUC);
+    }
+    
+    /**
+     *
+     * @param aluno
+     * @param nomeuc
+     * @param turnoF
+     */
+    public void criaTroca(String aluno, String nomeuc, String turnoF){
+        String codigoUC = this.getCodigoUC(nomeuc);
+        this.listaAlunos.insereTroca(aluno, codigoUC, nomeuc, turnoF);
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public ArrayList<String> getTrocas(){
+        String nomeUC, codigoUC, aluno, turnoI, turnoF;
+        ArrayList<String> res = new ArrayList<>();
+        for(String s: this.listaAlunos.getTodasTrocas()){
+            codigoUC = s.substring(s.indexOf("-")+2, s.indexOf("f")-4);
+            nomeUC = this.getNomeUc(codigoUC);
+            aluno = s.substring(0, s.indexOf(" "));
+            turnoF = s.substring(s.indexOf("f")+2, s.indexOf("i")-4);
+            turnoI = s.substring(s.indexOf("i")+2, s.length()-1);
+            res.add(aluno + " - UC: " + nomeUC + " - Turno Oferecido: " + turnoI + " - Turno Requerido: " + turnoF);
+        }
+        return res;
+        
+    }
+    
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
+    public String getNomeUc(String codigoUC){
+        if(this.listaUCsLic.getNomeUc(codigoUC) != null) {
+            return this.listaUCsLic.getCodigoUC(codigoUC);
+        }
+        if(this.listaUCsComp.getNomeUc(codigoUC) != null){
+            return this.listaUCsComp.getCodigoUC(codigoUC);
+        }
+        if(this.listaPerfis.getNomeUc(codigoUC) != null){
+            return this.listaPerfis.getNomeUc(codigoUC);
+        }
+        return null;
+    }
+    
+    /**
+     *
+     * @param username
+     * @param nova
+     */
+    public void alteraPassword(String username, String nova){
+        this.listaAlunos.mudaPassAluno(username, nova);
+    }
+    
+    /**
+     *
+     * @param username
+     * @param nova
+     */
+    public void alteraEmailAluno(String username, String nova){
+        this.listaAlunos.mudaEmailAluno(username, nova);
     }
 }

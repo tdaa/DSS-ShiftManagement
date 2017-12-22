@@ -20,8 +20,8 @@ public class PL extends Turno{
         this.maxAlunos = 0;
     }
     
-    public PL(String id, int max, Sala s, String p, Time l, String uc){
-        super(id, s, p, l, uc);
+    public PL(String id, int max, Sala s, String p, Time l, String uc, int n, String dia){
+        super(id, s, p, l, uc, n, dia);
         this.maxAlunos = max;
     }
     

@@ -67,6 +67,11 @@ public class GestaoRegistos {
         return codigos;
     }
     
+    /**
+     *
+     * @param codigoUC
+     * @param userAluno
+     */
     public void removeAluno_UC(String codigoUC, String userAluno){
         for(Registo r: this.registos.values()){
             if(r.getIdAluno().equals(userAluno) && r.getIdUC().equals(codigoUC)){
@@ -75,6 +80,12 @@ public class GestaoRegistos {
         }
     }
     
+    /**
+     *
+     * @param aluno
+     * @param turno
+     * @param uc
+     */
     public void removeRegisto(String aluno, String turno, String uc){
         for(Registo r: this.registos.values()){
             if(r.getIdAluno().equals(aluno) && r.getIdTurno().equals(turno) && r.getIdUC().equals(uc)){
@@ -84,8 +95,30 @@ public class GestaoRegistos {
         }
     }
     
+    /**
+     *
+     * @param aluno
+     * @param turno
+     * @param uc
+     */
     public void novoRegisto(String aluno, String turno, String uc){
         Registo r = new Registo(id, aluno, uc, turno);
         this.registos.put(id, r);
+    }
+    
+    /**
+     *
+     * @param codigoUC
+     * @param turno
+     * @return
+     */
+    public ArrayList<String> getAlunosEmTurnoUc(String codigoUC, String turno){
+        ArrayList<String> res = new ArrayList<>();
+        for(Registo r: this.registos.values()){
+            if(r.getIdUC().equals(codigoUC) && r.getIdTurno().equals(turno)){
+                res.add(r.getIdAluno());
+            }
+        }
+        return res;
     }
 }

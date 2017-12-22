@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
-import shiftmanagement.database.UcPerfilDAO;
 
 /**
  *
@@ -35,7 +34,7 @@ public class Perfil {
      */
     public Perfil(String nome){
         this.nome = nome;
-        this.listaUcs = new UcPerfilDAO();
+        this.listaUcs = new HashMap<>();
     }
     
     /**
@@ -62,14 +61,29 @@ public class Perfil {
         this.listaUcs = lista;
     }
     
+    /**
+     *
+     * @return
+     */
     public HashMap<String, UCPerfil> getListaUcs(){
         return (HashMap<String, UCPerfil>) this.listaUcs;
     }
     
+    /**
+     *
+     * @param codigoUC
+     * @param idTurno
+     * @return
+     */
     public Turno getTurno(String codigoUC, String idTurno){
         return this.listaUcs.get(codigoUC).getTurno(idTurno);
     }
     
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
     public UCPerfil getUc(String codigoUC){
         return this.listaUcs.get(codigoUC);
     }
@@ -131,8 +145,9 @@ public class Perfil {
      * @param t
      * @param codigoUC
      */
-    public void addTurno(Turno t, String codigoUC){
+    public Perfil addTurno(Turno t, String codigoUC){
         this.listaUcs.get(codigoUC).addTurno(t);
+        return this;
     }
     
     /**

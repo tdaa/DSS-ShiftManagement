@@ -117,7 +117,8 @@ public class GestaoUCsComplementares {
      * @param codigoUC
      */
     public void addNovoTurno(Turno t, String codigoUC){
-        this.listaUCs.get(codigoUC).addTurno(t);
+        UCComplementar uc = (UCComplementar) this.listaUCs.get(codigoUC).addTurno(t);
+        this.listaUCs.put(uc.getCodigo(), uc);
     }
     
     /**
@@ -186,6 +187,10 @@ public class GestaoUCsComplementares {
             if(uc.getNome().equals(nome)) return uc.getCodigo();
         }
         return null;
+    }
+    
+    public int getAulas(String uc, String turno){
+        return this.listaUCs.get(uc).getNAulas(turno);
     }
     
 }

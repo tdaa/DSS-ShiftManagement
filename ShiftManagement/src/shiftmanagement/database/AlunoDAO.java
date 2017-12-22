@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import shiftmanagement.Business.Turno.Troca;
 import shiftmanagement.Business.Utilizador.Aluno;
+import shiftmanagement.Business.Utilizador.Falta;
 
 /**
  *
@@ -98,6 +99,22 @@ public class AlunoDAO implements Map<String, Aluno>{
                 }
                 a.setTrocas(trocas);
                 
+                ArrayList<Falta> faltas = new ArrayList<>();
+                ps = con.prepareStatement("SELECT * FROM Falta "
+                        + "INNER JOIN Aluno ON Aluno.idAluno = Falta.idAluno"
+                        + " WHERE Aluno.idAluno = ?");
+                ps.setString(1, (String) key);
+                rs = ps.executeQuery();
+                Falta f;
+                while(rs.next()){
+                    f = new Falta();
+                    f.setId(rs.getInt("idFalta"));
+                    f.setCodigoUC(rs.getString("codigoUC"));
+                    f.setData(rs.getDate("Data").toLocalDate());
+                    f.setIdTurno(rs.getString("idTurno"));
+                    faltas.add(f);
+                }
+                a.setFaltas(faltas);
             }
         } 
         catch(SQLException e){
@@ -136,7 +153,32 @@ public class AlunoDAO implements Map<String, Aluno>{
             ps.setString(4, value.getMail());
             ps.setBoolean(5, value.getTrabalhador());
             ps.executeUpdate();
+            
+            ArrayList<Troca> trocas = value.getTrocas();
+            if(trocas != null){
+                for(Troca t: trocas){
+                    ps = con.prepareStatement("INSERT INTO Troca (idTroca, idAluno, idTurnoAtual, idTurnoDesejado, codigoUC) VALUES (?,?,?,?,?)");
+                    ps.setInt(1, t.getId());
+                    ps.setString(2, key);
+                    ps.setString(3, t.getIdTurnoInicial());
+                    ps.setString(4, t.getIdTurnoFinal());
+                    ps.setString(5, t.getCodigoUC());
+                    ps.executeUpdate();
+                }
+            }
            
+            ArrayList<Falta> faltas = value.getFaltas();
+            if(faltas != null){
+                for(Falta f: faltas){
+                    ps = con.prepareStatement("INSERT INTO Falta (idFalta, codigoUC, Data, idTurno, idAluno) VALUES (?,?,?,?,?)");
+                    ps.setInt(1, f.getId());
+                    ps.setString(2, f.getCodigoUC());
+                    ps.setDate(3, java.sql.Date.valueOf(f.getData()));
+                    ps.setString(4, f.getIdTurno());
+                    ps.setString(5, key);
+                    ps.executeUpdate();
+                }
+            }
         }
         catch(SQLException e){
             System.out.printf(e.getMessage());

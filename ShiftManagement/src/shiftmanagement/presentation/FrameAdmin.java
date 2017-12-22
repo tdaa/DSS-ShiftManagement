@@ -113,6 +113,8 @@ public class FrameAdmin extends javax.swing.JFrame {
 
     private void horarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horarioButtonActionPerformed
         //botao horario
+        FrameElaborarHorario feh = new FrameElaborarHorario(this.system);
+        feh.setVisible(true);
     }//GEN-LAST:event_horarioButtonActionPerformed
 
     private void alunosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alunosButtonActionPerformed

@@ -18,6 +18,7 @@ import shiftmanagement.Business.ShiftManagement;
 import shiftmanagement.Business.Turno.PL;
 import shiftmanagement.Business.Turno.Sala;
 import shiftmanagement.Business.Turno.TP;
+import shiftmanagement.Business.Turno.Teorica;
 
 /**
  *
@@ -51,6 +52,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
         atualizaJanela();
         atualizaLista();
         atualizaCombo();
+        atualizaDiaCombo();
     }
     
     private void atualizaLista(){
@@ -77,11 +79,17 @@ public class DialogAddTurno extends javax.swing.JDialog {
         this.comboBox.addItem("TP");
         this.comboBox.addItem("PL");
         if(this.system.getTeorica(codigoUC, tipoUC)==false){
-            this.comboBox.addItem("T");
+            this.comboBox.addItem("Teórica");
         }
     }
     
-    
+    private void atualizaDiaCombo(){
+        this.comboDia.addItem("seg");
+        this.comboDia.addItem("ter");
+        this.comboDia.addItem("qua");
+        this.comboDia.addItem("qui");
+        this.comboDia.addItem("sex");
+    }
     
     public void filterModel(DefaultListModel<String> model, String filter) {
         this.system.getListaNomeProfs(this.codigoUC, this.tipoUC, this.nomePerfil).forEach((s) -> {
@@ -125,6 +133,10 @@ public class DialogAddTurno extends javax.swing.JDialog {
         comboBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         maxAlunosField = new javax.swing.JTextField();
+        aulasField = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        comboDia = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -181,14 +193,16 @@ public class DialogAddTurno extends javax.swing.JDialog {
 
         jLabel3.setText("Máximo de Alunos");
 
+        jLabel9.setText("Aulas");
+
+        jLabel10.setText("Dia da Semana");
+
+        comboDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(155, 155, 155))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -210,11 +224,15 @@ public class DialogAddTurno extends javax.swing.JDialog {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel8)
-                                            .addComponent(jLabel2))
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel10))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(aulasField)
                                             .addComponent(horaField)
-                                            .addComponent(comboBox, 0, 184, Short.MAX_VALUE))))
+                                            .addComponent(comboBox, 0, 184, Short.MAX_VALUE)
+                                            .addComponent(comboDia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -230,15 +248,19 @@ public class DialogAddTurno extends javax.swing.JDialog {
                         .addComponent(maxField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
                     .addComponent(jLabel3))
                 .addGap(98, 98, 98))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(166, 166, 166))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addGap(25, 25, 25)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel5)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeSalaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
@@ -250,7 +272,15 @@ public class DialogAddTurno extends javax.swing.JDialog {
                     .addComponent(maxField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(horaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(aulasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(comboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3))
@@ -289,7 +319,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
         // botao confirmar
         String id = (String) this.comboBox.getSelectedItem();
         if(id!=null && (id.equals("PL") || id.equals("TP"))){
-            if(this.usernameProf != null && this.nomeSalaField.getText()!=null && this.maxField.getText()!=null && this.horaField.getText()!=null && this.maxAlunosField.getText()!=null){
+            if(this.comboDia.getSelectedItem()!=null && this.aulasField.getText() != null && this.usernameProf != null && this.nomeSalaField.getText()!=null && this.maxField.getText()!=null && this.horaField.getText()!=null && this.maxAlunosField.getText()!=null){
                 String nomeSala = this.nomeSalaField.getText();
                 int max = Integer.parseInt(this.maxField.getText());
                 DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
@@ -299,17 +329,23 @@ public class DialogAddTurno extends javax.swing.JDialog {
                 } catch (ParseException ex) {
                     Logger.getLogger(DialogAddTurno.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                String dia = this.comboDia.getSelectedItem().toString();
                 Time hora = new Time(h);
+                int naulas = Integer.parseInt(this.aulasField.getText());
                 int maxAlunos = Integer.parseInt(this.maxAlunosField.getText());
                 Sala s = new Sala(max, nomeSala);
                 if(id.equals("PL")){
-                    PL t = new PL(id, maxAlunos, s, this.usernameProf, hora, codigoUC);
+                    PL t = new PL(id, maxAlunos, s, this.usernameProf, hora, codigoUC, naulas, dia);
                     this.system.addTurno(t, this.codigoUC, this.tipoUC, this.nomePerfil);
                 }
                 if(id.equals("TP")){
-                    TP t = new TP(id, maxAlunos, s, this.usernameProf, hora, codigoUC);
+                    TP t = new TP(id, maxAlunos, s, this.usernameProf, hora, codigoUC, naulas, dia);
                     this.system.addTurno(t, codigoUC, this.tipoUC, this.nomePerfil);
                 }
+                /*if(id.equals("Teórica")){
+                    Teorica t = new Teorica(id, s, this.usernameProf, hora, codigoUC, naulas);
+                    this.system.addTurno(t, codigoUC, tipoUC, nomePerfil);
+                }*/
                 this.dispose();
             }
             else{
@@ -328,11 +364,14 @@ public class DialogAddTurno extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton associarButton;
+    private javax.swing.JTextField aulasField;
     private javax.swing.JButton cancelButton;
     private javax.swing.JComboBox<String> comboBox;
+    private javax.swing.JComboBox<String> comboDia;
     private javax.swing.JButton confirmButton;
     private javax.swing.JTextField horaField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -340,6 +379,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField maxAlunosField;
     private javax.swing.JTextField maxField;

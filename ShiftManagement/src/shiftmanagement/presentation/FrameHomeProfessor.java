@@ -5,7 +5,9 @@
  */
 package shiftmanagement.presentation;
 
+import javax.swing.DefaultListModel;
 import shiftmanagement.Business.ShiftManagement;
+import shiftmanagement.Business.Utilizador.Professor;
 
 /**
  *
@@ -14,6 +16,8 @@ import shiftmanagement.Business.ShiftManagement;
 public class FrameHomeProfessor extends javax.swing.JFrame {
     
     private ShiftManagement system;
+    private String username;
+    private boolean regente;
     
     /**
      * Creates new form FrameHomeProfessor
@@ -21,6 +25,20 @@ public class FrameHomeProfessor extends javax.swing.JFrame {
     public FrameHomeProfessor(ShiftManagement s) {
         initComponents();
         this.system = s;
+        this.username = this.system.getUtilizador().getUsername();
+        if(this.system.getUtilizador() instanceof Professor){
+            Professor p = (Professor) this.system.getUtilizador();
+            this.regente = p.getRegente();
+        }
+        atualizaJanela();
+    }
+    
+    private void atualizaJanela(){
+        DefaultListModel<String> dlm = new DefaultListModel<>();
+        this.system.get_Uc_E_Turnos_Prof(this.username).forEach((s) -> {
+            dlm.addElement(s);
+        });
+        ucsList.setModel(dlm);
     }
 
     /**
@@ -32,21 +50,120 @@ public class FrameHomeProfessor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tituloLabel = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ucsList = new javax.swing.JList<>();
+        consultarButton = new javax.swing.JButton();
+        sairButton = new javax.swing.JButton();
+        regenteButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tituloLabel.setFont(new java.awt.Font("Drugs", 1, 48)); // NOI18N
+        tituloLabel.setText("Menu Professor");
+
+        ucsList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(ucsList);
+
+        consultarButton.setText("Ver Alunos");
+        consultarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addComponent(consultarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(consultarButton)))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Horário", jPanel2);
+
+        sairButton.setText("Sair");
+
+        regenteButton.setText("Sou Regente!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(80, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(tituloLabel)
+                        .addGap(245, 245, 245))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(regenteButton)
+                        .addGap(114, 114, 114)
+                        .addComponent(sairButton)
+                        .addGap(305, 305, 305))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(tituloLabel)
+                .addGap(34, 34, 34)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sairButton)
+                    .addComponent(regenteButton))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void consultarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarButtonActionPerformed
+        // botao consultar uc
+        String codigoUC, turno;
+        String sel = this.ucsList.getSelectedValue();
+        if(sel != null){
+            codigoUC = this.system.getCodigoUC(sel.substring(0, sel.indexOf(" ")));
+            turno = sel.substring(sel.indexOf("-")+2, sel.indexOf(":")-1);
+            FrameTurnoUCProf turnoDeUc = new FrameTurnoUCProf(this.system, codigoUC, turno, regente);
+            turnoDeUc.setVisible(true);
+        }
+    }//GEN-LAST:event_consultarButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton consultarButton;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton regenteButton;
+    private javax.swing.JButton sairButton;
+    private javax.swing.JLabel tituloLabel;
+    private javax.swing.JList<String> ucsList;
     // End of variables declaration//GEN-END:variables
 }

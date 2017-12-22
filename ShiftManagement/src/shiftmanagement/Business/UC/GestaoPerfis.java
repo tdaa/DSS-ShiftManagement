@@ -46,7 +46,8 @@ public class GestaoPerfis {
     }
     
     public void addNovoTurno(Turno t, String codigoUC, String nomePerfil){
-        this.listaPerfis.get(nomePerfil).addTurno(t, codigoUC);
+        Perfil p = this.listaPerfis.get(nomePerfil).addTurno(t, codigoUC);
+        this.listaPerfis.put(p.getNome(), p);
     }
     
     public Turno getTurnoPorId(String idTurno, String codigoUC, String nomePerfil){
@@ -187,5 +188,19 @@ public class GestaoPerfis {
             }
         }
         return null;
+    }
+    
+    public int getAulas(String uc, String turno){
+        int res=-1;
+        String ucp;
+        for(Perfil p: this.listaPerfis.values()){
+            for(String s: p.getUcsPerfil()){
+                ucp = s.substring(0, s.indexOf(" "));
+                res = p.getListaUcs().get(ucp).getNAulas(turno);
+                break;
+            }
+            if(res != -1) break;
+        }
+        return res;
     }
 }

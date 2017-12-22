@@ -5,8 +5,12 @@
  */
 package shiftmanagement.Business.UC;
 
+import java.sql.Time;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+import shiftmanagement.Business.Turno.Teorica;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
 
@@ -21,6 +25,7 @@ public class UC {
     private String usernameResponsavel;
     private HashSet<Turno> turnos;
     private HashSet<Professor> equipaDocente;
+    
     
     public UC(){
         this.nome = "";
@@ -51,16 +56,27 @@ public class UC {
         this.turnos = turnos;
         this.equipaDocente = docentes;
     }
-   
     
+    /**
+     *
+     * @return
+     */
     public String getNome(){
         return this.nome;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getResponsavel(){
         return this.usernameResponsavel;
     }
     
+    /**
+     *
+     * @return
+     */
     public HashSet<Turno> getTurnos(){
        HashSet<Turno> lista = new HashSet<>();
        try{
@@ -72,46 +88,90 @@ public class UC {
        return lista;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getCodigo(){
         return this.codigo;
     }
     
-     public HashSet<Professor> getEquipaDocente(){
+    /**
+     *
+     * @return
+     */
+    public HashSet<Professor> getEquipaDocente(){
         HashSet<Professor> lista = new HashSet<>();
         for(Professor p : this.equipaDocente)
             lista.add(p);
         return lista;
     }
      
+    /**
+     *
+     * @param n
+     */
     public void setNome(String n){
         this.nome = n;
     }
     
+    /**
+     *
+     * @param c
+     */
     public void setCodigo(String c){
         this.codigo = c;
     }
     
+    /**
+     *
+     * @param p
+     */
     public void setResponsavel(String p){
         this.usernameResponsavel = p;
     }
     
+    /**
+     *
+     * @param t
+     */
     public void setTurnos(HashSet<Turno> t){
         this.turnos = t;
     }
     
+    /**
+     *
+     * @param profs
+     */
     public void setDocentes(HashSet<Professor> profs){
         this.equipaDocente = profs;
     }
-     
-    public void addTurno(Turno t){
-        this.turnos.add(t);
+
+    /**
+     *
+     * @param t
+     */
+    public UC addTurno(Turno t){
+        if(t instanceof Teorica && !(this.turnos.contains("Teorica")))
+            this.turnos.add(t);
+        if(! (t instanceof Teorica)) this.turnos.add(t);
+        return this;
     }
     
+    /**
+     *
+     * @param turno
+     */
     public void ripTurno(String turno){
         Turno t = getTurno(turno);
         this.getTurnos().remove(t);
     }
     
+    /**
+     *
+     * @param turno
+     * @return
+     */
     public Turno getTurno(String turno){
         for(Turno t: this.getTurnos()){
             if(t.getId().equals(turno)) return t;
@@ -119,16 +179,28 @@ public class UC {
         return null;
     }
     
+    /**
+     *
+     * @param p
+     */
     public void addProfToDocentes(Professor p){
         if(p!=null){
             this.getEquipaDocente().add(p);
         }
     }
     
+    /**
+     *
+     * @param p
+     */
     public void removeDeDocentes(Professor p){
         this.getEquipaDocente().remove(p);
     }
     
+    /**
+     *
+     * @param turno
+     */
     public void corrigeIdTurnos(String turno){
         int idT;
         int id = Integer.parseInt(Character.toString(turno.charAt(turno.length())));
@@ -145,4 +217,41 @@ public class UC {
             }
         }
     }
+    
+    /**
+     *
+     * @param turno
+     * @return Numero de aulas.
+     */
+    public int getNAulas(String turno){
+        int res=-1;
+        Iterator<Turno> it = this.turnos.iterator();
+        Turno t;
+        boolean flag=false;
+        while(it.hasNext() && !flag){
+            t = it.next();
+            if(t.getId().equals(turno)){
+                flag=true;
+                res = t.getNumeroAulas();
+            }
+        }
+        return res;
+    }
+
+    
+    public void daHora(String turno, Time h, String dia){
+        Iterator<Turno> it = this.turnos.iterator();
+        Turno t;
+        boolean flag=false;
+        while(it.hasNext() && !flag){
+            t = it.next();
+            if(t.getId().equals(turno)){
+                flag=true;
+                t.setHora(h);
+                t.setDia(dia);
+            }
+        }
+    }
+    
+    
 }

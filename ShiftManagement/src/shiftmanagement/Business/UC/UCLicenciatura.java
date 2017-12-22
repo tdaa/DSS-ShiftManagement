@@ -8,6 +8,7 @@ package shiftmanagement.Business.UC;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import shiftmanagement.Business.Turno.Teorica;
 import shiftmanagement.Business.Utilizador.Professor;
 import shiftmanagement.Business.Turno.Turno;
 
@@ -66,7 +67,6 @@ public class UCLicenciatura extends UC{
         }
         return false;
     }
-   
     
     
 }

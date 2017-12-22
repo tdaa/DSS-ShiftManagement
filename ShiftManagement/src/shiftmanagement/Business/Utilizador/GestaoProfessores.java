@@ -6,6 +6,7 @@
 package shiftmanagement.Business.Utilizador;
 
 import java.util.ArrayList;
+import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.database.ProfessorDAO;
 
 /**
@@ -68,5 +69,16 @@ public class GestaoProfessores {
     
     public void addProf(Professor p){
         this.listaProfessores.put(p.getUsername(), p);
+    }
+    
+    public ArrayList<String> getUcsTurnos(String username){
+        ArrayList<String> res = new ArrayList<>();
+        String nomeUC;
+        for(Professor p: this.listaProfessores.values()){
+            for(Turno t: p.getTurnos()){
+                res.add(t.getUc() + " - " + t.getId());
+            }
+        }
+        return res;
     }
 }

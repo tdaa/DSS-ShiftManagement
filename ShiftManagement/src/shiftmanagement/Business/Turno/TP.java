@@ -20,8 +20,8 @@ public class TP extends Turno{
         maxAlunos = 0;
     }
     
-    public TP(String id, int max, Sala s, String p, Time l, String uc){
-        super(id, s, p, l, uc);
+    public TP(String id, int max, Sala s, String p, Time l, String uc, int n, String dia){
+        super(id, s, p, l, uc, n, dia);
         this.maxAlunos = max;
     }
     

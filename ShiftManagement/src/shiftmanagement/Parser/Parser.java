@@ -9,7 +9,13 @@ import com.google.gson.*;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.sql.Time;
+import java.util.ArrayList;
 import shiftmanagement.Business.ShiftManagement;
+import shiftmanagement.Business.Turno.PL;
+import shiftmanagement.Business.Turno.Sala;
+import shiftmanagement.Business.Turno.TP;
+import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.UC.UCPerfil;
 import shiftmanagement.Business.UC.UCLicenciatura;
 import shiftmanagement.Business.UC.UCComplementar;
@@ -27,6 +33,8 @@ public class Parser {
     public Parser(ShiftManagement s){
         this.system = s;
     }
+    
+    public Parser(){}
         
     public void parsePerfis(){
         JsonParser parser = new JsonParser();
@@ -123,9 +131,10 @@ public class Parser {
             this.system.addNovoProfessor(p);
         }
     }
-    
-    /*
+   
     public void parseShifts(){
+        ArrayList<Turno> list;
+        Turno t;
         JsonParser parser = new JsonParser();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("shifts.json");
         Reader reader = new InputStreamReader(inputStream);
@@ -137,16 +146,62 @@ public class Parser {
             String ano = item.get("ano").getAsString();
             JsonArray shift = item.getAsJsonArray("turno");
             for(int j=0; j<shift.size(); j++){
-                for(int k=0; k<ite.size(); k++){
-                JsonObject ite = shift.get(j).get(k).getAsJsonObject();
-                String ucnome = ite.get("UC").getAsString();
-                String uccod = ite.get("cod").getAsString();
-                System.out.println(uccod);
+                JsonArray h = shift.get(j).getAsJsonArray();
+                list = new ArrayList<>();
+                for(int k=0; k<h.size(); k++){
+                    JsonObject ite = h.get(k).getAsJsonObject();
+                    String uc = ite.get("UC").getAsString();
+                    String idTurno = ite.get("cod").getAsString();
+                    Time hora = Time.valueOf(ite.get("hora").getAsString());
+                    String dia = ite.get("diaS").getAsString();
+                    t = new Turno(uc, idTurno, hora, dia);
+                    t.setDia(dia);
+                    t.setId(idTurno);
+                    t.setHora(hora);
+                    t.setUc(uc);
+                    if(idTurno.charAt(0) == 'P'){
+                        PL pl = (PL) t;
+                        pl.setMax(30);
+                        list.add(pl);
+                    }
+                    else if(idTurno.charAt(0) == 'T'){
+                        TP tp = (TP) t;
+                        tp.setMax(40);
+                        list.add(tp);
+                    }                  
                 }
-                
+                this.system.addHorario(list, ano);
             }
-            System.out.println(ano);
-            //UcLicenciaturaDAO.put(code,uclic);
         }
-    }*/
+    }
+    
+    public void parseTurnos(){
+        Sala sala;
+        Turno t;
+        JsonParser parser = new JsonParser();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("Turnos.json");
+        Reader reader = new InputStreamReader(inputStream);
+        JsonElement rootElement = parser.parse(reader);
+        JsonObject rootObject = rootElement.getAsJsonObject();
+        JsonArray shifts = rootObject.getAsJsonArray("turnosUCS");
+        for(int i=0; i<shifts.size(); i++){
+            JsonObject item = shifts.get(i).getAsJsonObject();
+            String codigoUC = item.get("uc").getAsString();
+            JsonArray shift = item.getAsJsonArray("turnos");
+            for(int j=0; j<shift.size(); j++){
+                JsonObject it = shift.get(j).getAsJsonObject();
+                String id = it.get("cod").getAsString();
+                Time h = Time.valueOf(it.get("hora").getAsString());
+                String dia = it.get("diaS").getAsString();
+                String ids = it.get("idSala").getAsString();
+                int cap = it.get("cap").getAsInt();
+                int aulas = it.get("aulas").getAsInt();
+                sala = new Sala(cap, ids);
+                t = new Turno(id, sala, null, h, codigoUC, aulas, dia);
+                this.system.addTurno(t, codigoUC, 1, null);
+            }
+        }
+    }
+    
+
 }

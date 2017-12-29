@@ -8,6 +8,7 @@ package shiftmanagement.presentation;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import shiftmanagement.Business.ShiftManagement;
+import shiftmanagement.Parser.Parser;
 
 /**
  *
@@ -55,10 +56,11 @@ public class FrameMenuUCSL extends javax.swing.JFrame {
         removeButton = new javax.swing.JButton();
         imporatButton = new javax.swing.JButton();
         fecharButton = new javax.swing.JButton();
+        importarTurnosButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Drugs", 1, 36)); // NOI18N
         jLabel1.setText("Unidades Curriculares");
 
         ucList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -137,6 +139,13 @@ public class FrameMenuUCSL extends javax.swing.JFrame {
             }
         });
 
+        importarTurnosButton.setText("Importar turnos");
+        importarTurnosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importarTurnosButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,8 +160,10 @@ public class FrameMenuUCSL extends javax.swing.JFrame {
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(importarTurnosButton)
+                        .addGap(61, 61, 61)
                         .addComponent(fecharButton)
-                        .addGap(261, 261, 261))))
+                        .addGap(181, 181, 181))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,8 +173,10 @@ public class FrameMenuUCSL extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(fecharButton)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fecharButton)
+                    .addComponent(importarTurnosButton))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -181,7 +194,8 @@ public class FrameMenuUCSL extends javax.swing.JFrame {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // bota adicionar
         FrameAddUc addUcLic = new FrameAddUc(this.system, 1);
-        addUcLic.setVisible(true);
+        addUcLic.setVisible(true);     
+        this.atualizaJanela();
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
@@ -195,7 +209,9 @@ public class FrameMenuUCSL extends javax.swing.JFrame {
 
     private void imporatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imporatButtonActionPerformed
         // botao importar
-        
+        Parser p = new Parser(this.system);
+        p.parseUcs();
+        this.atualizaJanela();
     }//GEN-LAST:event_imporatButtonActionPerformed
 
     private void fecharButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharButtonActionPerformed
@@ -203,11 +219,19 @@ public class FrameMenuUCSL extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_fecharButtonActionPerformed
 
+    private void importarTurnosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarTurnosButtonActionPerformed
+        // TODO add your handling code here:
+        Parser p = new Parser(this.system);
+        p.parseTurnos();
+        this.atualizaJanela();
+    }//GEN-LAST:event_importarTurnosButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton consultarButton;
     private javax.swing.JButton fecharButton;
     private javax.swing.JButton imporatButton;
+    private javax.swing.JButton importarTurnosButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

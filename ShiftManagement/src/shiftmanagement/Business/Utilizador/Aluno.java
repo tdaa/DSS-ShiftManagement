@@ -5,6 +5,7 @@
  */
 package shiftmanagement.Business.Utilizador;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
@@ -18,6 +19,7 @@ public class Aluno extends Utilizador{
     private boolean trabalhador;
     private ArrayList<String> horario;
     private ArrayList<Troca> trocas;
+    private ArrayList<Falta> faltas;
     
     /**
      *
@@ -27,6 +29,7 @@ public class Aluno extends Utilizador{
         this.trabalhador = false;
         this.horario = new ArrayList<>();
         this.trocas = new ArrayList<>();
+        this.faltas = new ArrayList<>();
     }
     
     /**
@@ -42,7 +45,25 @@ public class Aluno extends Utilizador{
         this.trabalhador = trabalhador;
         this.horario = new ArrayList<>();
         this.trocas = new ArrayList<>();
+        this.faltas = new ArrayList<>();
     }
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<Falta> getFaltas() {
+        return faltas;
+    }
+
+    /**
+     *
+     * @param faltas
+     */
+    public void setFaltas(ArrayList<Falta> faltas) {
+        this.faltas = faltas;
+    }
+    
 
     /**
      *
@@ -121,6 +142,7 @@ public class Aluno extends Utilizador{
         return hash;
     }
     
+    @Override
      public String toString() {
         StringBuffer sb = new StringBuffer("Aluno(");
         sb.append(this.getNome());
@@ -132,6 +154,11 @@ public class Aluno extends Utilizador{
         return sb.toString();
     }
      
+    /**
+     *
+     * @param nomeuc
+     * @return
+     */
     public String getTurnoUC(String nomeuc){
         Iterator<String> it = this.horario.iterator();
         String uc, aux;
@@ -139,16 +166,101 @@ public class Aluno extends Utilizador{
         boolean flag = false;
         while(it.hasNext() && !flag){
             aux = it.next();
-            uc = aux.substring(0, aux.indexOf(" "));
+            uc = aux.substring(0, aux.indexOf("-")-1);
             if(uc.equals(nomeuc)){
                 flag = true;
-                turnoI = aux.substring(aux.indexOf("-")+2, aux.length()-1);
+                turnoI = aux.substring(aux.indexOf("-")+2, aux.length());
             }
         }
         return turnoI; 
     }
     
+    /**
+     *
+     * @param t
+     */
     public void addTroca(Troca t){
         this.trocas.add(t);
+    }
+    
+    /**
+     *
+     * @param uc
+     */
+    public void removTroca(Troca t){
+        this.trocas.remove(t);
+    }
+    
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
+    public int getTotalFaltas(String codigoUC){
+        int res=0;
+        for(Falta f: this.faltas){
+            if(f.getCodigoUC().equals(codigoUC)){
+                res++;
+            }
+        }
+        return res;
+    }
+    
+    /**
+     *
+     * @param uc
+     * @param turno
+     * @return
+     */
+    public Aluno setFaltas(String uc, String turno){
+        Falta f = new Falta(turno, uc);
+        this.faltas.add(f);
+        return this;
+    }
+    
+    /**
+     *
+     * @param nomeUC
+     * @return
+     */
+    public Aluno removeDeUC(String nomeUC){
+        Iterator<String> it = this.horario.iterator();
+        String s, u;
+        boolean flag=false;
+        while(it.hasNext() && !flag){
+            s = it.next();
+            u = s.substring(0, s.indexOf(" ")-1);
+            if(u.equals(nomeUC)){
+                flag = true;
+                this.horario.remove(s);
+            }
+        }
+        return this;
+    }
+    
+    /**
+     *
+     * @param codigoUC
+     */
+    public void removeDeFaltas(String codigoUC){
+        Iterator<Falta> it = this.faltas.iterator();
+        Falta f;
+        boolean flag=false;
+        while(it.hasNext() && !flag){
+            f = it.next();
+            if(f.getCodigoUC().equals(codigoUC)){
+                this.faltas.remove(f);
+                flag = true;
+            }
+        }
+    }
+    
+    public Troca getTroca(String uc){
+        for(Troca t: this.trocas){
+            if(t.getCodigoUC().equals(uc)){
+                return t;
+            }
+        }
+        return null;
     }
 }

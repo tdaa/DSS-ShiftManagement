@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import static java.sql.Types.NULL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -108,6 +109,7 @@ public class UcCompDAO implements Map<String, UCComplementar>{
                 
                 HashSet<Turno> turnos = new HashSet<>();
                 ps = con.prepareStatement("SELECT Sala.idSala, Sala.MaxLugares, Turno.* FROM Turno"
+                        + " INNER JOIN Sala ON Sala.idSala = Turno.idSala"
                         + " INNER JOIN UC ON UC.codigoUC = Turno.codigoUC"
                         + " WHERE UC.codigoUC = ?");
                 ps.setString(1, (String) key);
@@ -115,34 +117,47 @@ public class UcCompDAO implements Map<String, UCComplementar>{
                 Turno t;
                 int max;
                 while(rs.next()){
-                    t = new Turno();
+                    //t = new Turno();
                     Sala s = new Sala();
                     s.setMax(rs.getInt("MaxLugares"));
                     s.setNomeSala(rs.getString("idSala"));
-                    t.setSala(s);
-                    t.setHora(rs.getTime("Hora"));
-                    t.setId(rs.getString("idTurno"));
-                    t.setProf(rs.getString("UsernameProf"));
-                    t.setUc(rs.getString("codigoUC"));
+                    Time h = rs.getTime("Hora");
+                    String id = rs.getString("idTurno");
+                    String prof = rs.getString("UsernameProf");
+                    String uct = rs.getString("codigoUC");
+                    String d = rs.getString("diaSemana");
+                    
+                    int al=-1;
+                    PreparedStatement ps2 = con.prepareStatement("SELECT DISTINCT Aluno.idAluno, COUNT(*) AS `Total` FROM Registo"
+                            + " GROUP BY Aluno.idAluno"
+                            + " WHERE Registo.idTurno = ?");
+                    ps2.setString(1, id);
+                    ResultSet rs2 = ps2.executeQuery();
+                    if(rs2.next()){
+                        al = rs2.getInt("Total");
+                    }
+                    
+                    int x = rs.getInt("aulas");
                     max = rs.getInt("maxAlunos");
                     if(rs.getString("Tipo").equals("TP")){
-                        TP tp = (TP) t;
-                        tp.setMax(max);
-                        turnos.add(tp);
+                        t = new TP(id, max, s, prof, h, uct, x, d, al);
+                        //TP tp = (TP) t;
+                        turnos.add(t);
                     }
                     if(rs.getString("Tipo").equals("PL")){
-                        PL pl = (PL) t;
-                        pl.setMax(max);
-                        turnos.add(pl);
+                        //PL pl = (PL) t;
+                        t = new PL(id, max, s, prof, h, uct, x, d, al);
+                        turnos.add(t);
                     }
                     if(rs.getString("Tipo").equals("Teorica")){
-                        Teorica teo = (Teorica) t;
-                        turnos.add(teo);
+                        t = new Teorica(id, s, prof, h, uct, x, d);
+                        //Teorica teo = (Teorica) t;
+                        turnos.add(t);
                     }
                 }
                 uc.setTurnos(turnos);
                 
-                HashSet<Professor> profs = new HashSet<>();
+                /*HashSet<Professor> profs = new HashSet<>();
                 ps = con.prepareStatement("SELECT * FROM Professor AS P"
                         + " INNER JOIN Turno ON Turno.UsernameProf = P.Username"
                         + " INNER JOIN UC ON UC.codigoUC = Turno.codigoUC"
@@ -159,7 +174,7 @@ public class UcCompDAO implements Map<String, UCComplementar>{
                     p.setRegente(rs.getBoolean("Regente"));
                     profs.add(p);
                 }
-                uc.setDocentes(profs);
+                uc.setDocentes(profs);*/
             }
             ps = con.prepareStatement("SELECT * FROM UCComplementar AS UCC"
                     + " INNER JOIN UC ON UC.codigoUC = UCC.codigoUCComp"
@@ -210,7 +225,7 @@ public class UcCompDAO implements Map<String, UCComplementar>{
             ps.setString(3, value.getResponsavel());
             ps.executeUpdate();
             
-            ps = con.prepareStatement("INSERT INTO UCComplementar (codigoUCComp, dia Semana, Per) VALUES (?,?,?)");
+            ps = con.prepareStatement("INSERT INTO UCComplementar (codigoUCComp, diaSemana, Per) VALUES (?,?,?)");
             ps.setString(1, key);
             ps.setString(2, value.getDiaS());
             ps.setString(3, value.getPer());
@@ -219,16 +234,27 @@ public class UcCompDAO implements Map<String, UCComplementar>{
             HashSet<Turno> turnos = value.getTurnos();
             if(turnos != null){
                 for(Turno t: turnos){
-                    ps = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo) VALUES (?,?,?,?,?,?,?)");
+                    ps = con.prepareStatement("DELETE FROM Sala WHERE Sala.idSala = ?");
+                    ps.setString(1, t.getSala().getNome());
+                    ps.executeUpdate();
+                    
+                    ps = con.prepareStatement("INSERT INTO Sala(idSala, MaxLugares) VALUES (?,?)");
+                    ps.setString(1, t.getSala().getNome());
+                    ps.setInt(2, t.getSala().getMax());
+                    ps.executeUpdate();
+                    
+                    ps = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo, aulas, diaSemana) VALUES (?,?,?,?,?,?,?,?,?)");
                     ps.setString(1, t.getId());
                     ps.setString(2, t.getUc());
                     ps.setTime(3, t.getHora());
                     ps.setString(4, t.getSala().getNome());
                     ps.setString(5, t.getProf());
+                    ps.setInt(8, t.getNumeroAulas());
+                    ps.setString(9, t.getDia());
                     if(t instanceof TP){
                         TP tp = (TP) t;
                         ps.setInt(6, tp.getMax());
-                        ps.setString(7, "TP");
+                        ps.setString(7, "TP");                      
                     }
                     if(t instanceof PL){
                         PL pl = (PL) t;
@@ -242,14 +268,10 @@ public class UcCompDAO implements Map<String, UCComplementar>{
                     }
                     ps.executeUpdate();
                     
-                    ps = con.prepareStatement("INSERT INTO Sala(idSala, MaxLugares) VALUES (?,?)");
-                    ps.setString(1, t.getSala().getNome());
-                    ps.setInt(2, t.getSala().getMax());
-                    ps.executeUpdate();
                 }
             }
             
-            HashSet<Professor> profs = value.getEquipaDocente();
+           /* HashSet<Professor> profs = value.getEquipaDocente();
             if(profs!=null){
                 for(Professor p: profs){
                     ps = con.prepareStatement("INSERT INTO Professor (Username, Nome, Email, Password, Regente) VALUES (?,?,?,?,?)");
@@ -260,7 +282,7 @@ public class UcCompDAO implements Map<String, UCComplementar>{
                     ps.setBoolean(5, p.getRegente());
                     ps.executeUpdate();
                 }
-            }
+            }*/
         }
         catch(SQLException e){
             System.out.printf(e.getMessage());

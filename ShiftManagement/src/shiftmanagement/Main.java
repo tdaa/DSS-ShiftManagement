@@ -18,6 +18,9 @@ public class Main {
         ShiftManagement system = new ShiftManagement();
         FrameInicial frameInicio = new FrameInicial(system);
         frameInicio.setVisible(true);
+        
+       /* Parser p = new Parser();
+        p.parseShifts();*/
     }
     
 }

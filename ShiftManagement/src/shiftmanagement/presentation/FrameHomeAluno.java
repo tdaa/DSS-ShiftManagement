@@ -5,6 +5,7 @@
  */
 package shiftmanagement.presentation;
 
+import javax.swing.JOptionPane;
 import shiftmanagement.Business.ShiftManagement;
 
 /**
@@ -120,16 +121,25 @@ public class FrameHomeAluno extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        FrameAlunoUC alunouc = new FrameAlunoUC(this.system, this.username);
-        alunouc.setVisible(true);
-        this.dispose();
+        if(this.system.getTeste()==1){
+            FrameAlunoUC alunouc = new FrameAlunoUC(this.system, this.username);
+            alunouc.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Já sem autorização! Fase 1 terminada!", "Fase 1 acabou.", 1);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        FrameAlunoHorario horario;
-        horario = new FrameAlunoHorario(this.system, this.username);
-        horario.setVisible(true);
+        if(this.system.getTeste()!=1){
+            FrameAlunoHorario horario;
+            horario = new FrameAlunoHorario(this.system, this.username);
+            horario.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Ainda sem autorização!", "Fase 1 a decorrer!", 1);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -140,6 +150,13 @@ public class FrameHomeAluno extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        if(this.system.getTeste()==2){
+            FrameAlunoTrocas at = new FrameAlunoTrocas(this.system, this.username);
+            at.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Ainda sem autorização!", "Fase 1 a decorrer!", 1);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

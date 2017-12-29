@@ -63,8 +63,8 @@ public class RegistoDAO implements Map<Integer, Registo>{
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Registo WHERE id = ?");
-            ps.setString(1, (String) key);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Registo WHERE idRegisto = ?");
+            ps.setInt(1, (Integer) key);
             ResultSet rs = ps.executeQuery();
             res = rs.next();
         }
@@ -94,14 +94,14 @@ public class RegistoDAO implements Map<Integer, Registo>{
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Registo WHERE id = ?");
-            ps.setString(1, (String) key);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Registo WHERE idRegisto = ?");
+            ps.setInt(1, (Integer) key);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                r.setId(rs.getInt("id"));
+                r.setId(rs.getInt("idRegisto"));
                 r.setIdAluno(rs.getString("idAluno"));
                 r.setIdTurno(rs.getString("idTurno"));
-                r.setIdUC(rs.getString("idUC"));
+                r.setIdUC(rs.getString("codigoUC"));
             }
         } 
         catch(SQLException e){
@@ -129,15 +129,15 @@ public class RegistoDAO implements Map<Integer, Registo>{
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM Registo WHERE id = ?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Registo WHERE idRegisto = ?");
             ps.setInt(1, key);
             ps.executeUpdate();
             
-            ps = con.prepareStatement("DELETE FROM Registo WHERE idAluno = ? AND idUC = ?");
+            /*ps = con.prepareStatement("DELETE FROM Registo WHERE idAluno = ? AND codigoUC = ?");
             ps.setString(1, value.getIdAluno());
-            ps.setString(2, value.getIdUC());
+            ps.setString(2, value.getIdUC());*/
             
-            ps = con.prepareStatement("INSERT INTO Registo (id, idAluno, idUC, idTurno) VALUES (?,?,?,?)");
+            ps = con.prepareStatement("INSERT INTO Registo (idRegisto, idAluno, codigoUC, idTurno) VALUES (?,?,?,?)");
             ps.setInt(1, key);
             ps.setString(2, value.getIdAluno());
             ps.setString(3, value.getIdUC());
@@ -162,12 +162,12 @@ public class RegistoDAO implements Map<Integer, Registo>{
 
     @Override
     public Registo remove(Object key) {
-        Registo r = this.get((String) key);
+        Registo r = this.get((Integer) key);
         
         try{
             con = Connect.connect();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM Registo WHERE id = ?");
-            ps.setString(1, (String) key);
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Registo WHERE idRegisto = ?");
+            ps.setInt(1, (Integer) key);
             ps.executeUpdate();
             
         } catch(SQLException e){
@@ -219,7 +219,7 @@ public class RegistoDAO implements Map<Integer, Registo>{
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Registo");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                set.add(rs.getInt("id"));
+                set.add(rs.getInt("idRegisto"));
             }   
         }
         catch(SQLException e){

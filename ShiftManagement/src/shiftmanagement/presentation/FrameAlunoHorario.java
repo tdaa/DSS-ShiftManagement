@@ -52,7 +52,7 @@ public class FrameAlunoHorario extends javax.swing.JFrame {
         listaturnos = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Drugs", 0, 36)); // NOI18N
         jLabel1.setText("Horário");
@@ -64,7 +64,7 @@ public class FrameAlunoHorario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listaturnos);
 
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jButton1.setText("Ver Turno");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,15 +79,15 @@ public class FrameAlunoHorario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(52, 52, 52)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -120,11 +120,12 @@ public class FrameAlunoHorario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // botao ver turno
         String turno = listaturnos.getSelectedValue();
         if(turno!=null){
-            String codigoUC = this.system.getCodigoUC(turno.substring(0,turno.indexOf(" ")));
-            String idTurno = turno.substring(turno.indexOf("-")+2,turno.length()-1);
+            String n = turno.substring(0, turno.indexOf("-")-1);
+            String codigoUC = this.system.getCodigoUC(n);         
+            String idTurno = turno.substring(turno.indexOf("-")+2,turno.length());
             int tipoUC = this.system.getTipoUC(codigoUC);
             String nomePerfil;
             if(tipoUC==3){

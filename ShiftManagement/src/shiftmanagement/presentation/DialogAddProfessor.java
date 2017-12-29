@@ -68,9 +68,12 @@ public class DialogAddProfessor extends javax.swing.JDialog {
     
     private void atualizaLista(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        this.system.getListaNomeProfs(codigoUC, tipoUC, this.nomePerfil).forEach((s) -> {
+        this.system.getProfessoresRegistados().forEach((s) -> {
             dlm.addElement(s);
         });
+        /*this.system.getListaNomeProfs(codigoUC, tipoUC, this.nomePerfil).forEach((s) -> {
+            dlm.addElement(s);
+        });*/
         listaProfs.setModel(dlm);
     }
    
@@ -169,7 +172,8 @@ public class DialogAddProfessor extends javax.swing.JDialog {
         if(listaProfs.getSelectedValue()!=null){
             String prof = listaProfs.getSelectedValue();
             prof = prof.substring(prof.indexOf("-")+2, prof.length());
-            this.system.addProfToUC(prof, this.codigoUC, this.tipoUC, this.nomePerfil);
+            //this.system.addProfToUC(prof, this.codigoUC, this.tipoUC, this.nomePerfil);
+            this.atualizaJanela();
         }
     }//GEN-LAST:event_addButtonActionPerformed
 

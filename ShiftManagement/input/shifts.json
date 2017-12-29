@@ -3,354 +3,570 @@
         "ano": 1,
         "turno": [
             [{
-                "UC": "Calc",
-                "cod": "TP1"
+                "UC": "H501N2",
+                "cod": "TP1",
+                "hora": "09:00:00",
+                "diaS": "qui"        
             }, {
-                "UC": "AL",
-                "cod": "TP4"
+                "UC": "H501N1",
+                "cod": "TP4",
+                "hora": "11:00:00",        
+                "diaS": "ter"        
             }, {
-                "UC": "TMD",
-                "cod": "TP1"
+                "UC": "H501N3",
+                "cod": "TP1",
+                "hora": "14:00:00",        
+                "diaS": "ter"       
             }, {
-                "UC": "PF",
-                "cod": "TP1"
+                "UC": "H501N4",
+                "cod": "TP1",
+                "hora": "11:00:00",        
+                "diaS": "seg"         
             }, {
-                "UC": "LI1",
-                "cod": "PL6"
+                "UC": "H501N6",
+                "cod": "PL6",
+                "hora": "09:00:00",
+                "diaS": "qua"        
             }, {
-                "UC": "EES",
-                "cod": "PL1"
+                "UC": "H501N5",
+                "cod": "PL4",
+                "hora": "16:00:00",
+                "diaS": "sex"         
             }],
             [{
-                "UC": "Calc",
-                "cod": "TP2"
+                "UC": "H501N2",
+                "cod": "TP1",
+                "hora": "09:00:00",
+                "diaS": "qui"        
             }, {
-                "UC": "AL",
-                "cod": "TP3"
+                "UC": "H501N1",
+                "cod": "TP4",
+                "hora": "11:00:00",        
+                "diaS": "ter"        
             }, {
-                "UC": "TMD",
-                "cod": "TP2"
+                "UC": "H501N3",
+                "cod": "TP1",
+                "hora": "14:00:00",        
+                "diaS": "ter"        
             }, {
-                "UC": "PF",
-                "cod": "TP3"
+                "UC": "H501N4",
+                "cod": "TP2",
+                "hora": "11:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "LI1",
-                "cod": "PL7"
+                "UC": "H501N6",
+                "cod": "PL3",
+                "hora": "09:00:00",        
+                "diaS": "qua"        
             }, {
-                "UC": "EES",
-                "cod": "PL3"
+                "UC": "H501N5",
+                "cod": "PL6",
+                "hora": "13:00:00",        
+                "diaS": "qua"        
             }],
             [{
-                "UC": "Calc",
-                "cod": "TP2"
+                "UC": "H501N2",
+                "cod": "TP2",
+                "hora": "11:00:00",
+                "diaS": "ter"        
             }, {
-                "UC": "AL",
-                "cod": "TP3"
+                "UC": "H501N1",
+                "cod": "TP3",
+                "hora": "09:00:00",
+                "diaS": "qui"        
             }, {
-                "UC": "TMD",
-                "cod": "TP2"
+                "UC": "H501N3",
+                "cod": "TP2",
+                "diaS": "qui",
+                "hora": "14:00:00"        
             }, {
-                "UC": "PF",
-                "cod": "TP6"
+                "UC": "H501N4",
+                "cod": "TP3",
+                "hora": "11:00:00",        
+                "diaS": "qua"        
             }, {
-                "UC": "LI1",
-                "cod": "PL1"
+                "UC": "H501N6",
+                "cod": "PL7",
+                "hora": "11:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "EES",
-                "cod": "PL7"
+                "UC": "H501N5",
+                "cod": "PL3",
+                "hora": "09:00:00",        
+                "diaS": "qua"        
             }],
             [{
-                "UC": "Calc",
-                "cod": "TP3"
+                "UC": "H501N2",
+                "cod": "TP2",
+                "hora": "11:00:00",
+                "diaS": "ter"        
             }, {
-                "UC": "AL",
-                "cod": "TP2"
+                "UC": "H501N1",
+                "cod": "TP3",
+                "hora": "09:00:00",
+                "diaS": "qui"        
             }, {
-                "UC": "TMD",
-                "cod": "TP3"
+                "UC": "H501N3",
+                "cod": "TP2",
+                "diaS": "qui",
+                "hora": "14:00:00"        
             }, {
-                "UC": "PF",
-                "cod": "TP5"
+                "UC": "H501N4",
+                "cod": "TP6",
+                "hora": "11:00:00",        
+                "diaS": "qua"
             }, {
-                "UC": "LI1",
-                "cod": "PL5"
+                "UC": "H501N6",
+                "cod": "PL1",
+                "hora": "16:00:00",        
+                "diaS": "ter"         
             }, {
-                "UC": "EES",
-                "cod": "PL5"
+               "UC": "H501N5",
+                "cod": "PL7",
+                "hora": "11:00:00",
+                "diaS": "sex"        
             }],
             [{
-                "UC": "Calc",
-                "cod": "TP3"
+                "UC": "H501N2",
+                "cod": "TP3",
+                "hora": "14:00:00",        
+                "diaS": "ter"        
             }, {
-                "UC": "AL",
-                "cod": "TP2"
+                "UC": "H501N1",
+                "cod": "TP2",
+                "hora": "11:00:00",        
+                "diaS": "ter"
             }, {
-                "UC": "TMD",
-                "cod": "TP3"
+                "UC": "H501N3",
+                "cod": "TP3",
+                "hora": "09:00:00",
+                "diaS": "ter"        
             }, {
-                "UC": "PF",
-                "cod": "TP7"
+                "UC": "H501N4",
+                "cod": "TP5",
+                "hora": "09:00:00",
+                "diaS": "qua"        
             }, {
-                "UC": "LI1",
-                "cod": "PL2"
+                "UC": "H501N6",
+                "cod": "PL5",
+                "hora": "11:00:00",
+                "diaS": "sex"         
             }, {
-                "UC": "EES",
-                "cod": "PL7"
+                "UC": "H501N5",
+                "cod": "PL5",
+                "hora": "16:00:00",        
+                "diaS": "qui"   
             }],
             [{
-                "UC": "Calc",
-                "cod": "TP3"
+                "UC": "H501N2",
+                "cod": "TP3",
+                "hora": "14:00:00",        
+                "diaS": "ter"        
             }, {
-                "UC": "AL",
-                "cod": "TP2"
+                "UC": "H501N1",
+                "cod": "TP2",
+                "hora": "11:00:00",        
+                "diaS": "ter"        
             }, {
-                "UC": "TMD",
-                "cod": "TP3"
+                "UC": "H501N3",
+                "cod": "TP3",
+                "hora": "09:00:00",
+                "diaS": "ter"        
             }, {
-                "UC": "PF",
-                "cod": "TP7"
+                "UC": "H501N4",
+                "cod": "TP7",
+                "hora": "09:00:00",
+                "diaS": "qua"        
             }, {
-                "UC": "LI1",
-                "cod": "PL2"
+                "UC": "H501N6",
+                "cod": "PL2",
+                "hora": "11:00:00",
+                "diaS": "sex"        
             }, {
-                "UC": "EES",
-                "cod": "PL7"
+                "UC": "H501N5",
+                "cod": "PL7",
+                "hora": "11:00:00",
+                "diaS": "sex"        
             }],
             [{
-                "UC": "Calc",
-                "cod": "TP4"
+                "UC": "H501N2",
+                "cod": "TP4",
+                "hora": "16:00:00",        
+                "diaS": "ter"        
             }, {
-                "UC": "AL",
-                "cod": "TP1"
+                "UC": "H501N1",
+                "cod": "TP1",
+                "hora": "09:00:00",
+                "diaS": "ter"        
             }, {
-                "UC": "TMD",
-                "cod": "TP4"
+                "UC": "H501N3",
+                "cod": "TP4",
+                "hora": "11:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "PF",
-                "cod": "TP4"
+                "UC": "H501N4",
+                "cod": "TP4",
+                "hora": "11:00:00",
+                "diaS": "sex"         
             }, {
-                "UC": "LI1",
-                "cod": "PL4"
+                "UC": "H501N6",
+                "cod": "PL4",
+                "hora": "11:00:00",        
+                "diaS": "qua"        
             }, {
-                "UC": "EES",
-                "cod": "PL1"
+                "UC": "H501N5",
+                "cod": "PL1",
+                "hora": "15:00:00",        
+                "diaS": "qua"         
             }],
             [{
-                "UC": "Calc",
-                "cod": "TP4"
+                "UC": "H501N2",
+                "cod": "TP4",
+                "hora": "16:00:00",        
+                "diaS": "ter"       
             }, {
-                "UC": "AL",
-                "cod": "TP1"
+                "UC": "H501N1",
+                "cod": "TP1",
+                "hora": "09:00:00",
+                "diaS": "ter"        
             }, {
-                "UC": "TMD",
-                "cod": "TP4"
+                "UC": "H501N3",
+                "cod": "TP4",
+                "hora": "11:00:00",
+                "diaS": "qui"        
             }, {
-                "UC": "PF",
-                "cod": "TP8"
+                "UC": "H501N4",
+                "cod": "TP8",
+                "hora": "11:00:00",
+                "diaS": "sex"         
             }, {
-                "UC": "LI1",
-                "cod": "PL8"
+                "UC": "H501N6",
+                "cod": "PL8",
+                "hora": "11:00:00",        
+                "diaS": "qua"        
             }, {
-                "UC": "EES",
-                "cod": "PL2"
+                "UC": "H501N5",
+                "cod": "PL2",
+                "hora": "14:00:00",
+                "diaS": "sex"         
             }]
         ]
     }, {
         "ano": 2,
         "turno": [
             [{
-                "UC": "EA",
-                "cod": "TP3"
+                "UC": "H503N2",
+                "cod": "TP3",
+                "hora": "15:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "EE",
-                "cod": "TP4"
+                "UC": "H503N3",
+                "cod": "TP1",
+                "hora": "17:00:00",
+                "diaS": "seg"         
             }, {
-                "UC": "ISD",
-                "cod": "TP3"
+                "UC": "H503N1",
+                "cod": "TP3",
+                "hora": "09:00:00",
+                "diaS": "ter"        
             }, {
-                "UC": "CD",
-                "cod": "TP1"
+                "UC": "H503N5",
+                "cod": "TP1",
+                "hora": "09:00:00",
+                "diaS": "qua"        
             }, {
-                "UC": "ALG",
-                "cod": "PL7"
+                "UC": "H503N6",
+                "cod": "TP5",
+                "hora": "14:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "AC",
-                "cod": "PL2"
+                "UC": "H503N4",
+                "cod": "PL2",
+                "hora": "15:00:00",
+                "diaS": "qui"        
             }],
             [{
-                "UC": "EA",
-                "cod": "TP3"
+                "UC": "H503N2",
+                "cod": "TP3",
+                "hora": "15:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "EE",
-                "cod": "TP4"
+                "UC": "H503N3",
+                "cod": "TP1",
+                "hora": "17:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "ISD",
-                "cod": "TP3"
+                "UC": "H503N1",
+                "cod": "TP3",
+                "hora": "09:00:00",
+                "diaS": "ter"        
             }, {
-                "UC": "CD",
-                "cod": "TP1"
+                "UC": "H503N5",
+                "cod": "TP1",
+                "hora": "09:00:00",
+                "diaS": "qua"         
             }, {
-                "UC": "ALG",
-                "cod": "PL4"
+                "UC": "H503N6",
+                "cod": "TP3",
+                "hora": "15:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "AC",
-                "cod": "PL1"
+                "UC": "H503N4",
+                "cod": "PL1",
+                "hora": "14:00:00",
+                "diaS": "ter"         
             }],
             [{
-                "UC": "EA",
-                "cod": "TP2"
+                "UC": "H503N2",
+                "cod": "TP2",
+                "hora": "17:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "EE",
-                "cod": "TP2"
+                "UC": "H503N3",
+                "cod": "TP2",
+                "hora": "15:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "ISD",
-                "cod": "TP1"
+                "UC": "H503N1",
+                "cod": "TP1",
+                "hora": "09:00:00",
+                "diaS": "qua"         
             }, {
-                "UC": "CD",
-                "cod": "TP4"
+                "UC": "H503N5",
+                "cod": "TP3",
+                "hora": "11:00:00",
+                "diaS": "qua"        
             }, {
-                "UC": "ALG",
-                "cod": "PL1"
+                "UC": "H503N6",
+                "cod": "TP1",
+                "hora": "14:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "AC",
-                "cod": "PL4"
+                "UC": "H503N4",
+                "cod": "PL4",
+                "hora": "09:00:00",
+                "diaS": "ter"         
             }],
             [{
-                "UC": "EA",
-                "cod": "TP2"
+                "UC": "H503N2",
+                "cod": "TP2",
+                "hora": "17:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "EE",
-                "cod": "TP2"
+                "UC": "H503N3",
+                "cod": "TP2",
+                "hora": "15:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "ISD",
-                "cod": "TP1"
+                "UC": "H503N1",
+                "cod": "TP1",
+                "hora": "09:00:00",
+                "diaS": "qua"        
             }, {
-                "UC": "CD",
-                "cod": "TP4"
+                "UC": "H503N5",
+                "cod": "TP3",
+                "hora": "11:00:00",
+                "diaS": "qua"        
             }, {
-                "UC": "ALG",
-                "cod": "PL6"
+                "UC": "H503N6",
+                "cod": "TP4",
+                "hora": "14:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "AC",
-                "cod": "PL6"
+                "UC": "H503N4",
+                "cod": "PL6",
+                "hora": "16:00:00",
+                "diaS": "ter"         
             }],
             [{
-                "UC": "EA",
-                "cod": "TP1"
+                "UC": "H503N2",
+                "cod": "TP1",
+                "hora": "17:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "EE",
-                "cod": "TP3"
+                "UC": "H503N3",
+                "cod": "TP3",
+                "hora": "15:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "ISD",
-                "cod": "TP2"
+                "UC": "H503N1",
+                "cod": "TP2",
+                "hora": "16:00:00",
+                "diaS": "sex"         
             }, {
-                "UC": "CD",
-                "cod": "TP3"
+                "UC": "H503N5",
+                "cod": "TP2",
+                "hora": "15:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "ALG",
-                "cod": "PL2"
+                "UC": "H503N6",
+                "cod": "TP2",
+                "hora": "17:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "AC",
-                "cod": "PL3"
+                "UC": "H503N4",
+                "cod": "PL3",
+                "hora": "09:00:00",
+                "diaS": "qua"         
             }],
             [{
-                "UC": "EA",
-                "cod": "TP1"
+                "UC": "H503N2",
+                "cod": "TP1",
+                "hora": "17:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "EE",
-                "cod": "TP3"
+                "UC": "H503N3",
+                "cod": "TP3",
+                "hora": "15:00:00",
+                "diaS": "qui"        
             }, {
-                "UC": "ISD",
-                "cod": "TP2"
+                "UC": "H503N1",
+                "cod": "TP2",
+                "hora": "16:00:00",
+                "diaS": "sex"        
             }, {
-                "UC": "CD",
-                "cod": "TP3"
+                "UC": "H503N5",
+                "cod": "TP2",
+                "hora": "15:00:00",
+                "diaS": "seg"        
             }, {
-                "UC": "ALG",
-                "cod": "PL5"
+                "UC": "H503N6",
+                "cod": "TP4",
+                "hora": "14:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "AC",
-                "cod": "PL5"
+                "UC": "H503N4",
+                "cod": "PL5",
+                "hora": "11:00:00",
+                "diaS": "qua"         
             }]
         ]
     }, {
         "ano": 3,
         "turno": [
             [{
-                "UC": "RC",
-                "cod": "PL4"
+                "UC": "H505N5",
+                "cod": "PL4",
+                "hora": "09:00:00",
+                "diaS": "seg"         
             }, {
-                "UC": "BD",
-                "cod": "TP6"
+                "UC": "H505N1",
+                "cod": "PL6",
+                "hora": "09:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "SD",
-                "cod": "PL5"
+                "UC": "H505N4",
+                "cod": "PL5",
+                "hora": "14:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "MNOnL",
-                "cod": "PL1"
+                "UC": "H505N6",
+                "cod": "PL1",
+                "hora": "16:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "DSS",
-                "cod": "PL4"
+                "UC": "H505N2",
+                "cod": "PL4",
+                "hora": "14:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "MDIO",
-                "cod": "TP1"
+                "UC": "H505N3",
+                "cod": "TP1",
+                "hora": "16:00:00",
+                "diaS": "qui"         
             }],
             [{
-                "UC": "RC",
-                "cod": "PL1"
+                "UC": "H505N5",
+                "cod": "PL1",
+                "hora": "14:00:00",
+                "diaS": "seg"         
             }, {
-                "UC": "BD",
-                "cod": "PL5"
+                "UC": "H505N1",
+                "cod": "PL5",
+                "hora": "16:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "SD",
-                "cod": "PL1"
+                "UC": "H505N4",
+                "cod": "PL1",
+                "hora": "09:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "MNOnL",
-                "cod": "PL5"
+                "UC": "H505N6",
+                "cod": "PL5",
+                "hora": "09:00:00",
+                "diaS": "seg"         
             }, {
-                "UC": "DSS",
-                "cod": "PL5"
+                "UC": "H505N2",
+                "cod": "PL5",
+                "hora": "14:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "MDIO",
-                "cod": "TP2"
+                "UC": "H505N3",
+                "cod": "TP2",
+                "hora": "09:00:00",
+                "diaS": "qua"         
             }],
             [{
-                "UC": "RC",
-                "cod": "PL3"
+               "UC": "H505N5",
+                "cod": "PL3",
+                "hora": "09:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "BD",
-                "cod": "PL3"
+                "UC": "H505N1",
+                "cod": "PL3",
+                "hora": "16:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "SD",
-                "cod": "PL3"
+                "UC": "H505N4",
+                "cod": "PL3",
+                "hora": "14:00:00",
+                "diaS": "seg"         
             }, {
-                "UC": "MNOnL",
-                "cod": "PL2"
+                "UC": "H505N6",
+                "cod": "PL2",
+                "hora": "16:00:00",
+                "diaS": "seg"         
             }, {
-                "UC": "DSS",
-                "cod": "PL6"
+                "UC": "H505N2",
+                "cod": "PL6",
+                "hora": "09:00:00",
+                "diaS": "qua"         
             }, {
-                "UC": "MDIO",
-                "cod": "TP3"
+                "UC": "H505N3",
+                "cod": "TP3",
+                "hora": "14:00:00",
+                "diaS": "qui"         
             }],
             [{
-                "UC": "RC",
-                "cod": "PL6"
+                "UC": "H505N5",
+                "cod": "PL6",
+                "hora": "09:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "BD",
-                "cod": "PL2"
+                "UC": "H505N1",
+                "cod": "PL2",
+                "hora": "09:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "SD",
-                "cod": "PL6"
+                "UC": "H505N4",
+                "cod": "PL6",
+                "hora": "09:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "MNOnL",
-                "cod": "PL4"
+               "UC": "H505N6",
+                "cod": "PL4",
+                "hora": "14:00:00",
+                "diaS": "ter"         
             }, {
-                "UC": "DSS",
-                "cod": "PL3"
+                "UC": "H505N2",
+                "cod": "PL3",
+                "hora": "16:00:00",
+                "diaS": "qui"         
             }, {
-                "UC": "MDIO",
-                "cod": "TP4"
+                "UC": "H505N3",
+                "cod": "TP4",
+                "hora": "09:00:00",
+                "diaS": "qua"         
             }]
         ]
     }]

@@ -38,6 +38,9 @@ public class DialogVerAluno extends javax.swing.JDialog {
         this.nomeField.setText(this.aluno.getNome());
         this.mailField.setText(this.aluno.getMail());
         this.userField.setText(this.aluno.getUsername());
+        this.nomeField.setEditable(false);
+        this.mailField.setEditable(false);
+        this.userField.setEditable(false);
         //TODO atualizar tabela
     }
 
@@ -66,6 +69,7 @@ public class DialogVerAluno extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tituloLabel.setFont(new java.awt.Font("Drugs", 0, 36)); // NOI18N
+        tituloLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloLabel.setText("Aluno X");
 
         jLabel2.setText("Nome");
@@ -146,8 +150,8 @@ public class DialogVerAluno extends javax.swing.JDialog {
                 .addComponent(sairButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(308, 308, 308)
-                .addComponent(tituloLabel)
+                .addGap(33, 33, 33)
+                .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

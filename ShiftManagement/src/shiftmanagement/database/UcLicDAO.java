@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import static java.sql.Types.NULL;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,7 +22,6 @@ import shiftmanagement.Business.Turno.TP;
 import shiftmanagement.Business.Turno.Teorica;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.UC.UCLicenciatura;
-import shiftmanagement.Business.Utilizador.Professor;
 
 /**
  *
@@ -115,38 +115,51 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
                 Turno t;
                 int max;
                 while(rs.next()){
-                    t = new Turno();
+                    //t = new Turno();
                     Sala s = new Sala();
                     s.setMax(rs.getInt("MaxLugares"));
                     s.setNomeSala(rs.getString("idSala"));
-                    t.setSala(s);
-                    t.setHora(rs.getTime("Hora"));
-                    t.setId(rs.getString("idTurno"));
-                    t.setProf(rs.getString("UsernameProf"));
-                    t.setUc(rs.getString("codigoUC"));
+                    Time h = rs.getTime("Hora");
+                    String id = rs.getString("idTurno");
+                    String prof = rs.getString("UsernameProf");
+                    String uct = rs.getString("codigoUC");
+                    String d = rs.getString("diaSemana");
+                    int al=-1;
+                    PreparedStatement ps2 = con.prepareStatement("SELECT DISTINCT Aluno.idAluno, COUNT(*) AS `Total` FROM Registo"
+                            + " GROUP BY Aluno.idAluno"
+                            + " WHERE Registo.idTurno = ?");
+                    ps2.setString(1, id);
+                    ResultSet rs2 = ps2.executeQuery();
+                    if(rs2.next()){
+                        al = rs2.getInt("Total");
+                    }
+                    
+                    int x = rs.getInt("aulas");
                     max = rs.getInt("maxAlunos");
                     if(rs.getString("Tipo").equals("TP")){
-                        TP tp = (TP) t;
-                        tp.setMax(max);
-                        turnos.add(tp);
+                        t = new TP(id, max, s, prof, h, uct, x, d, al);
+                        //TP tp = (TP) t;
+                        turnos.add(t);
                     }
                     if(rs.getString("Tipo").equals("PL")){
-                        PL pl = (PL) t;
-                        pl.setMax(max);
-                        turnos.add(pl);
+                        //PL pl = (PL) t;
+                        t = new PL(id, max, s, prof, h, uct, x, d, al);
+                        turnos.add(t);
                     }
                     if(rs.getString("Tipo").equals("Teorica")){
-                        Teorica teo = (Teorica) t;
-                        turnos.add(teo);
+                        t = new Teorica(id, s, prof, h, uct, x, d);
+                        //Teorica teo = (Teorica) t;
+                        turnos.add(t);
                     }
                 }
                 uc.setTurnos(turnos);
                 
-                HashSet<Professor> profs = new HashSet<>();
+                /*HashSet<Professor> profs = new HashSet<>();
                 ps = con.prepareStatement("SELECT * FROM Professor AS P"
                         + " INNER JOIN Turno ON Turno.UsernameProf = P.Username"
                         + " INNER JOIN UC ON UC.codigoUC = Turno.codigoUC"
-                        + " WHERE UC.codigoUC = ?");
+                        + " INNER JOIN UCLicenciatura AS UCL ON UCL.codigoUC = UC.codigoUC"
+                        + " WHERE UCL.codigoUC = ?");
                 ps.setString(1, (String) key);
                 rs = ps.executeQuery();
                 Professor p; 
@@ -154,12 +167,12 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
                     p = new Professor();
                     p.setNome(rs.getString("Username"));
                     p.setNome(rs.getString("Nome"));
-                    p.setMail(rs.getString("Mail"));
+                    p.setMail(rs.getString("Email"));
                     p.setPassword(rs.getString("Password"));
                     p.setRegente(rs.getBoolean("Regente"));
                     profs.add(p);
                 }
-                uc.setDocentes(profs);
+                uc.setDocentes(profs);*/
             }
             
         }
@@ -180,7 +193,6 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
     @Override
     public UCLicenciatura put(String key, UCLicenciatura value) {
         UCLicenciatura uc;
-       
         if(this.containsKey(key))
             uc = this.get(key);
         
@@ -207,41 +219,69 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
             ps.executeUpdate();
             
             HashSet<Turno> turnos = value.getTurnos();
-            if(turnos != null){
+            
+            if(turnos.size() > 0){
                 for(Turno t: turnos){
-                    ps = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo) VALUES (?,?,?,?,?,?,?)");
-                    ps.setString(1, t.getId());
-                    ps.setString(2, t.getUc());
-                    ps.setTime(3, t.getHora());
-                    ps.setString(4, t.getSala().getNome());
-                    ps.setString(5, t.getProf());
+            
+                    /*PreparedStatement ps2 = con.prepareStatement("DELETE FROM Sala WHERE Sala.idSala = ?");
+                    ps2.setString(1, t.getSala().getNome());
+                    ps2.executeUpdate();*/
+                    
+                    PreparedStatement ps2 = con.prepareStatement("SELECT Sala.idSala FROM Sala Where Sala.idSala = ?");
+                    ps2.setString(1, t.getSala().getNome());
+                    ResultSet rs = ps2.executeQuery();
+                    if(!rs.next()){
+                        ps2 = con.prepareStatement("INSERT INTO Sala(idSala, MaxLugares) VALUES (?,?)");
+                        ps2.setString(1, t.getSala().getNome());
+                        ps2.setInt(2, t.getSala().getMax());
+                        ps2.executeUpdate();
+                    }
+                    
+                    
+                    
+                    /*ps2 = con.prepareStatement("DELETE FROM Turno WHERE Turno.idTurno = ? AND Turno.codigoUC = ?");
+                    ps2.setString(1, t.getId());
+                    ps2.setString(2, key);
+                    ps2.executeUpdate();*/
+                    
+                    ps2 = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo, Aulas, diaSemana) VALUES (?,?,?,?,?,?,?,?,?)");
+                    ps2.setString(1, t.getId());
+                    ps2.setString(2, t.getUc());
+                    ps2.setTime(3, t.getHora());
+                    ps2.setString(4, t.getSala().getNome());
+                    ps2.setString(5, t.getProf());
+                    ps2.setInt(8, t.getNumeroAulas());
+                    ps2.setString(9, t.getDia());
                     if(t instanceof TP){
                         TP tp = (TP) t;
-                        ps.setInt(6, tp.getMax());
-                        ps.setString(7, "TP");
+                        ps2.setInt(6, tp.getMax());
+                        ps2.setString(7, "TP");                      
                     }
                     if(t instanceof PL){
                         PL pl = (PL) t;
-                        ps.setInt(6, pl.getMax());
-                        ps.setString(7, "PL");
+                        ps2.setInt(6, pl.getMax());
+                        ps2.setString(7, "PL");
                     }
                     if(t instanceof Teorica){
                         Teorica teo = (Teorica) t;
-                        ps.setInt(6, NULL);
-                        ps.setString(7, "Teorica");
+                        ps2.setInt(6, NULL);
+                        ps2.setString(7, "Teorica");
                     }
-                    ps.executeUpdate();
+                    ps2.executeUpdate();
                     
-                    ps = con.prepareStatement("INSERT INTO Sala(idSala, MaxLugares) VALUES (?,?)");
-                    ps.setString(1, t.getSala().getNome());
-                    ps.setInt(2, t.getSala().getMax());
-                    ps.executeUpdate();
+                 
                 }
             }
-            
-            HashSet<Professor> profs = value.getEquipaDocente();
-            if(profs!=null){
+           
+            /*HashSet<Professor> profs = this.get(key).getEquipaDocente();
+             System.out.println("depois do antes: " + profs.size());
+            if(profs.size()>0){
                 for(Professor p: profs){
+                    //System.out.println(p.getUsername());
+                    ps = con.prepareStatement("DELETE FROM Professor WHERE Professor.Username = ?");
+                    ps.setString(1, p.getUsername());
+                    ps.executeUpdate();
+                    
                     ps = con.prepareStatement("INSERT INTO Professor (Username, Nome, Email, Password, Regente) VALUES (?,?,?,?,?)");
                     ps.setString(1, p.getUsername());
                     ps.setString(2, p.getNome());
@@ -249,8 +289,9 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
                     ps.setString(4, p.getPass());
                     ps.setBoolean(5, p.getRegente());
                     ps.executeUpdate();
+                    System.out.println("depois do update: " + this.get(key).getEquipaDocente().size());
                 }
-            }
+            }*/
         }
         catch(SQLException e){
             System.out.printf(e.getMessage());

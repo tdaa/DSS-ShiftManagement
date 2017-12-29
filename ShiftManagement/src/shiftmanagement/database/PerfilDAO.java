@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import static java.sql.Types.NULL;
 import java.util.Collection;
 import java.util.HashMap;
@@ -109,8 +110,8 @@ public class PerfilDAO implements Map<String, Perfil>{
             }
             
             Map<String, UCPerfil> ucs = new HashMap<String, UCPerfil>();
-            ps = con.prepareStatement("SELECT UCPerfil.*, UC.* FROM UCPerfil "
-                    + "INNER JOIN Perfil ON Perfil.idPerfil = UCPerfil.idPerfil"
+            ps = con.prepareStatement("SELECT UCPerfil.*, UC.* FROM Perfil "
+                    + "INNER JOIN UCPerfil ON UCPerfil.idPerfil = Perfil.idPerfil"
                     + " INNER JOIN UC ON UC.codigoUC = UCPerfil.codigoUCPerfil"
                     + " WHERE Perfil.idPerfil = ?");
             ps.setString(1, (String) key);
@@ -125,6 +126,7 @@ public class PerfilDAO implements Map<String, Perfil>{
                 
                 HashSet<Turno> turnos = new HashSet<>();
                 ps = con.prepareStatement("SELECT Sala.idSala, Sala.MaxLugares, Turno.* FROM Turno"
+                        + " INNER JOIN Sala ON Sala.idSala = Turno.idSala"
                         + " INNER JOIN UC ON UC.codigoUC = Turno.codigoUC"
                         + " WHERE UC.codigoUC = ?");
                 ps.setString(1, (String) key);
@@ -132,34 +134,47 @@ public class PerfilDAO implements Map<String, Perfil>{
                 Turno t;
                 int max;
                 while(rs.next()){
-                    t = new Turno();
+                    //t = new Turno();
                     Sala s = new Sala();
                     s.setMax(rs.getInt("MaxLugares"));
                     s.setNomeSala(rs.getString("idSala"));
-                    t.setSala(s);
-                    t.setHora(rs.getTime("Hora"));
-                    t.setId(rs.getString("idTurno"));
-                    t.setProf(rs.getString("UsernameProf"));
-                    t.setUc(rs.getString("codigoUC"));
+                    Time h = rs.getTime("Hora");
+                    String id = rs.getString("idTurno");
+                    String prof = rs.getString("UsernameProf");
+                    String uct = rs.getString("codigoUC");
+                    String d = rs.getString("diaSemana");
+                    
+                    int al=-1;
+                    PreparedStatement ps2 = con.prepareStatement("SELECT DISTINCT Aluno.idAluno, COUNT(*) AS `Total` FROM Registo"
+                            + " GROUP BY Aluno.idAluno"
+                            + " WHERE Registo.idTurno = ?");
+                    ps2.setString(1, id);
+                    ResultSet rs2 = ps2.executeQuery();
+                    if(rs2.next()){
+                        al = rs2.getInt("Total");
+                    }
+                    
+                    int x = rs.getInt("aulas");
                     max = rs.getInt("maxAlunos");
                     if(rs.getString("Tipo").equals("TP")){
-                        TP tp = (TP) t;
-                        tp.setMax(max);
-                        turnos.add(tp);
+                        t = new TP(id, max, s, prof, h, uct, x, d, al);
+                        //TP tp = (TP) t;
+                        turnos.add(t);
                     }
                     if(rs.getString("Tipo").equals("PL")){
-                        PL pl = (PL) t;
-                        pl.setMax(max);
-                        turnos.add(pl);
+                        //PL pl = (PL) t;
+                        t = new PL(id, max, s, prof, h, uct, x, d, al);
+                        turnos.add(t);
                     }
                     if(rs.getString("Tipo").equals("Teorica")){
-                        Teorica teo = (Teorica) t;
-                        turnos.add(teo);
+                        t = new Teorica(id, s, prof, h, uct, x, d);
+                        //Teorica teo = (Teorica) t;
+                        turnos.add(t);
                     }
                 }
                 uc.setTurnos(turnos);
                 
-                HashSet<Professor> profs = new HashSet<>();
+                /*HashSet<Professor> profs = new HashSet<>();
                 ps = con.prepareStatement("SELECT * FROM Professor AS P"
                         + " INNER JOIN Turno ON Turno.UsernameProf = P.Username"
                         + " INNER JOIN UC ON UC.codigoUC = Turno.codigoUC"
@@ -176,7 +191,7 @@ public class PerfilDAO implements Map<String, Perfil>{
                     prof.setRegente(rs.getBoolean("Regente"));
                     profs.add(prof);
                 }
-                uc.setDocentes(profs);
+                uc.setDocentes(profs);*/
                 
                 ucs.put(uc.getCodigo(), uc);
             }
@@ -220,52 +235,69 @@ public class PerfilDAO implements Map<String, Perfil>{
             Map<String, UCPerfil> listaUcs = value.getListaUcs();
             if(listaUcs!=null){
                 for(UCPerfil uc: listaUcs.values()){
+                    ps = con.prepareStatement("DELETE FROM UCPerfil WHERE codigoUCPerfil = ?");
+                    ps.setString(1, uc.getCodigo());
+                    ps.executeUpdate();
+                    
+                    ps = con.prepareStatement("DELETE FROM UC WHERE UC.codigoUC = ?");
+                    ps.setString(1, key);
+                    ps.executeUpdate();
+                    
                     ps = con.prepareStatement("INSERT INTO UC (codigoUC, Designaçao, usernameRegente) VALUES (?,?,?)");
                     ps.setString(1, uc.getCodigo());
                     ps.setString(2, uc.getNome());
                     ps.setString(3, uc.getResponsavel());
                     ps.executeUpdate();
             
-                    ps = con.prepareStatement("INSERT INTO UCPerfil (codigoUCPerfil, dia Semana, idPerfil) VALUES (?,?,?)");
+                    ps = con.prepareStatement("INSERT INTO UCPerfil (codigoUCPerfil, diaSemana, idPerfil) VALUES (?,?,?)");
                     ps.setString(1, uc.getCodigo());
                     ps.setString(2, uc.getDiaS());
                     ps.setString(3, key);
                     ps.executeUpdate();
-
+                    
+                    
                     HashSet<Turno> turnos = uc.getTurnos();
-                    if(turnos != null){
-                        for(Turno t: turnos){
-                            ps = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo) VALUES (?,?,?,?,?,?,?)");
-                            ps.setString(1, t.getId());
-                            ps.setString(2, t.getUc());
-                            ps.setTime(3, t.getHora());
-                            ps.setString(4, t.getSala().getNome());
-                            ps.setString(5, t.getProf());
-                            if(t instanceof TP){
-                                TP tp = (TP) t;
-                                ps.setInt(6, tp.getMax());
-                                ps.setString(7, "TP");
-                            }
-                            if(t instanceof PL){
-                                PL pl = (PL) t;
-                                ps.setInt(6, pl.getMax());
-                                ps.setString(7, "PL");
-                            }
-                            if(t instanceof Teorica){
-                                Teorica teo = (Teorica) t;
-                                ps.setInt(6, NULL);
-                                ps.setString(7, "Teorica");
-                            }
-                            ps.executeUpdate();
+                    if(turnos.size() > 0){
+                    for(Turno t: turnos){
+                        ps = con.prepareStatement("DELETE FROM Sala WHERE Sala.idSala = ?");
+                        ps.setString(1, t.getSala().getNome());
+                        ps.executeUpdate();
 
-                            ps = con.prepareStatement("INSERT INTO Sala(idSala, MaxLugares) VALUES (?,?)");
-                            ps.setString(1, t.getSala().getNome());
-                            ps.setInt(2, t.getSala().getMax());
-                            ps.executeUpdate();
+                        ps = con.prepareStatement("INSERT INTO Sala(idSala, MaxLugares) VALUES (?,?)");
+                        ps.setString(1, t.getSala().getNome());
+                        ps.setInt(2, t.getSala().getMax());
+                        ps.executeUpdate();
+
+                        ps = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo, aulas, diaSemana) VALUES (?,?,?,?,?,?,?,?,?)");
+                        ps.setString(1, t.getId());
+                        ps.setString(2, t.getUc());
+                        ps.setTime(3, t.getHora());
+                        ps.setString(4, t.getSala().getNome());
+                        ps.setString(5, t.getProf());
+                        ps.setInt(8, t.getNumeroAulas());
+                        ps.setString(9, t.getDia());
+                        if(t instanceof TP){
+                            TP tp = (TP) t;
+                            ps.setInt(6, tp.getMax());
+                            ps.setString(7, "TP");                      
                         }
-                    }
+                        if(t instanceof PL){
+                            PL pl = (PL) t;
+                            ps.setInt(6, pl.getMax());
+                            ps.setString(7, "PL");
+                        }
+                        if(t instanceof Teorica){
+                            Teorica teo = (Teorica) t;
+                            ps.setInt(6, NULL);
+                            ps.setString(7, "Teorica");
+                        }
+                        ps.executeUpdate();
 
-                    HashSet<Professor> professores = uc.getEquipaDocente();
+                    
+                    }
+            }
+
+                    /*HashSet<Professor> professores = uc.getEquipaDocente();
                     if(professores!=null){
                         for(Professor prof: professores){
                             ps = con.prepareStatement("INSERT INTO Professor (Username, Nome, Email, Password, Regente) VALUES (?,?,?,?,?)");
@@ -276,7 +308,7 @@ public class PerfilDAO implements Map<String, Perfil>{
                             ps.setBoolean(5, prof.getRegente());
                             ps.executeUpdate();
                         }
-                    }
+                    }*/
                 }
             }
         }

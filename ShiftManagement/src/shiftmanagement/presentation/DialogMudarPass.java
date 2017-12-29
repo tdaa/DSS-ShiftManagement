@@ -127,6 +127,7 @@ public class DialogMudarPass extends javax.swing.JDialog {
             if(nova.equals(rnova)){
                 this.system.alteraPassword(username, nova);
                 javax.swing.JOptionPane.showMessageDialog(this, "Password Mudada Com Sucesso", "Pass mudada", 1);
+                this.dispose();
             }
             else{
                 javax.swing.JOptionPane.showMessageDialog(this, "Password nao coincidem", "Passowords têm de coincidir", 0);

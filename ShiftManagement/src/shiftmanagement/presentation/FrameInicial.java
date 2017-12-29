@@ -5,10 +5,10 @@
  */
 package shiftmanagement.presentation;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 import shiftmanagement.Business.*;
+import shiftmanagement.Parser.Parser;
 
 /**
  *
@@ -138,6 +138,9 @@ public class FrameInicial extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         //botao login
+        Parser p = new Parser(this.system);
+        p.parseShifts();
+        
         String username = nameText.getText();
         String pass = passText.getText();
         try {
@@ -163,8 +166,9 @@ public class FrameInicial extends javax.swing.JFrame {
                 //this.dispose();
             }
         }catch(Exception e){
-            DialogExceptions exception = new DialogExceptions(null,true,e.getMessage());
-            exception.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Nada");
+            /*DialogExceptions exception = new DialogExceptions(null,true,e.getMessage());
+            exception.setVisible(true);*/
         }
 
     }//GEN-LAST:event_loginButtonActionPerformed

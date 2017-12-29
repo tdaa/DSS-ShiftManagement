@@ -14,6 +14,7 @@ import java.sql.SQLException;
  * @author Tiago
  */
 public class Connect {
+    
     private static final String URL = "localhost";
     private static final String SCHEMA = "SM";
     private static final String USERNAME = "root";

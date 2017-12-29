@@ -19,8 +19,19 @@ public class Teorica extends Turno{
         super();
     }
     
-    public Teorica(String n, Sala s, String p, Time l, String uc){
-        super(n, s, p, l, uc);
+    /**
+     *
+     * @param n
+     * @param s
+     * @param p
+     * @param l
+     * @param uc
+     * @param na
+     * @param dia
+     * @param n
+     */
+    public Teorica(String n, Sala s, String p, Time l, String uc, int na, String dia){
+        super(n, s, p, l, uc, na, dia);
     }
     
 }

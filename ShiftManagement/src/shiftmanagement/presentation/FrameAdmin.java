@@ -37,7 +37,8 @@ public class FrameAdmin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         ucButton = new javax.swing.JButton();
         alunosButton = new javax.swing.JButton();
-        horarioButton = new javax.swing.JButton();
+        fase2Button = new javax.swing.JButton();
+        fase3Button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,10 +59,17 @@ public class FrameAdmin extends javax.swing.JFrame {
             }
         });
 
-        horarioButton.setText("Elaborar Horário");
-        horarioButton.addActionListener(new java.awt.event.ActionListener() {
+        fase2Button.setText("Autorizar Fase 2");
+        fase2Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                horarioButtonActionPerformed(evt);
+                fase2ButtonActionPerformed(evt);
+            }
+        });
+
+        fase3Button.setText("Autorizar Fase 3");
+        fase3Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fase3ButtonActionPerformed(evt);
             }
         });
 
@@ -70,30 +78,37 @@ public class FrameAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+                .addContainerGap(76, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(230, 230, 230))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(ucButton)
-                        .addGap(46, 46, 46)
+                        .addGap(258, 258, 258)
                         .addComponent(alunosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(horarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68))))
+                        .addGap(77, 77, 77))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(307, 307, 307)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fase3Button)
+                    .addComponent(fase2Button))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ucButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(alunosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(horarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(137, 137, 137))
+                    .addComponent(alunosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
+                .addComponent(fase2Button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(fase3Button)
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -111,22 +126,27 @@ public class FrameAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ucButtonActionPerformed
 
-    private void horarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horarioButtonActionPerformed
-        //botao horario
-        FrameElaborarHorario feh = new FrameElaborarHorario(this.system);
-        feh.setVisible(true);
-    }//GEN-LAST:event_horarioButtonActionPerformed
-
     private void alunosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alunosButtonActionPerformed
         // botao alunos
         FrameUtilizadores janelaAluno = new FrameUtilizadores(this.system);
         janelaAluno.setVisible(true);
     }//GEN-LAST:event_alunosButtonActionPerformed
 
+    private void fase2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase2ButtonActionPerformed
+        // TODO add your handling code here:
+        this.system.setTeste(2);
+    }//GEN-LAST:event_fase2ButtonActionPerformed
+
+    private void fase3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fase3ButtonActionPerformed
+        // TODO add your handling code here:
+        this.system.setTeste(3);
+    }//GEN-LAST:event_fase3ButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alunosButton;
-    private javax.swing.JButton horarioButton;
+    private javax.swing.JButton fase2Button;
+    private javax.swing.JButton fase3Button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton ucButton;
     // End of variables declaration//GEN-END:variables

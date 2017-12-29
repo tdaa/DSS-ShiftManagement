@@ -31,6 +31,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
     private String usernameProf;
     private int tipoUC;
     private String nomePerfil=null;
+    private boolean frameConfirmacao;
     
     /**
      * Creates new form DialogAddTurno
@@ -54,10 +55,10 @@ public class DialogAddTurno extends javax.swing.JDialog {
         atualizaCombo();
         atualizaDiaCombo();
     }
-    
+   
     private void atualizaLista(){
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        for(String s: this.system.getListaNomeProfs(codigoUC, this.tipoUC, this.nomePerfil)){
+        for(String s: this.system.getListaTodosProfs()){
             dlm.addElement(s);
         }
         profList.setModel(dlm);
@@ -92,7 +93,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
     }
     
     public void filterModel(DefaultListModel<String> model, String filter) {
-        this.system.getListaNomeProfs(this.codigoUC, this.tipoUC, this.nomePerfil).forEach((s) -> {
+        this.system.getListaTodosProfs().forEach((s) -> {
             if (!s.startsWith(filter)) {
                 if (model.contains(s)) {
                     model.removeElement(s);
@@ -140,7 +141,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Drugs", 0, 36)); // NOI18N
         jLabel1.setText("Novo Turno");
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
@@ -148,8 +149,6 @@ public class DialogAddTurno extends javax.swing.JDialog {
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel4.setText("Professor");
-
-        searchBox.setText("procurar");
 
         profList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -189,15 +188,11 @@ public class DialogAddTurno extends javax.swing.JDialog {
             }
         });
 
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel3.setText("Máximo de Alunos");
 
         jLabel9.setText("Aulas");
 
         jLabel10.setText("Dia da Semana");
-
-        comboDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -280,7 +275,7 @@ public class DialogAddTurno extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(comboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3))
@@ -335,17 +330,18 @@ public class DialogAddTurno extends javax.swing.JDialog {
                 int maxAlunos = Integer.parseInt(this.maxAlunosField.getText());
                 Sala s = new Sala(max, nomeSala);
                 if(id.equals("PL")){
-                    PL t = new PL(id, maxAlunos, s, this.usernameProf, hora, codigoUC, naulas, dia);
+                    PL t = new PL(id, maxAlunos, s, this.usernameProf, hora, codigoUC, naulas, dia, -1);
                     this.system.addTurno(t, this.codigoUC, this.tipoUC, this.nomePerfil);
                 }
                 if(id.equals("TP")){
-                    TP t = new TP(id, maxAlunos, s, this.usernameProf, hora, codigoUC, naulas, dia);
+                    TP t = new TP(id, maxAlunos, s, this.usernameProf, hora, codigoUC, naulas, dia, -1);
                     this.system.addTurno(t, codigoUC, this.tipoUC, this.nomePerfil);
                 }
                 /*if(id.equals("Teórica")){
                     Teorica t = new Teorica(id, s, this.usernameProf, hora, codigoUC, naulas);
                     this.system.addTurno(t, codigoUC, tipoUC, nomePerfil);
                 }*/
+                
                 this.dispose();
             }
             else{

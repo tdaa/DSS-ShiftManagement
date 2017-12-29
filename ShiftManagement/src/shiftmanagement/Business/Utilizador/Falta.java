@@ -13,39 +13,17 @@ import java.time.LocalDate;
  */
 public class Falta {
     
-    private int id=0;
-    private LocalDate data;
     private String idTurno;
     private String codigoUC;
     
     public Falta(){
-        this. id = 0;
-        this.data = null;
         this.idTurno = null;
         this.codigoUC = null;
     }
     
-    public Falta(int id, LocalDate data, String idTurno, String codigoUC) {
-        this.id = id;
-        this.data = data;
+    public Falta(String idTurno, String codigoUC) {
         this.idTurno = idTurno;
         this.codigoUC = codigoUC;
-    }
-    
-    public Falta(LocalDate data, String idTurno, String codigoUC) {
-        this.setId(id + 1);
-        id++;
-        this.data = data;
-        this.idTurno = idTurno;
-        this.codigoUC = codigoUC;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public LocalDate getData() {
-        return data;
     }
 
     public String getIdTurno() {
@@ -54,14 +32,6 @@ public class Falta {
 
     public String getCodigoUC() {
         return codigoUC;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
     }
 
     public void setIdTurno(String idTurno) {

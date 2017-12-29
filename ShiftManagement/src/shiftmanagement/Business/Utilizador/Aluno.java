@@ -166,10 +166,10 @@ public class Aluno extends Utilizador{
         boolean flag = false;
         while(it.hasNext() && !flag){
             aux = it.next();
-            uc = aux.substring(0, aux.indexOf(" "));
+            uc = aux.substring(0, aux.indexOf("-")-1);
             if(uc.equals(nomeuc)){
                 flag = true;
-                turnoI = aux.substring(aux.indexOf("-")+2, aux.length()-1);
+                turnoI = aux.substring(aux.indexOf("-")+2, aux.length());
             }
         }
         return turnoI; 
@@ -181,6 +181,14 @@ public class Aluno extends Utilizador{
      */
     public void addTroca(Troca t){
         this.trocas.add(t);
+    }
+    
+    /**
+     *
+     * @param uc
+     */
+    public void removTroca(Troca t){
+        this.trocas.remove(t);
     }
     
     /**
@@ -205,8 +213,7 @@ public class Aluno extends Utilizador{
      * @return
      */
     public Aluno setFaltas(String uc, String turno){
-        LocalDate d = null;
-        Falta f = new Falta(d.now(), uc, turno);
+        Falta f = new Falta(turno, uc);
         this.faltas.add(f);
         return this;
     }
@@ -246,5 +253,14 @@ public class Aluno extends Utilizador{
                 flag = true;
             }
         }
+    }
+    
+    public Troca getTroca(String uc){
+        for(Troca t: this.trocas){
+            if(t.getCodigoUC().equals(uc)){
+                return t;
+            }
+        }
+        return null;
     }
 }

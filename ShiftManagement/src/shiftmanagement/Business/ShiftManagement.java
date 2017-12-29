@@ -41,6 +41,7 @@ public class ShiftManagement {
     private GestaoRegistos listaRegistos;
     private Curso curso;
     private Map<Integer, ArrayList<ArrayList<Turno>>> horarios;
+    private int casoTeste;
     
     /**
      *
@@ -56,6 +57,7 @@ public class ShiftManagement {
         this.listaPerfis = new GestaoPerfis();
         this.listaRegistos = new GestaoRegistos();
         this.horarios = new HashMap<Integer, ArrayList<ArrayList<Turno>>>();
+        this.casoTeste = 1;
     }
     
     /**
@@ -72,6 +74,7 @@ public class ShiftManagement {
         this.listaPerfis = new GestaoPerfis();
         this.listaRegistos = new GestaoRegistos();
         this.horarios = new HashMap<Integer, ArrayList<ArrayList<Turno>>>();
+        this.casoTeste = 1;
     }
     
     /**
@@ -89,6 +92,7 @@ public class ShiftManagement {
         this.listaPerfis = new GestaoPerfis();
         this.listaRegistos = new GestaoRegistos();
         this.horarios = new HashMap<Integer, ArrayList<ArrayList<Turno>>>();
+        this.casoTeste = 1;
     }
     
     
@@ -98,6 +102,14 @@ public class ShiftManagement {
      */
     public Utilizador getUtilizador(){
         return this.utilizador;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public int getTeste(){
+        return this.casoTeste;
     }
     
     /**
@@ -173,17 +185,21 @@ public class ShiftManagement {
         ArrayList<String> profs = new ArrayList<>();
         if(tipoUC == 1) {
             this.listaUCsLic.getListaProfs(codigoUC).forEach((s) -> {
-                profs.add(s);
+                Professor p = this.listaProfs.getProf(s);
+                profs.add(p.getUsername() + " - " + p.getNome());
+                
             });
         }
         if(tipoUC == 2){
             this.listaUCsComp.getListaProfs(codigoUC).forEach((s) -> {
-                profs.add(s);
+                Professor p = this.listaProfs.getProf(s);
+                profs.add(p.getUsername() + " - " + p.getNome());
             });
         }
-        else{
+        if(tipoUC == 3){
             this.listaPerfis.getListaProfs(codigoUC, nomePerfil).forEach((s) -> {
-                profs.add(s);
+                Professor p = this.listaProfs.getProf(s);
+                profs.add(p.getUsername() + " - " + p.getNome());
             });
         }
         return profs;
@@ -208,7 +224,7 @@ public class ShiftManagement {
                 turnos.add(s);
             });
         }
-        else{
+        if(tipoUC == 3){
             this.listaPerfis.getListaTurnos(codigoUC, nomePerfil).forEach((s) -> {
                 turnos.add(s);
             });
@@ -275,17 +291,20 @@ public class ShiftManagement {
         ArrayList<String> res = new ArrayList<>();
         if(tipoUC == 1){
             this.listaUCsLic.getNomesProfs(codigoUC).forEach((s) -> {
-                res.add(s);
+                Professor p = this.listaProfs.getProf(s);
+                res.add(p.getNome());
             });
         }
         if(tipoUC == 2){
             this.listaUCsComp.getNomesProfs(codigoUC).forEach((s) -> {
-                res.add(s);
+                Professor p = this.listaProfs.getProf(s);
+                res.add(p.getNome());
             });
         }
-        else{
+        if(tipoUC==3){
             this.listaPerfis.getProfs(codigoUC, nomePerfil).forEach((s) -> {
-                res.add(s);
+                Professor p = this.listaProfs.getProf(s);
+                res.add(p.getNome());
             });
         }
         return res;
@@ -346,19 +365,24 @@ public class ShiftManagement {
     public void setTipoCurso(String t){
         this.curso = new Curso(t);
     }
+    
+    public void setTeste(int t){
+        this.casoTeste = t;
+    }
   
     /**
      *
      * @param prof
      * @param codigoUC
      * @param tipoUC
+     * @param nomePerfil
      */
-    public void addProfToUC(String prof, String codigoUC, int tipoUC, String nomePerfil){
+    /*public void addProfToUC(String prof, String codigoUC, int tipoUC, String nomePerfil){
         Professor p = this.listaProfs.getProf(prof);
         if(tipoUC == 1) this.listaUCsLic.addProf(p, codigoUC);
         if(tipoUC == 2) this.listaUCsComp.addProf(p, codigoUC);
-        else this.listaPerfis.addProfToPerfil(p, codigoUC, nomePerfil);
-    }
+        if(tipoUC == 3) this.listaPerfis.addProfToPerfil(p, codigoUC, nomePerfil);
+    }*/
     
     /**
      *
@@ -366,24 +390,26 @@ public class ShiftManagement {
      * @param codigoUC
      * @param tipoUC
      */
-    public void removeProfDeUc(String usernameProf, String codigoUC, int tipoUC, String nomePerfil){
+    /*public void removeProfDeUc(String usernameProf, String codigoUC, int tipoUC, String nomePerfil){
         Professor p = this.listaProfs.getProf(usernameProf);
         if(tipoUC == 1) this.listaUCsLic.removeProf(p, codigoUC);
         if(tipoUC == 2) this.listaUCsComp.removeProf(p, codigoUC);
-        else this.listaPerfis.removeProf(p, codigoUC, nomePerfil);
-    }
+        if(tipoUC == 3) this.listaPerfis.removeProf(p, codigoUC, nomePerfil);
+    }*/
     
     /**
      *
      * @param idTurno
      * @param codigoUC
      * @param tipoUC
+     * @param nomePerfil
      * @return Turno com determinado id, de determinada uc.
      */
     public Turno getTurno(String idTurno, String codigoUC, int tipoUC, String nomePerfil){
         if(tipoUC == 1) return this.listaUCsLic.getTurnoPorId(idTurno, codigoUC);
         if(tipoUC == 2) return this.listaUCsComp.getTurnoPorId(idTurno, codigoUC);
-        else return this.listaPerfis.getTurnoPorId(idTurno, codigoUC, nomePerfil);
+        if(tipoUC == 3) return this.listaPerfis.getTurnoPorId(idTurno, codigoUC, nomePerfil);
+        return null;
     }
     
     /**
@@ -518,10 +544,19 @@ public class ShiftManagement {
     /**
      *
      * @param uc
+     */
+    public void insereUCComp(UCComplementar uc){
+        this.listaUCsComp.addNovaUc(uc);
+    }
+    
+    /**
+     *
+     * @param map
      * @param nomePerfil
      */
-    public void insereUCPerfil(UCPerfil uc, String nomePerfil){
-        this.listaPerfis.addNovaUc(uc, nomePerfil);
+    public void insereUCPerfil(HashMap<String, UCPerfil> map, String nomePerfil){
+        Perfil p = new Perfil(nomePerfil, map);
+        this.listaPerfis.addPerfil(p);
     }
     
     /**
@@ -558,7 +593,7 @@ public class ShiftManagement {
                    nome = this.listaPerfis.getNomeUc(uc);
                }
            }
-           res.add(uc + "-" + nome);
+           res.add(uc + " - " + nome);
        }
        return res;
     }
@@ -569,6 +604,8 @@ public class ShiftManagement {
      * @return
      */
     public ArrayList<String> getUCsNIAluno(String username){
+        ArrayList<String> res = new ArrayList<>();
+        ArrayList<String> naoUcs = new ArrayList<>();
         ArrayList<String> ucs = new ArrayList<>();
         for(UCLicenciatura ucl: this.listaUCsLic.getAll()) 
             ucs.add(ucl.getCodigo());
@@ -579,7 +616,16 @@ public class ShiftManagement {
         for(UCPerfil ucp: this.listaPerfis.getAllUcs()) 
             ucs.add(ucp.getCodigo());
         
-        return this.listaRegistos.getUcsNIAluno(username, ucs);
+        naoUcs = this.listaRegistos.getUcsNIAluno(username, ucs);
+        
+        for(String s: naoUcs){
+            String nome = this.getNomeUc(s);
+            if(nome!=null){
+                res.add(s + " - " + nome);
+            }
+        }
+        
+        return res;
     }
     
     /**
@@ -692,6 +738,8 @@ public class ShiftManagement {
         this.listaRegistos.removeRegisto(alunoDestino, turnoF, codigoUC);
         this.listaRegistos.novoRegisto(alunoOrigem, turnoF, codigoUC);
         this.listaRegistos.novoRegisto(alunoDestino, turnoI, codigoUC);
+        this.removeTroca(alunoOrigem, nomeUC, turnoF, turnoI);
+        this.removeTroca(alunoDestino, nomeUC, turnoI, turnoF);
     }
     
     /**
@@ -707,17 +755,29 @@ public class ShiftManagement {
     
     /**
      *
+     * @param aluno
+     * @param nomeUC
+     * @param turnoF
+     * @param turnoI
+     */
+    public void removeTroca(String aluno, String nomeUC, String turnoF, String turnoI){
+        String codigoUC = this.getCodigoUC(nomeUC);
+        this.listaAlunos.remTroca(aluno, codigoUC, turnoF, turnoI);
+    }
+    
+    /**
+     *
      * @return
      */
     public ArrayList<String> getTrocas(){
         String nomeUC, codigoUC, aluno, turnoI, turnoF;
         ArrayList<String> res = new ArrayList<>();
         for(String s: this.listaAlunos.getTodasTrocas()){
-            codigoUC = s.substring(s.indexOf("-")+2, s.indexOf("f")-4);
+            codigoUC = s.substring(s.indexOf("-")+2, s.indexOf("f")-3);
             nomeUC = this.getNomeUc(codigoUC);
             aluno = s.substring(0, s.indexOf(" "));
-            turnoF = s.substring(s.indexOf("f")+2, s.indexOf("i")-4);
-            turnoI = s.substring(s.indexOf("i")+2, s.length()-1);
+            turnoF = s.substring(s.indexOf("f")+2, s.indexOf("i")-3);
+            turnoI = s.substring(s.indexOf("i")+2, s.length());
             res.add(aluno + " - UC: " + nomeUC + " - Turno Oferecido: " + turnoI + " - Turno Requerido: " + turnoF);
         }
         return res;
@@ -731,10 +791,10 @@ public class ShiftManagement {
      */
     public String getNomeUc(String codigoUC){
         if(this.listaUCsLic.getNomeUc(codigoUC) != null) {
-            return this.listaUCsLic.getCodigoUC(codigoUC);
+            return this.listaUCsLic.getNomeUc(codigoUC);
         }
         if(this.listaUCsComp.getNomeUc(codigoUC) != null){
-            return this.listaUCsComp.getCodigoUC(codigoUC);
+            return this.listaUCsComp.getNomeUc(codigoUC);
         }
         if(this.listaPerfis.getNomeUc(codigoUC) != null){
             return this.listaPerfis.getNomeUc(codigoUC);
@@ -771,9 +831,9 @@ public class ShiftManagement {
         String nomeUC, codigoUC, turno, hora;
         int tipo;
         for(String s: neo){
-            codigoUC = s.substring(0, s.indexOf(" "));
-            tipo = this.getTipoUC(codigoUC);
-            nomeUC = this.getNomeUc(codigoUC);
+            nomeUC = s.substring(0, s.indexOf("-")-1);
+            codigoUC = this.getCodigoUC(nomeUC);
+            tipo = this.getTipoUC(codigoUC);       
             turno = s.substring(s.indexOf("-")+2, s.length());
             hora = this.getHoraTurno(turno, codigoUC);
             if(tipo == 1) res.add(nomeUC + " - " + turno + ": " + hora + " -> Cadeira de Licenciatura");
@@ -843,6 +903,11 @@ public class ShiftManagement {
         this.listaUCsLic.alocaTurno(uc, idTurno, hora, dia);
     }
     
+    /**
+     *
+     * @param list
+     * @param a
+     */
     public void addHorario(ArrayList<Turno> list, String a){
         int ano = Integer.parseInt(a); 
         ArrayList<ArrayList<Turno>> ts;
@@ -883,6 +948,87 @@ public class ShiftManagement {
             }
         }
     }
+    
+    /**
+     *
+     * @param user
+     * @param uc
+     * @param tipoUC
+     * @param perfil
+     */
+    public void setRegente(String user, String uc, int tipoUC, String perfil){
+        if(tipoUC == 1) this.listaUCsLic.setRegente(user, uc);
+        if(tipoUC == 2) this.listaUCsComp.setRegente(user, uc);
+        if(tipoUC == 3) this.listaPerfis.setRegente(user, uc, perfil);
+        this.listaProfs.setRegente(user);
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public Map<Integer, ArrayList<ArrayList<Turno>>> getHorarios(){
+        return this.horarios;
+    }
+    
+    /**
+     *
+     * @param uc
+     * @return
+     */
+    public ArrayList<String> getTurnosUc(String uc){
+        int tipo = this.getTipoUC(uc);
+        if(tipo==1) return this.listaUCsLic.getTurnos(uc);
+        if(tipo==2) return this.listaUCsComp.getTurnos(uc);
+        if(tipo==3) return this.listaPerfis.getTurnosPerfil(uc);
+        return null;
+    }
+    
+    /**
+     *
+     * @param aluno
+     * @param turno
+     * @param uc
+     */
+    public void addTurnoParaAluno(String aluno, String turno, String uc){
+        uc = uc.substring(0, uc.indexOf(" "));
+        this.listaRegistos.novoRegisto(aluno, turno, uc);
+    }
+    
+    /**
+     *
+     * @param idTurno
+     * @param codigoUC
+     * @param tipo
+     * @return
+     */
+    public int getCapSala(String idTurno, String codigoUC, int tipo){
+        if(tipo==1) return this.listaUCsLic.getCapacidadeSala(idTurno, codigoUC);
+        if(tipo==2) return this.listaUCsComp.getCapacidadeSala(idTurno, codigoUC);
+        if(tipo==3) return this.listaPerfis.getCapacidadeSala(idTurno, codigoUC);
+        return -1;
+    }
+    
+    public int getInscritosTurno(String turno, String codigoUC, int tipo){
+        if(tipo==1) return this.listaUCsLic.getTotalInscritos(turno, codigoUC);
+        if(tipo==2) return this.listaUCsComp.getTotalInscritos(turno, codigoUC);
+        if(tipo==3) return this.listaPerfis.getTotalInscritos(turno, codigoUC);
+        return -1;
+    }
+    
+    public int getMaxAlunos(String turno, String uc, int tipo){
+        if(tipo==1) return this.listaUCsLic.getMaximoAl(turno, uc);
+        if(tipo==2) return this.listaUCsComp.getMaximoAl(turno, uc);
+        if(tipo==3) return this.listaPerfis.getMaximoAl(turno, uc);
+        return -1;
+    }
+    
+    public boolean verificaEstudante(String usernameAluno){
+        return this.listaAlunos.getAluno(usernameAluno).getTrabalhador();
+    }
+    
+    
+    
     
     
 }

@@ -13,6 +13,7 @@ import java.sql.Time;
  * @author Tiago
  */
 public class Turno {
+        
     
     private String id;
     private String professor;
@@ -32,6 +33,14 @@ public class Turno {
         this.numeroAulas = 0;
         this.diaSemana = null;
     }
+
+    public Turno(String id, String codigoUC, Time hora, int numeroAulas, String diaSemana) {
+        this.id = id;
+        this.codigoUC = codigoUC;
+        this.hora = hora;
+        this.numeroAulas = numeroAulas;
+        this.diaSemana = diaSemana;
+    }   
     
     public Turno(String id, Sala s, String p, Time l, String uc, int n, String diaS){
         this.id = id;
@@ -51,6 +60,8 @@ public class Turno {
         this.professor="";
         this.sala = null;
     }
+    
+    
     
     public String getDia(){
         return this.diaSemana;

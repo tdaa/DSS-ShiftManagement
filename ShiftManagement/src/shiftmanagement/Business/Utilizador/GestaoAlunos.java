@@ -101,10 +101,10 @@ public class GestaoAlunos {
         String s;
         while(it.hasNext() && !flag){
             s = it.next();
-            uc = s.substring(0, s.indexOf(" "));
+            uc = s.substring(0, s.indexOf("-")-1);
             if(uc.equals(nomeUC)){
                 flag = true;
-                turno = s.substring(s.indexOf("-")+2, s.length()-1);
+                turno = s.substring(s.indexOf("-")+2, s.length());
             }
         }
         return turno;
@@ -121,8 +121,36 @@ public class GestaoAlunos {
         Aluno a = this.listaAlunos.get(aluno);
         String turnoI = a.getTurnoUC(nomeuc);
         Troca t = new Troca(turnoI, turnoF, codigouc);
-        a.addTroca(t);
-        this.listaAlunos.put(a.getUsername(), a);
+        if(!this.existeTroca(a, t.getCodigoUC(), t.getIdTurnoFinal(), t.getIdTurnoInicial())){
+            a.addTroca(t);
+            this.listaAlunos.put(a.getUsername(), a);
+        }
+        
+    }
+    
+    public boolean existeTroca(Aluno a, String uc, String tf, String ti){
+        for(Troca t: a.getTrocas()){
+            if(t.getCodigoUC().equals(uc) && t.getIdTurnoFinal().equals(tf) && t.getIdTurnoInicial().equals(ti)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     *
+     * @param aluno
+     * @param codigouc
+     * @param turnoI
+     * @param turnoF
+     */
+    public void remTroca(String aluno, String codigouc, String turnoF, String turnoI){
+        Aluno a = this.listaAlunos.get(aluno);
+        Troca t = a.getTroca(codigouc);
+        if(t != null) {
+            a.removTroca(t);
+            this.listaAlunos.put(a.getUsername(), a);
+        }
     }
     
     /**

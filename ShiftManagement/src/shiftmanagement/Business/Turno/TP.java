@@ -13,16 +13,28 @@ import java.sql.Time;
  */
 public class TP extends Turno{
     
+    private int alunos;
     private int maxAlunos;
     
     public TP(){
         super();
+        alunos = 0;
         maxAlunos = 0;
     }
     
-    public TP(String id, int max, Sala s, String p, Time l, String uc, int n, String dia){
+    public TP(String id, String uc, int max, Time l, int n, String dia){
+        super(id, uc, l, n, dia);
+        this.maxAlunos = max;
+    }
+    
+    public TP(String id, int max, Sala s, String p, Time l, String uc, int n, String dia, int a){
         super(id, s, p, l, uc, n, dia);
         this.maxAlunos = max;
+        this.alunos = a;
+    }
+    
+    public int getAlunos(){
+        return this.alunos;
     }
     
     public int getMax(){
@@ -31,5 +43,9 @@ public class TP extends Turno{
     
     public void setMax(int m){
         this.maxAlunos = m;
+    }
+    
+    public void setAlunos(int x){
+        this.alunos = x;
     }
 }

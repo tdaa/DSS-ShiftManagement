@@ -143,7 +143,7 @@ public class UcPerfilDAO implements Map<String,UCPerfil>{
                 }
                 uc.setTurnos(turnos);
                 
-                HashSet<Professor> profs = new HashSet<>();
+                /*HashSet<Professor> profs = new HashSet<>();
                 ps = con.prepareStatement("SELECT * FROM Professor AS P"
                         + " INNER JOIN Turno ON Turno.UsernameProf = P.Username"
                         + " INNER JOIN UC ON UC.codigoUC = Turno.codigoUC"
@@ -160,7 +160,7 @@ public class UcPerfilDAO implements Map<String,UCPerfil>{
                     p.setRegente(rs.getBoolean("Regente"));
                     profs.add(p);
                 }
-                uc.setDocentes(profs);
+                uc.setDocentes(profs);*/
             }
             ps = con.prepareStatement("SELECT * FROM UCPerfil AS UCP"
                     + " INNER JOIN UC ON UC.codigoUC = UCP.codigoUCPerfil"
@@ -248,7 +248,7 @@ public class UcPerfilDAO implements Map<String,UCPerfil>{
                 }
             }
             
-            HashSet<Professor> profs = value.getEquipaDocente();
+            /*HashSet<Professor> profs = value.getEquipaDocente();
             if(profs!=null){
                 for(Professor p: profs){
                     ps = con.prepareStatement("INSERT INTO Professor (Username, Nome, Email, Password, Regente) VALUES (?,?,?,?,?)");
@@ -259,7 +259,7 @@ public class UcPerfilDAO implements Map<String,UCPerfil>{
                     ps.setBoolean(5, p.getRegente());
                     ps.executeUpdate();
                 }
-            }
+            }*/
         }
         catch(SQLException e){
             System.out.printf(e.getMessage());

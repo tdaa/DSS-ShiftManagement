@@ -81,6 +81,7 @@ public class FrameUtilizadores extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         alunosList = new javax.swing.JList<>();
         verbutton = new javax.swing.JButton();
+        alocarButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
@@ -153,17 +154,26 @@ public class FrameUtilizadores extends javax.swing.JFrame {
             }
         });
 
+        alocarButton.setText("Alocar aluno");
+        alocarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alocarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(251, 251, 251)
+                .addGap(151, 151, 151)
                 .addComponent(verbutton)
+                .addGap(126, 126, 126)
+                .addComponent(alocarButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -171,9 +181,11 @@ public class FrameUtilizadores extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(verbutton)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(verbutton)
+                    .addComponent(alocarButton))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Alunos", jPanel2);
@@ -288,7 +300,17 @@ public class FrameUtilizadores extends javax.swing.JFrame {
         this.atualizaJanela();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void alocarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alocarButtonActionPerformed
+        // botao alocar aluno
+        String a = this.alunosList.getSelectedValue();
+        if(a != null){
+            DialogAlocarAluno daa = new DialogAlocarAluno(this, true, this.system, a);
+            daa.setVisible(true);
+        }
+    }//GEN-LAST:event_alocarButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alocarButton;
     private javax.swing.JList<String> alunosList;
     private javax.swing.JButton importarButton;
     private javax.swing.JButton jButton3;

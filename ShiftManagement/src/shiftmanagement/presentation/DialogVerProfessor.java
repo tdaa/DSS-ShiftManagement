@@ -39,6 +39,9 @@ public class DialogVerProfessor extends javax.swing.JDialog {
         String email = this.system.getEmailProf(username);
         emailField.setText(email);
         usernameField.setText(this.username);
+        this.usernameField.setEditable(false);
+        this.nomeField.setEditable(false);
+        this.emailField.setEditable(false);
     }
 
     /**
@@ -62,6 +65,7 @@ public class DialogVerProfessor extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tituloJanela.setFont(new java.awt.Font("Drugs", 0, 24)); // NOI18N
+        tituloJanela.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloJanela.setText("Nome do Professor");
 
         nomeField.addActionListener(new java.awt.event.ActionListener() {
@@ -106,14 +110,14 @@ public class DialogVerProfessor extends javax.swing.JDialog {
                     .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(175, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(tituloJanela)
-                        .addGap(162, 162, 162))
+                        .addComponent(tituloJanela, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(fecharButton)
-                        .addGap(233, 233, 233))))
+                        .addGap(235, 235, 235))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,9 +136,9 @@ public class DialogVerProfessor extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(fecharButton)
-                .addGap(20, 20, 20))
+                .addGap(32, 32, 32))
         );
 
         pack();

@@ -82,7 +82,7 @@ public final class FrameAlunoUC extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         inscritos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -132,7 +132,7 @@ public final class FrameAlunoUC extends javax.swing.JFrame {
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("UC's inscrito", jPanel1);
+        jTabbedPane1.addTab("Minhas UC's", jPanel1);
 
         inscrever.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -170,7 +170,7 @@ public final class FrameAlunoUC extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Registar UC", jPanel2);
+        jTabbedPane1.addTab("UC's sem registo", jPanel2);
 
         jLabel1.setFont(new java.awt.Font("Drugs", 0, 24)); // NOI18N
         jLabel1.setText("Alunos UC");
@@ -205,16 +205,6 @@ public final class FrameAlunoUC extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String uc = inscrever.getSelectedValue();
-        if (uc!=null){
-            uc = uc.substring(0,uc.indexOf(' '));
-            this.system.insereAlunoUC(uc,this.username);
-        }
-        atualizaJanela();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //botao consultar uc
         String uc = inscritos.getSelectedValue();
         if (uc!=null){
             String codigo = uc.substring(0, uc.indexOf(" "));
@@ -222,17 +212,60 @@ public final class FrameAlunoUC extends javax.swing.JFrame {
             FrameConsultarUc consulta = new FrameConsultarUc(this.system, uc, tipo, true);
             consulta.setVisible(true);
         }
-        atualizaJanela();
+       
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void removeListaN(String sel){
+        DefaultListModel<String> dlm = (DefaultListModel<String>) this.inscrever.getModel();
+        dlm.removeElement(sel);
+        this.inscrever.setModel(dlm);
+    }
+    
+    private void addListaS(String sel){
+        DefaultListModel<String> dlm = (DefaultListModel<String>) this.inscritos.getModel();
+        dlm.addElement(sel);
+        this.inscritos.setModel(dlm);
+    }
+    
+    private void addListaN(String sel){
+        DefaultListModel<String> dlm = (DefaultListModel<String>) this.inscrever.getModel();
+        dlm.addElement(sel);
+        this.inscrever.setModel(dlm);
+    }
+    
+    private void removeListaS(String sel){
+        DefaultListModel<String> dlm = (DefaultListModel<String>) this.inscritos.getModel();
+        dlm.removeElement(sel);
+        this.inscritos.setModel(dlm);
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //botao inscrever
+         String uc;
+         String sel = inscrever.getSelectedValue();
+        if (sel!=null){
+            uc = sel.substring(0, sel.indexOf(" "));
+            this.system.insereAlunoUC(uc, this.username);
+            //removeListaN(sel);
+            //addListaS(sel);
+            atualizaJanela();
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        String uc = inscritos.getSelectedValue();
-        if (uc!=null){
-            uc = uc.substring(0,uc.indexOf(" "));
-            this.system.removeAlunoDeUC(uc,this.username);
+        // botao anular inscriçao
+        String sel = inscritos.getSelectedValue();
+        String uc;
+        if (sel!=null){
+            uc = sel.substring(0, sel.indexOf(" "));
+            this.system.removeAlunoDeUC(uc, this.username);
+            //addListaN(sel);
+            //removeListaS(sel);
+            atualizaJanela();
         }
-        atualizaJanela();
+       
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

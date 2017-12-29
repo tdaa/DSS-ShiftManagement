@@ -39,13 +39,14 @@ public class FrameTurnoUCProf extends javax.swing.JFrame {
         if(this.regente == false){
             this.removerButton.setVisible(false);
         }
+        this.tituloLabel.setText(this.system.getNomeUc(codigoUC));
         String aluno, nfaltas;
         ArrayList<String> alunosFaltas = this.system.getAlunosFaltas(codigoUC, idTurno);
         DefaultListModel<String> dlm = new DefaultListModel<>();
         for(String s: alunosFaltas){
             aluno = s.substring(0, s.indexOf(" "));
             nfaltas = s.substring(s.indexOf("-")+2, s.length());
-            dlm.addElement("Aluno " + aluno + " com " + nfaltas + " faltas!");
+            dlm.addElement("Aluno: " + aluno + " com " + nfaltas + " faltas!");
         }
         faltasList.setModel(dlm);
         
@@ -67,9 +68,10 @@ public class FrameTurnoUCProf extends javax.swing.JFrame {
         sairButton = new javax.swing.JButton();
         removerButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tituloLabel.setFont(new java.awt.Font("Drugs", 1, 24)); // NOI18N
+        tituloLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloLabel.setText("Nome UC");
 
         faltasList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -105,19 +107,18 @@ public class FrameTurnoUCProf extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(289, 289, 289)
-                        .addComponent(tituloLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(59, 59, 59)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(sairButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(marcarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(removerButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(92, 92, 92))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,10 +147,11 @@ public class FrameTurnoUCProf extends javax.swing.JFrame {
         String a = this.faltasList.getSelectedValue();
         String n, aluno;
         if(a != null){
-            aluno = a.substring(a.indexOf("Aluno")+7, a.indexOf("com")-2);
+            aluno = a.substring(a.indexOf("Aluno")+7, a.indexOf("com")-1);
             n = a.substring(a.indexOf("com")+4, a.length());
             this.system.adicionaFaltaAAluno(aluno, this.codigoUC, this.idTurno);
-            JOptionPane.showConfirmDialog(rootPane, "Falta adicionada com sucesso!", "Nova falta!", 1);
+            atualizaJanela();
+            JOptionPane.showMessageDialog(rootPane, "Falta adicionada com sucesso!", "Nova falta!", 1);
         }
         
     }//GEN-LAST:event_marcarButtonActionPerformed
@@ -165,13 +167,18 @@ public class FrameTurnoUCProf extends javax.swing.JFrame {
         String user;
         String aluno = this.faltasList.getSelectedValue();
         if(aluno != null){
-            user = aluno.substring(0, aluno.indexOf(" "));
-            faltas = Integer.parseInt(aluno.substring(aluno.indexOf("-")+2, aluno.length()));
+            user = aluno.substring(aluno.indexOf(":")+2, aluno.indexOf("com")-1);
+            faltas = Integer.parseInt(aluno.substring(aluno.indexOf("com")+4, aluno.indexOf("faltas")-1));
             aulas = this.system.getNumeroAulas(codigoUC, idTurno);
             if(aulas != -1 && faltas > 0.25*aulas){
                 this.system.removeAlunoDeUC(codigoUC, user);
                 JOptionPane.showConfirmDialog(rootPane, "Aluno removido com sucesso!");
                 this.atualizaJanela();
+            }
+            else{
+                if(aulas!=-1 && faltas<=0.25*aulas){
+                    JOptionPane.showConfirmDialog(rootPane, "Aluno sem número mínimo de faltas para o remover!");
+                }
             }
         }
     }//GEN-LAST:event_removerButtonActionPerformed

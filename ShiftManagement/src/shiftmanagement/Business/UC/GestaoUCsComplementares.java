@@ -44,8 +44,9 @@ public class GestaoUCsComplementares {
      */
     public ArrayList<String> getListaProfs(String codigoUC){
         ArrayList<String> res = new ArrayList<>();
-        this.listaUCs.get(codigoUC).getEquipaDocente().forEach((p) -> {
-            res.add(p.getUsername() + " - " + p.getNome());
+        
+        this.listaUCs.get(codigoUC).getEquipaDocente().forEach((p) -> {          
+            res.add(p);
         });
         return res;
     }
@@ -80,18 +81,18 @@ public class GestaoUCsComplementares {
      * @param p
      * @param codigoUC
      */
-    public void removeProf(Professor p, String codigoUC){
+    /*public void removeProf(Professor p, String codigoUC){
         this.listaUCs.get(codigoUC).removeDeDocentes(p);
-    }
+    }*/
     
     /**
      *
      * @param p
      * @param codigoUC
      */
-    public void addProf(Professor p, String codigoUC){
+    /*public void addProf(Professor p, String codigoUC){
         this.listaUCs.get(codigoUC).addProfToDocentes(p);
-    }
+    }*/
     
     /**
      *
@@ -137,8 +138,9 @@ public class GestaoUCsComplementares {
      */
     public ArrayList<String> getNomesProfs(String codigoUC){
         ArrayList<String> res = new ArrayList<>();
-        this.listaUCs.get(codigoUC).getEquipaDocente().forEach((p) -> {
-            res.add(p.getNome() + " - " + p.getUsername());
+        
+        this.listaUCs.get(codigoUC).getEquipaDocente().forEach((p) -> {          
+            res.add(p);
         });
         return res;
     }
@@ -168,20 +170,39 @@ public class GestaoUCsComplementares {
         return null;
     }
     
+    /**
+     *
+     * @return
+     */
     public Collection<UCComplementar> getAll(){
         return this.listaUCs.values();
     }
     
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
     public String getNomeUc(String codigoUC){
         String nome = null;
         if(this.listaUCs.containsKey(codigoUC)) nome = this.listaUCs.get(codigoUC).getNome();
         return nome;
     }
     
+    /**
+     *
+     * @param codigoUC
+     * @return
+     */
     public boolean existeUc(String codigoUC){
         return this.listaUCs.containsKey(codigoUC);
     }
     
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public String getCodigoUC(String nome){
         for(UCComplementar uc: this.listaUCs.values()){
             if(uc.getNome().equals(nome)) return uc.getCodigo();
@@ -189,8 +210,66 @@ public class GestaoUCsComplementares {
         return null;
     }
     
+    /**
+     *
+     * @param uc
+     * @param turno
+     * @return
+     */
     public int getAulas(String uc, String turno){
         return this.listaUCs.get(uc).getNAulas(turno);
     }
     
+    /**
+     *
+     * @param prof
+     * @param uc
+     */
+    public void setRegente(String prof, String uc){
+        UCComplementar u = (UCComplementar) this.listaUCs.get(uc).setResponsavel(prof);
+        this.listaUCs.put(u.getCodigo(), u);     
+    }
+    
+    /**
+     *
+     * @param uc
+     * @return Lista com id e hora dos turnos de uma uc.
+     */
+    public ArrayList<String> getTurnos(String uc){
+        ArrayList<String> res = new ArrayList<>();
+        for(Turno t: this.listaUCs.get(uc).getTurnos()){
+            res.add(t.getId() + " às: " + t.getHora());
+        }
+        return res;
+    }
+    
+    /**
+     *
+     * @param turno
+     * @param uc
+     * @return Capacidade de uma sala de um dado turno de uma uc.
+     */
+    public int getCapacidadeSala(String turno, String uc){
+        return this.listaUCs.get(uc).getCapacidadeSala(turno);
+    }
+    
+    /**
+     *
+     * @param turno
+     * @param uc
+     * @return
+     */
+    public int getTotalInscritos(String turno, String uc){
+        return this.listaUCs.get(uc).getInscritos(turno);
+    }
+    
+    /**
+     *
+     * @param turno
+     * @param uc
+     * @return
+     */
+    public int getMaximoAl(String turno, String uc){
+        return this.listaUCs.get(uc).getMaximo(turno);
+    }
 }

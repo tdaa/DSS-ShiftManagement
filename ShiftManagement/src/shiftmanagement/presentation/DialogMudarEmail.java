@@ -109,6 +109,7 @@ public class DialogMudarEmail extends javax.swing.JDialog {
         if(this.system.getUtilizador().getMail().equals(atual)){
             this.system.alteraEmailAluno(username, novo);
             javax.swing.JOptionPane.showMessageDialog(null, "Email alterado com sucesso", "Email alterado", 1);
+            this.dispose();
         }
         else {
             javax.swing.JOptionPane.showMessageDialog(this, "Email errado", "Email Errado", 0);

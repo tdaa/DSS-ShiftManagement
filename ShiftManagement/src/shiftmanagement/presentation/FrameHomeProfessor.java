@@ -21,6 +21,7 @@ public class FrameHomeProfessor extends javax.swing.JFrame {
     
     /**
      * Creates new form FrameHomeProfessor
+     * @param s
      */
     public FrameHomeProfessor(ShiftManagement s) {
         initComponents();
@@ -57,9 +58,8 @@ public class FrameHomeProfessor extends javax.swing.JFrame {
         ucsList = new javax.swing.JList<>();
         consultarButton = new javax.swing.JButton();
         sairButton = new javax.swing.JButton();
-        regenteButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tituloLabel.setFont(new java.awt.Font("Drugs", 1, 48)); // NOI18N
         tituloLabel.setText("Menu Professor");
@@ -105,8 +105,11 @@ public class FrameHomeProfessor extends javax.swing.JFrame {
         jTabbedPane1.addTab("Horário", jPanel2);
 
         sairButton.setText("Sair");
-
-        regenteButton.setText("Sou Regente!");
+        sairButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sairButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,10 +125,8 @@ public class FrameHomeProfessor extends javax.swing.JFrame {
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(regenteButton)
-                        .addGap(114, 114, 114)
                         .addComponent(sairButton)
-                        .addGap(305, 305, 305))))
+                        .addGap(397, 397, 397))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,11 +135,9 @@ public class FrameHomeProfessor extends javax.swing.JFrame {
                 .addComponent(tituloLabel)
                 .addGap(34, 34, 34)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sairButton)
-                    .addComponent(regenteButton))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(sairButton)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,19 +148,23 @@ public class FrameHomeProfessor extends javax.swing.JFrame {
         String codigoUC, turno;
         String sel = this.ucsList.getSelectedValue();
         if(sel != null){
-            codigoUC = this.system.getCodigoUC(sel.substring(0, sel.indexOf(" ")));
-            turno = sel.substring(sel.indexOf("-")+2, sel.indexOf(":")-1);
+            codigoUC = this.system.getCodigoUC(sel.substring(0, sel.indexOf("-")-1));
+            turno = sel.substring(sel.indexOf("-")+2, sel.indexOf(":"));
             FrameTurnoUCProf turnoDeUc = new FrameTurnoUCProf(this.system, codigoUC, turno, regente);
             turnoDeUc.setVisible(true);
         }
     }//GEN-LAST:event_consultarButtonActionPerformed
+
+    private void sairButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairButtonActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_sairButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton consultarButton;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton regenteButton;
     private javax.swing.JButton sairButton;
     private javax.swing.JLabel tituloLabel;
     private javax.swing.JList<String> ucsList;

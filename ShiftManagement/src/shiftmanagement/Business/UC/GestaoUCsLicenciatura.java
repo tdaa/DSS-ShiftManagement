@@ -8,11 +8,7 @@ package shiftmanagement.Business.UC;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import shiftmanagement.Business.Turno.Turno;
-import shiftmanagement.Business.Utilizador.Professor;
 import shiftmanagement.database.UcLicDAO;
 
 /**
@@ -106,8 +102,9 @@ public class GestaoUCsLicenciatura {
      */
     public ArrayList<String> getListaProfs(String codigoUC){
         ArrayList<String> res = new ArrayList<>();
-        this.listaUCs.get(codigoUC).getEquipaDocente().forEach((p) -> {
-            res.add(p.getUsername() + " - " + p.getNome());
+        
+        this.listaUCs.get(codigoUC).getEquipaDocente().forEach((p) -> {          
+            res.add(p);
         });
         return res;
     }
@@ -134,7 +131,7 @@ public class GestaoUCsLicenciatura {
     public ArrayList<String> getNomesProfs(String codigoUC){
         ArrayList<String> res = new ArrayList<>();
         this.listaUCs.get(codigoUC).getEquipaDocente().forEach((p) -> {
-            res.add(p.getNome() + " - " + p.getUsername());
+            res.add(p);
         });
         return res;
     }
@@ -155,18 +152,19 @@ public class GestaoUCsLicenciatura {
      * @param p
      * @param codigoUC
      */
-    public void addProf(Professor p, String codigoUC){
-        this.listaUCs.get(codigoUC).addProfToDocentes(p);
-    }
+    /*public void addProf(Professor p, String codigoUC){
+        UCLicenciatura uc = (UCLicenciatura) this.listaUCs.get(codigoUC).addProfToDocentes(p);
+        this.listaUCs.put(uc.getCodigo(), uc);
+    }*/
     
     /**
      *
      * @param p
      * @param codigoUC
      */
-    public void removeProf(Professor p, String codigoUC){
+    /*public void removeProf(Professor p, String codigoUC){
         this.listaUCs.get(codigoUC).removeDeDocentes(p);
-    }
+    }*/
     
     /**
      *
@@ -243,5 +241,50 @@ public class GestaoUCsLicenciatura {
         this.listaUCs.get(uc).daHora(turno, hora, diaS);
     }
     
-
+    /**
+     *
+     * @param prof
+     * @param uc
+     */
+    public void setRegente(String prof, String uc){
+        UCLicenciatura u = (UCLicenciatura) this.listaUCs.get(uc).setResponsavel(prof);
+        this.listaUCs.put(u.getCodigo(), u);     
+    }
+    
+    /**
+     *
+     * @param uc
+     * @return
+     */
+    public ArrayList<String> getTurnos(String uc){
+        ArrayList<String> res = new ArrayList<>();
+        for(Turno t: this.listaUCs.get(uc).getTurnos()){
+            res.add(t.getId() + " às: " + t.getHora() + " à: " + t.getDia());
+        }
+        return res;
+    }
+    
+    /**
+     *
+     * @param turno
+     * @param uc
+     * @return Capacidade da sala de um dado turno de uma uc.
+     */
+    public int getCapacidadeSala(String turno, String uc){
+        return this.listaUCs.get(uc).getCapacidadeSala(turno);
+    }
+    
+    /**
+     *
+     * @param turno
+     * @param uc
+     * @return
+     */
+    public int getTotalInscritos(String turno, String uc){
+        return this.listaUCs.get(uc).getInscritos(turno);
+    }
+    
+    public int getMaximoAl(String turno, String uc){
+        return this.listaUCs.get(uc).getMaximo(turno);
+    }
 }

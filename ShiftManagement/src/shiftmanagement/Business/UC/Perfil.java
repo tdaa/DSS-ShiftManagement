@@ -36,6 +36,13 @@ public class Perfil {
         this.nome = nome;
         this.listaUcs = new HashMap<>();
     }
+
+    public Perfil(String nome, Map<String, UCPerfil> listaUcs) {
+        this.nome = nome;
+        this.listaUcs = listaUcs;
+    }
+    
+    
     
     /**
      *
@@ -114,9 +121,10 @@ public class Perfil {
      * @param codigoUC
      * @return Lista de professores de uma uc.
      */
-    public ArrayList<Professor> getDocentes(String codigoUC){
-        ArrayList<Professor> res = new ArrayList<>();
-        this.listaUcs.get(codigoUC).getEquipaDocente().forEach((p) -> {
+    public ArrayList<String> getDocentes(String codigoUC){
+        ArrayList<String> res = new ArrayList<>();
+        
+        this.listaUcs.get(codigoUC).getEquipaDocente().forEach((p) -> {          
             res.add(p);
         });
         return res;
@@ -127,18 +135,18 @@ public class Perfil {
      * @param p
      * @param codigoUC
      */
-    public void addProfToDocentes(Professor p, String codigoUC){
+    /*public void addProfToDocentes(Professor p, String codigoUC){
         this.listaUcs.get(codigoUC).addProfToDocentes(p);
-    }
+    }*/
     
     /**
      *
      * @param p
      * @param codigoUC
      */
-    public void removeDeDocentes(Professor p, String codigoUC){
+    /*public void removeDeDocentes(Professor p, String codigoUC){
         this.listaUcs.get(codigoUC).getEquipaDocente().remove(p);
-    }
+    }*/
     
     /**
      *
@@ -159,15 +167,53 @@ public class Perfil {
         this.listaUcs.get(codigoUC).ripTurno(turno);
     }
     
+    /**
+     *
+     * @param idTurno
+     * @param codigoUC
+     */
     public void corrigeIdTurnos(String idTurno, String codigoUC){
         this.listaUcs.get(codigoUC).corrigeIdTurnos(idTurno);
     }
     
-    public void novaUc(UCPerfil uc){
-        this.listaUcs.put(uc.getCodigo(), uc);
+    /**
+     *
+     * @param map
+     * @return 
+     */
+    public Perfil novasUcs(HashMap<String, UCPerfil> map){
+        this.listaUcs = map;
+        return this;
     }
     
+    /**
+     *
+     * @param codigoUC
+     */
     public void eliminaUc(String codigoUC){
         this.listaUcs.remove(codigoUC);
+    }
+    
+    public Perfil setReg(String uc, String prof){
+        UCPerfil u = (UCPerfil) this.listaUcs.get(uc).setResponsavel(prof);
+        this.listaUcs.put(u.getCodigo(), u);
+        return this;
+    }
+    
+    public Perfil addUc(UCPerfil uc){
+        this.listaUcs.put(uc.getCodigo(), uc);
+        return this;
+    }
+    
+    public int getCapacidadeSala(String turno, String uc){
+        return this.listaUcs.get(uc).getCapacidadeSala(turno);
+    }
+    
+    public int getInscritos(String turno, String uc){
+        return this.listaUcs.get(uc).getInscritos(turno);
+    }
+    
+    public int getMaximo(String turno, String uc){
+        return this.listaUcs.get(uc).getMaximo(turno);
     }
 }

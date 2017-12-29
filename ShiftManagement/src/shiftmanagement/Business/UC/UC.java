@@ -8,8 +8,8 @@ package shiftmanagement.Business.UC;
 import java.sql.Time;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
+import shiftmanagement.Business.Turno.PL;
+import shiftmanagement.Business.Turno.TP;
 import shiftmanagement.Business.Turno.Teorica;
 import shiftmanagement.Business.Turno.Turno;
 import shiftmanagement.Business.Utilizador.Professor;
@@ -24,7 +24,7 @@ public class UC {
     private String codigo;
     private String usernameResponsavel;
     private HashSet<Turno> turnos;
-    private HashSet<Professor> equipaDocente;
+    //private HashSet<Professor> equipaDocente;
     
     
     public UC(){
@@ -32,21 +32,22 @@ public class UC {
         this.codigo = "";
         this.usernameResponsavel = null;
         this.turnos = new HashSet<>();
-        this.equipaDocente = new HashSet<>();
+        //this.equipaDocente = new HashSet<>();
     }
     
     public UC(String n, String cod){
         this.nome = n;
         this.codigo = cod;
         this.usernameResponsavel = null;
-        this.equipaDocente = new HashSet<>();
+        this.turnos = new HashSet<>();
+        //this.equipaDocente = new HashSet<>();
     }
     
     public UC(String n, String cod, String p, HashSet<Professor> equipaDocente){
         this.nome = n;
         this.codigo = cod;
         this.usernameResponsavel = p;
-        this.equipaDocente = equipaDocente;
+        //this.equipaDocente = equipaDocente;
     }
     
     public UC(String n, String cod, String p, HashSet<Turno> turnos, HashSet<Professor> docentes){
@@ -54,7 +55,7 @@ public class UC {
         this.codigo = cod;
         this.usernameResponsavel = p;
         this.turnos = turnos;
-        this.equipaDocente = docentes;
+        //this.equipaDocente = docentes;
     }
     
     /**
@@ -100,10 +101,11 @@ public class UC {
      *
      * @return
      */
-    public HashSet<Professor> getEquipaDocente(){
-        HashSet<Professor> lista = new HashSet<>();
-        for(Professor p : this.equipaDocente)
-            lista.add(p);
+    public HashSet<String> getEquipaDocente(){
+        HashSet<String> lista = new HashSet<>();
+        for(Turno t: this.turnos){
+            lista.add(t.getProf());
+        }
         return lista;
     }
      
@@ -127,8 +129,9 @@ public class UC {
      *
      * @param p
      */
-    public void setResponsavel(String p){
+    public UC setResponsavel(String p){
         this.usernameResponsavel = p;
+        return this;
     }
     
     /**
@@ -143,9 +146,9 @@ public class UC {
      *
      * @param profs
      */
-    public void setDocentes(HashSet<Professor> profs){
+    /*public void setDocentes(HashSet<Professor> profs){
         this.equipaDocente = profs;
-    }
+    }*/
 
     /**
      *
@@ -183,19 +186,20 @@ public class UC {
      *
      * @param p
      */
-    public void addProfToDocentes(Professor p){
+    /*public UC addProfToDocentes(Professor p){
         if(p!=null){
-            this.getEquipaDocente().add(p);
+            this.equipaDocente.add(p);
         }
-    }
+        return this;
+    }*/
     
     /**
      *
      * @param p
      */
-    public void removeDeDocentes(Professor p){
-        this.getEquipaDocente().remove(p);
-    }
+    /*public void removeDeDocentes(Professor p){
+        this.equipaDocente.remove(p);
+    }*/
     
     /**
      *
@@ -253,5 +257,67 @@ public class UC {
         }
     }
     
+    /**
+     *
+     * @param turno
+     * @return capacidade da sala.
+     */
+    public int getCapacidadeSala(String turno){
+        int res=-1;
+        Iterator<Turno> it = this.turnos.iterator();
+        Turno t;
+        boolean flag = false;
+        while(it.hasNext() && !flag){
+            t = it.next();
+            if(t.getId().equals(turno)){
+                flag = true;
+                res = t.getSala().getMax();
+            }
+        }
+        return res;
+    }
     
+    public int getInscritos(String turno){
+        int res=-1;
+        Iterator<Turno> it = this.turnos.iterator();
+        Turno t;
+        boolean flag = false;
+        while(it.hasNext() && !flag){
+            t = it.next();
+            if(t.getId().equals(turno)){
+                flag = true;
+                if(t instanceof PL){
+                    PL pl = (PL) t;
+                    res = pl.getAlunos();                  
+                }
+                if(t instanceof TP){
+                    TP tp = (TP) t;
+                    res = tp.getAlunos();                  
+                }
+            }
+        }
+        return res;
+    }
+    
+    public int getMaximo(String turno){
+        int res=-1;
+        Iterator<Turno> it = this.turnos.iterator();
+        Turno t;
+        boolean flag = false;
+        while(it.hasNext() && !flag){
+            t = it.next();
+            if(t.getId().equals(turno)){
+                flag = true;
+                if(t instanceof PL){
+                    PL pl = (PL) t;
+                    res = pl.getMax();                  
+                }
+                if(t instanceof TP){
+                    TP tp = (TP) t;
+                    res = tp.getMax();                  
+                }
+            }
+        }
+        return res;
+    }
 }

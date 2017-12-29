@@ -20,6 +20,10 @@ public class DialogVerProfessor_Admin extends javax.swing.JDialog {
     
     /**
      * Creates new form DialogVerProfessor_Admin
+     * @param parent
+     * @param modal
+     * @param s
+     * @param prof
      */
     public DialogVerProfessor_Admin(java.awt.Frame parent, boolean modal, ShiftManagement s, String prof) {
         super(parent, modal);

@@ -125,9 +125,9 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
                     String uct = rs.getString("codigoUC");
                     String d = rs.getString("diaSemana");
                     int al=-1;
-                    PreparedStatement ps2 = con.prepareStatement("SELECT DISTINCT Aluno.idAluno, COUNT(*) AS `Total` FROM Registo"
-                            + " GROUP BY Aluno.idAluno"
-                            + " WHERE Registo.idTurno = ?");
+                    PreparedStatement ps2 = con.prepareStatement("SELECT DISTINCT Registo.idAluno, COUNT(*) AS `Total` FROM Registo"
+                            + " WHERE idTurno = ?"
+                            + " GROUP BY Registo.idAluno");
                     ps2.setString(1, id);
                     ResultSet rs2 = ps2.executeQuery();
                     if(rs2.next()){
@@ -244,7 +244,10 @@ public class UcLicDAO implements Map<String, UCLicenciatura>{
                     ps2.setString(2, key);
                     ps2.executeUpdate();*/
                     
-                    ps2 = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo, Aulas, diaSemana) VALUES (?,?,?,?,?,?,?,?,?)");
+                    ps2 = con.prepareStatement("INSERT INTO Turno (idTurno, codigoUC, Hora, idSala, UsernameProf, maxAlunos, Tipo, Aulas, diaSemana) VALUES (?,?,?,?,?,?,?,?,?)"
+                            + " ON DUPLICATE KEY UPDATE idTurno=VALUES(idTurno), codigoUC=VALUES(codigoUC), Hora=VALUES(Hora),"
+                            + " idSala=VALUES(idSala), UsernameProf=VALUES(UsernameProf), maxAlunos=VALUES(maxAlunos),"
+                            + " Tipo=VALUES(Tipo), Aulas=VALUES(Aulas), diaSemana=VALUES(diaSemana)");
                     ps2.setString(1, t.getId());
                     ps2.setString(2, t.getUc());
                     ps2.setTime(3, t.getHora());

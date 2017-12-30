@@ -52,6 +52,7 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
         uctroca = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         trocas = new javax.swing.JList<>();
+        cancelButton = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("UC:");
@@ -97,6 +98,13 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(trocas);
 
+        cancelButton.setText("Cancelar Troca");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -118,7 +126,8 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
                         .addGap(115, 115, 115)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -142,6 +151,8 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelButton)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
@@ -186,23 +197,14 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
             int inscritos = this.system.getInscritosTurno(turnoquequero, codigoUC, tipo);
             int permitido = this.system.getMaxAlunos(turnoquequero, codigoUC, tipo);
             
-            if(this.system.getTurno_UC_Aluno(UC, username).equals(meuturno) && inscritos+1<=cap){
-                if(this.system.verificaEstudante(username)){
+            if(this.system.getTurno_UC_Aluno(UC, username).equals(meuturno)){
                     this.system.trocaTurnos(username,idaluno,turnoquequero,meuturno,UC);
                     javax.swing.JOptionPane.showMessageDialog(this, "Turnos Trocados", "Trocado", 1);
-                    atualizaJanela();
-                }
-                else{
-                   if(inscritos+1<=permitido){
-                        this.system.trocaTurnos(username,idaluno,turnoquequero,meuturno,UC);
-                        javax.swing.JOptionPane.showMessageDialog(this, "Turnos Trocados", "Trocado", 1);
-                        atualizaJanela();
-                   } 
-                }
+                    atualizaJanela(); 
             }
-        else{
-            javax.swing.JOptionPane.showMessageDialog(this, "Turnos incompatíveis", "Problema", 0);            
-        }
+            else{
+                javax.swing.JOptionPane.showMessageDialog(this, "Turnos incompatíveis", "Problema", 0);            
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -222,8 +224,24 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_turnodesejadoActionPerformed
 
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        // TODO add your handling code here:
+        String t = this.trocas.getSelectedValue();
+        if(t!=null){
+            String UC = t.substring(t.indexOf(":")+2, t.indexOf(" - Turno Oferecido: "));
+            String codigoUC = this.system.getCodigoUC(UC);
+            int tipo = this.system.getTipoUC(codigoUC);
+            String meuturno = t.substring(t.indexOf(" - Turno Requerido: ")+20, t.length());
+            String turnoquequero = t.substring(t .indexOf(" - Turno Oferecido: ")+20, t.indexOf(" - Turno Requerido: "));
+            String idaluno = t.substring(0, t.indexOf("-")-1);
+            this.system.removeTroca(idaluno, UC, meuturno, turnoquequero);
+            atualizaJanela();
+        }
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -241,6 +259,9 @@ public class FrameAlunoTrocas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void atualizaJanela() {
+        if(!this.username.equals("admin")){
+            this.cancelButton.setVisible(false);
+        }
         DefaultListModel<String> lista = new DefaultListModel<>();
         for(String s: this.system.getTrocas()){
             lista.addElement(s);

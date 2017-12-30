@@ -146,12 +146,14 @@ public class FrameTurnoUCProf extends javax.swing.JFrame {
         // botao marcar faltas
         String a = this.faltasList.getSelectedValue();
         String n, aluno;
-        if(a != null){
-            aluno = a.substring(a.indexOf("Aluno")+7, a.indexOf("com")-1);
-            n = a.substring(a.indexOf("com")+4, a.length());
-            this.system.adicionaFaltaAAluno(aluno, this.codigoUC, this.idTurno);
-            atualizaJanela();
-            JOptionPane.showMessageDialog(rootPane, "Falta adicionada com sucesso!", "Nova falta!", 1);
+        if(this.system.getTeste()==3){
+            if(a != null){
+                aluno = a.substring(a.indexOf("Aluno")+7, a.indexOf("com")-1);
+                n = a.substring(a.indexOf("com")+4, a.length());
+                this.system.adicionaFaltaAAluno(aluno, this.codigoUC, this.idTurno);
+                atualizaJanela();
+                JOptionPane.showMessageDialog(rootPane, "Falta adicionada com sucesso!", "Nova falta!", 1);
+            }
         }
         
     }//GEN-LAST:event_marcarButtonActionPerformed
